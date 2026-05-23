@@ -1117,6 +1117,7 @@ a.card {
   align-items: flex-end;
   padding-top: 56px;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .gp-hero-overlay {
@@ -1133,6 +1134,7 @@ a.card {
   width: 100%;
   margin: 0 auto;
   padding: 3.5rem 2rem 3rem;
+  pointer-events: auto;
 }
 
 .gp-back {
