@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <button class="back-to-top" id="back-to-top" aria-label="Наверх">↑</button>
   <div class="loader" id="loader">
     <img src="LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" class="loader-logo" alt="ASPECT" />
     <span class="loader-text">ASPECT</span>
@@ -43,6 +46,11 @@
 
   <section id="games" class="games">
     <h2>Наши игры</h2>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">Все</button>
+      <button class="filter-btn" data-filter="Хоррор">Хоррор</button>
+      <button class="filter-btn" data-filter="Рогалик">Рогалик</button>
+    </div>
     <div class="grid">
 
       <button class="card" data-game="resonance" data-thumb="RESONANCE/Снимок экрана 2026-05-23 163854.png">

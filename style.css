@@ -675,6 +675,104 @@ footer {
   50%       { border-color: transparent; }
 }
 
+/* ── CUSTOM CURSOR ── */
+* { cursor: none !important; }
+
+.cursor {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s, border-color 0.2s, width 0.2s, height 0.2s;
+  will-change: transform;
+}
+
+.cursor.hover {
+  width: 48px;
+  height: 48px;
+  border-color: rgba(255,255,255,0.9);
+}
+
+.cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+
+/* ── BACK TO TOP ── */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 40px;
+  height: 40px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+  transform: translateY(8px);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.back-to-top:hover { color: var(--text); border-color: #555; }
+
+/* ── FILTER BAR ── */
+.filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 0.4rem 1rem;
+  font-size: 0.72rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.filter-btn:hover { color: var(--text); border-color: #444; }
+.filter-btn.active { color: var(--text); border-color: var(--muted); }
+
+/* ── LOGO GLITCH ── */
+.logo-glitch {
+  animation: logoShake 0.3s ease;
+}
+
+@keyframes logoShake {
+  0%   { transform: translate(0,0) rotate(0); }
+  20%  { transform: translate(-2px, 1px) rotate(-1deg); filter: hue-rotate(90deg); }
+  40%  { transform: translate(2px, -1px) rotate(1deg); filter: hue-rotate(180deg); }
+  60%  { transform: translate(-1px, 2px) rotate(0); filter: hue-rotate(270deg); }
+  80%  { transform: translate(1px, -1px); filter: hue-rotate(0deg); }
+  100% { transform: translate(0,0); }
+}
+
 /* ── LOADER ── */
 .loader {
   position: fixed;

@@ -59,6 +59,7 @@ function openModal(gameKey) {
       <div class="modal-meta">
         <span class="modal-version">${g.version}</span>
         ${g.genre ? `<span class="modal-genre">${g.genre}</span>` : ''}
+        ${g.released ? `<span class="modal-genre">${g.released}</span>` : ''}
       </div>
     </div>
     ${g.screenshots ? `<div class="modal-divider"></div>${renderSlider(g.screenshots)}` : ''}

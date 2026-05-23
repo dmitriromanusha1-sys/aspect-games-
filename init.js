@@ -1,3 +1,44 @@
+// ── CUSTOM CURSOR ──
+const cursor = document.getElementById('cursor');
+const cursorDot = document.getElementById('cursor-dot');
+let cx2 = -100, cy2 = -100, mx2 = -100, my2 = -100;
+
+document.addEventListener('mousemove', e => { mx2 = e.clientX; my2 = e.clientY; });
+
+(function animCursor() {
+  cx2 += (mx2 - cx2) * 0.12;
+  cy2 += (my2 - cy2) * 0.12;
+  cursor.style.transform = `translate(${cx2 - 16}px, ${cy2 - 16}px)`;
+  cursorDot.style.transform = `translate(${mx2 - 3}px, ${my2 - 3}px)`;
+  requestAnimationFrame(animCursor);
+})();
+
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+
+// ── BACK TO TOP ──
+const backTop = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+  backTop.classList.toggle('visible', window.scrollY > 400);
+});
+backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// ── FILTER ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.card').forEach(card => {
+      const genre = card.querySelector('.card-genre')?.textContent || '';
+      const show = f === 'all' || genre.includes(f);
+      card.style.display = show ? '' : 'none';
+    });
+  });
+});
+
 // ── LOADER ──
 window.addEventListener('load', () => {
   const loader = document.getElementById('loader');

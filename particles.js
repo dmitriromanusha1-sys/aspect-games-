@@ -42,6 +42,22 @@ document.getElementById('scroll-down')?.addEventListener('click', () => {
   document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' });
 });
 
+// ── PARALLAX ON CARDS ──
+document.addEventListener('mousemove', e => {
+  const px = (e.clientX / window.innerWidth - 0.5) * 12;
+  const py = (e.clientY / window.innerHeight - 0.5) * 12;
+  document.querySelectorAll('.card[data-thumb]').forEach(card => {
+    card.style.backgroundPosition = `calc(50% + ${px}px) calc(50% + ${py}px)`;
+  });
+});
+
+// ── LOGO GLITCH ON HOVER ──
+const logoImg = document.querySelector('.logo-img');
+if (logoImg) {
+  logoImg.parentElement.addEventListener('mouseenter', () => logoImg.classList.add('logo-glitch'));
+  logoImg.parentElement.addEventListener('mouseleave', () => logoImg.classList.remove('logo-glitch'));
+}
+
 // ── HOVER SOUND ──
 const hoverCtx = new (window.AudioContext || window.webkitAudioContext)();
 function playTick() {
