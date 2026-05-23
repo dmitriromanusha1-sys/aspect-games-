@@ -73,7 +73,10 @@ function openModal(gameKey) {
     <div class="modal-divider"></div>
     <div class="modal-footer">
       <span class="modal-dev">Разработчик: Романуша Д.С. · ASPECT</span>
-      <a href="${g.url}" target="_blank" class="play-btn">Играть →</a>
+      <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+        <button class="share-btn" id="share-btn" data-url="${g.url}">⧉ Поделиться</button>
+        <a href="${g.url}" target="_blank" class="play-btn">Играть →</a>
+      </div>
     </div>
   `;
 

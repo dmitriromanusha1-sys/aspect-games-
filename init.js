@@ -1,3 +1,40 @@
+// ── TOAST ──
+const toastEl = document.createElement('div');
+toastEl.className = 'toast';
+document.body.appendChild(toastEl);
+let toastTimer;
+
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+}
+
+// ── SHARE (delegated) ──
+document.addEventListener('click', e => {
+  const btn = e.target.closest('#share-btn');
+  if (!btn) return;
+  const url = btn.dataset.url;
+  navigator.clipboard.writeText(url).then(() => showToast('Ссылка скопирована!')).catch(() => showToast('Не удалось скопировать'));
+});
+
+// ── BURGER ──
+const burger = document.getElementById('burger');
+const burgerNav = document.getElementById('nav-links');
+if (burger && burgerNav) {
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    burgerNav.classList.toggle('open');
+  });
+  burgerNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      burgerNav.classList.remove('open');
+    });
+  });
+}
+
 // ── CUSTOM CURSOR ──
 const cursor = document.getElementById('cursor');
 const cursorDot = document.getElementById('cursor-dot');
