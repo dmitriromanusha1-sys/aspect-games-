@@ -104,31 +104,27 @@ nav a:hover, nav a.active { color: var(--text); }
   font-weight: 800;
   letter-spacing: 0.22em;
   line-height: 1;
-  animation: textGlow 3s ease-in-out infinite;
+  background: linear-gradient(
+    90deg,
+    #ff2a2a,
+    #ff8c00,
+    #ffd700,
+    #ffffff,
+    #ffd700,
+    #ff8c00,
+    #ff2a2a
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 4s ease-in-out infinite;
 }
 
-@keyframes textGlow {
-  0%, 100% {
-    text-shadow:
-      0 0 20px rgba(220, 30, 30, 0.6),
-      0 0 40px rgba(220, 30, 30, 0.3),
-      0 0 80px rgba(220, 30, 30, 0.15);
-    color: #fff;
-  }
-  33% {
-    text-shadow:
-      0 0 20px rgba(255, 200, 0, 0.7),
-      0 0 50px rgba(255, 200, 0, 0.4),
-      0 0 100px rgba(255, 200, 0, 0.2);
-    color: #fff;
-  }
-  66% {
-    text-shadow:
-      0 0 15px rgba(80, 80, 80, 0.8),
-      0 0 35px rgba(40, 40, 40, 0.5),
-      0 0 70px rgba(20, 20, 20, 0.3);
-    color: #ccc;
-  }
+@keyframes textShimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .tagline {
@@ -607,32 +603,6 @@ footer {
 
 .play-btn:hover { background: #d8d8d8; transform: translateY(-1px); }
 
-/* ── CURSOR GLOW ── */
-.cursor-glow {
-  position: fixed;
-  width: 340px;
-  height: 340px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: -1;
-  will-change: transform;
-}
-
-#cursor-glow-1 {
-  background: radial-gradient(circle, rgba(255, 80, 80, 0.12) 0%, transparent 70%);
-}
-
-#cursor-glow-2 {
-  background: radial-gradient(circle, rgba(80, 140, 255, 0.1) 0%, transparent 70%);
-  width: 280px;
-  height: 280px;
-}
-
-#cursor-glow-3 {
-  background: radial-gradient(circle, rgba(180, 80, 255, 0.09) 0%, transparent 70%);
-  width: 200px;
-  height: 200px;
-}
 
 /* ── GLITCH ── */
 .glitch {
