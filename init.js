@@ -1,14 +1,20 @@
 // ── CURSOR GLOW ──
-const glow = document.getElementById('cursor-glow');
-let mx = -200, my = -200, cx = -200, cy = -200;
-
+let mx = -400, my = -400;
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
-(function animateGlow() {
-  cx += (mx - cx) * 0.08;
-  cy += (my - cy) * 0.08;
-  glow.style.transform = `translate(${cx - 150}px, ${cy - 150}px)`;
-  requestAnimationFrame(animateGlow);
+const glows = [
+  { el: document.getElementById('cursor-glow-1'), x: -400, y: -400, ease: 0.07, size: 340 },
+  { el: document.getElementById('cursor-glow-2'), x: -400, y: -400, ease: 0.04, size: 280 },
+  { el: document.getElementById('cursor-glow-3'), x: -400, y: -400, ease: 0.12, size: 200 },
+];
+
+(function animateGlows() {
+  glows.forEach(g => {
+    g.x += (mx - g.x) * g.ease;
+    g.y += (my - g.y) * g.ease;
+    g.el.style.transform = `translate(${g.x - g.size / 2}px, ${g.y - g.size / 2}px)`;
+  });
+  requestAnimationFrame(animateGlows);
 })();
 
 // ── TYPEWRITER ──
