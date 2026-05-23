@@ -1,13 +1,3 @@
-// ── SHIMMER ──
-const heroH1 = document.querySelector('.hero-content h1');
-if (heroH1) {
-  heroH1.style.position = 'relative';
-  heroH1.style.display = 'inline-block';
-  const sweep = document.createElement('span');
-  sweep.className = 'shimmer-sweep';
-  heroH1.appendChild(sweep);
-}
-
 // ── TYPEWRITER ──
 const typeEl = document.querySelector('.typewriter');
 const phrases = ['Indie Game Development', 'Made by ASPECT', 'Романуша Д.С.'];

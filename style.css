@@ -104,27 +104,15 @@ nav a:hover, nav a.active { color: var(--text); }
   font-weight: 800;
   letter-spacing: 0.22em;
   line-height: 1;
-  background: linear-gradient(
-    90deg,
-    #ff2a2a,
-    #ff8c00,
-    #ffd700,
-    #ffffff,
-    #ffd700,
-    #ff8c00,
-    #ff2a2a
-  );
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: textShimmer 4s ease-in-out infinite;
+  animation: textColor 4s ease-in-out infinite;
 }
 
-@keyframes textShimmer {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes textColor {
+  0%   { color: #ff2a2a; }
+  25%  { color: #ffd700; }
+  50%  { color: #ffffff; }
+  75%  { color: #ffd700; }
+  100% { color: #ff2a2a; }
 }
 
 .tagline {
