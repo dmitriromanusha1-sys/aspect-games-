@@ -1,8 +1,9 @@
 // ── PARTICLES ──
 const canvas = document.getElementById('particles-canvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas ? canvas.getContext('2d') : null;
 
 function resize() {
+  if (!canvas) return;
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
@@ -20,6 +21,7 @@ const particles = Array.from({ length: COUNT }, () => ({
 }));
 
 function drawParticles() {
+  if (!ctx) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles.forEach(p => {
     ctx.beginPath();
