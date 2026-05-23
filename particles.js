@@ -11,14 +11,14 @@ resize();
 window.addEventListener('resize', resize);
 
 const COUNT = 90;
-const particles = Array.from({ length: COUNT }, () => ({
+const particles = canvas ? Array.from({ length: COUNT }, () => ({
   x: Math.random() * canvas.width,
   y: Math.random() * canvas.height,
   r: Math.random() * 1.2 + 0.3,
   vx: (Math.random() - 0.5) * 0.25,
   vy: (Math.random() - 0.5) * 0.25,
   a: Math.random() * 0.5 + 0.15,
-}));
+})) : [];
 
 function drawParticles() {
   if (!ctx) return;

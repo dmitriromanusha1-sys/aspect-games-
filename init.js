@@ -111,6 +111,7 @@ const phrases = ['Indie Game Development', 'Made by ASPECT', 'Романуша �
 let pi = 0, ci = 0, deleting = false;
 
 function type() {
+  if (!typeEl) return;
   const phrase = phrases[pi];
   if (!deleting) {
     typeEl.textContent = phrase.slice(0, ++ci);
@@ -122,7 +123,7 @@ function type() {
     setTimeout(type, 35);
   }
 }
-setTimeout(type, 1000);
+if (typeEl) setTimeout(type, 1000);
 
 // ── CARD THUMBNAILS ──
 document.querySelectorAll('.card[data-thumb]').forEach(card => {
