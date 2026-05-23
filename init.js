@@ -4,12 +4,12 @@ toastEl.className = 'toast';
 document.body.appendChild(toastEl);
 let toastTimer;
 
-function showToast(msg) {
+window.showToast = function showToast(msg) {
   toastEl.textContent = msg;
   toastEl.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
-}
+};
 
 // ── SHARE (delegated) ──
 document.addEventListener('click', e => {

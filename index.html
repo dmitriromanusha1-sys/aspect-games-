@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -29,6 +29,7 @@
         <li><a href="#games">Игры</a></li>
         <li><a href="#wip">В разработке</a></li>
         <li><a href="#about">О нас</a></li>
+        <li><a href="#contacts">Контакты</a></li>
       </ul>
       <button class="burger" id="burger" aria-label="Меню">
         <span></span><span></span><span></span>
@@ -56,50 +57,55 @@
     </div>
     <div class="grid">
 
-      <button class="card" data-game="resonance" data-thumb="RESONANCE/Снимок экрана 2026-05-23 163854.png">
+      <a class="card" href="game.html?game=resonance" data-thumb="RESONANCE/Снимок экрана 2026-05-23 163854.png">
         <div class="card-tag">Релиз</div>
         <h3>RESONANCE</h3>
         <div class="card-bottom">
           <span class="version">V.1.7.1</span>
           <span class="card-genre">Инди · Хоррор</span>
+          <span class="diff-badge diff-hardcore">Хардкор</span>
         </div>
-      </button>
+      </a>
 
-      <button class="card" data-game="fnaf" data-thumb="FNAF/Снимок экрана 2026-05-23 164956.png">
+      <a class="card" href="game.html?game=fnaf" data-thumb="FNAF/Снимок экрана 2026-05-23 164956.png">
         <div class="card-tag">Релиз</div>
         <h3>FNAF</h3>
         <div class="card-bottom">
           <span class="version">V.1.6.7</span>
           <span class="card-genre">Инди · Хоррор</span>
+          <span class="diff-badge diff-hard">Сложно</span>
         </div>
-      </button>
+      </a>
 
-      <button class="card" data-game="evtn" data-thumb="EVTN/Снимок экрана 2026-05-23 165416.png">
+      <a class="card" href="game.html?game=evtn" data-thumb="EVTN/Снимок экрана 2026-05-23 165416.png">
         <div class="card-tag">Релиз</div>
         <h3>EVTN</h3>
         <div class="card-bottom">
           <span class="version">V.1.0.0</span>
           <span class="card-genre">Рогалик</span>
+          <span class="diff-badge diff-medium">Средне</span>
         </div>
-      </button>
+      </a>
 
-      <button class="card" data-game="shot" data-thumb="Shot/Снимок экрана 2026-05-23 170029.png">
+      <a class="card" href="game.html?game=shot" data-thumb="Shot/Снимок экрана 2026-05-23 170029.png">
         <div class="card-tag">Релиз</div>
         <h3>Shot</h3>
         <div class="card-bottom">
           <span class="version">V.1.9.0</span>
           <span class="card-genre">Рогалик</span>
+          <span class="diff-badge diff-medium">Средне</span>
         </div>
-      </button>
+      </a>
 
-      <button class="card" data-game="outpost" data-thumb="Outpost/Снимок экрана 2026-05-23 171003.png">
+      <a class="card" href="game.html?game=outpost" data-thumb="Outpost/Снимок экрана 2026-05-23 171003.png">
         <div class="card-tag beta-tag">Бета</div>
         <h3>Outpost_Game</h3>
         <div class="card-bottom">
           <span class="version">V.0.4.0</span>
           <span class="card-genre">Рогалик</span>
+          <span class="diff-badge diff-easy">Легко</span>
         </div>
-      </button>
+      </a>
 
     </div>
   </section>
@@ -147,21 +153,28 @@
     </div>
   </section>
 
+  <section id="contacts" class="contacts">
+    <div class="contacts-inner">
+      <h2>Контакты</h2>
+      <a href="https://t.me/+eBSiIXlLSr5lOTJi" target="_blank" class="contact-link">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.981l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.963.578z"/>
+        </svg>
+        <div class="contact-info">
+          <span class="contact-name">Telegram</span>
+          <span class="contact-desc">Сообщество ASPECT</span>
+        </div>
+        <span class="contact-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
   <footer>
     <span>© 2026 ASPECT · Романуша Д.С. All rights reserved.</span>
   </footer>
 
-  <!-- MODALS -->
-  <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true">
-      <button class="modal-close" id="modal-close" aria-label="Назад">← Назад</button>
-      <div class="modal-body" id="modal-body"></div>
-    </div>
-  </div>
-
-  <script src="games.js?v=3"></script>
-  <script src="modal.js?v=3"></script>
-  <script src="init.js?v=3"></script>
-  <script src="particles.js?v=3"></script>
+  <script src="games.js?v=4"></script>
+  <script src="init.js?v=4"></script>
+  <script src="particles.js?v=4"></script>
 </body>
 </html>

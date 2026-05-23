@@ -6,6 +6,7 @@ const GAMES = {
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/resonance/',
     genre: 'Инди · Хоррор',
+    difficulty: 'Хардкор',
     description: 'Хоррор про охранника на секретном Объекте 499. Выживайте в ночные смены, следя за камерами наблюдения и управляя системами безопасности. Каждая ночь опаснее предыдущей.',
     screenshots: [
       'RESONANCE/Снимок экрана 2026-05-23 163854.png',
@@ -28,6 +29,7 @@ const GAMES = {
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/fnaf-game/',
     genre: 'Инди · Хоррор',
+    difficulty: 'Сложно',
     description: 'Выживите 7 ночей в роли охранника пиццерии Freddy Fazbear. Следите за камерами, закрывайте двери и экономьте энергию, пока четыре аниматроника — Freddy, Bonnie, Chica и Foxy — охотятся на вас.',
     screenshots: [
       'FNAF/Снимок экрана 2026-05-23 164956.png',
@@ -50,6 +52,7 @@ const GAMES = {
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/evolution/',
     genre: 'Рогалик',
+    difficulty: 'Средне',
     description: 'Волновой шутер с системой эволюции оружия — от лука до плазменной пушки. Выживайте в 8 волнах врагов, прокачивайте характеристики и навыки, сражайтесь с боссами. Доступны режимы Нормальный и Хардкор.',
     screenshots: [
       'EVTN/Снимок экрана 2026-05-23 165416.png',
@@ -67,6 +70,7 @@ const GAMES = {
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/Shot/',
     genre: 'Рогалик',
+    difficulty: 'Средне',
     description: 'Киберпанк-шутер с 10 уровнями и финальным боссом. Семь видов оружия от пистолета до лазерной пушки, система прокачки арсенала, ежедневные испытания и неоновая атмосфера будущего.',
     screenshots: [
       'Shot/Снимок экрана 2026-05-23 170029.png',
@@ -88,6 +92,7 @@ const GAMES = {
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/outpost-game/',
     genre: 'Рогалик',
+    difficulty: 'Легко',
     description: 'Стратегическая защита деревни в реальном времени. Стройте башни и укрепления, управляйте ресурсами, прокачивайте ветки навыков. 17 карт, смена погоды и цикл день-ночь.',
     screenshots: [
       'Outpost/Снимок экрана 2026-05-23 171003.png',
