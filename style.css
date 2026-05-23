@@ -104,6 +104,31 @@ nav a:hover, nav a.active { color: var(--text); }
   font-weight: 800;
   letter-spacing: 0.22em;
   line-height: 1;
+  animation: textGlow 3s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 20px rgba(220, 30, 30, 0.6),
+      0 0 40px rgba(220, 30, 30, 0.3),
+      0 0 80px rgba(220, 30, 30, 0.15);
+    color: #fff;
+  }
+  33% {
+    text-shadow:
+      0 0 20px rgba(255, 200, 0, 0.7),
+      0 0 50px rgba(255, 200, 0, 0.4),
+      0 0 100px rgba(255, 200, 0, 0.2);
+    color: #fff;
+  }
+  66% {
+    text-shadow:
+      0 0 15px rgba(80, 80, 80, 0.8),
+      0 0 35px rgba(40, 40, 40, 0.5),
+      0 0 70px rgba(20, 20, 20, 0.3);
+    color: #ccc;
+  }
 }
 
 .tagline {
@@ -653,6 +678,31 @@ footer {
   94%            { transform: translate(-3px, -1px); opacity: 1; }
   96%            { transform: translate(2px, 0); opacity: 1; }
   98%            { transform: none; opacity: 0; }
+}
+
+/* ── SHIMMER SWEEP ── */
+.shimmer-sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 220, 80, 0.55) 48%,
+    rgba(255, 255, 255, 0.7) 52%,
+    rgba(255, 220, 80, 0.55) 56%,
+    transparent 70%
+  );
+  background-size: 250% 100%;
+  background-position: -100% 0;
+  animation: shimmerMove 4s ease-in-out infinite;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  border-radius: inherit;
+}
+
+@keyframes shimmerMove {
+  0%, 40%  { background-position: -100% 0; }
+  70%, 100% { background-position: 200% 0; }
 }
 
 /* ── TYPEWRITER ── */
