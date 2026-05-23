@@ -1,3 +1,14 @@
+// ── PAGE TRANSITION ──
+document.addEventListener('click', e => {
+  const link = e.target.closest('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  if (!href || href.startsWith('#') || link.target === '_blank' || href.startsWith('http') || href.startsWith('mailto')) return;
+  e.preventDefault();
+  document.body.classList.add('page-exit');
+  setTimeout(() => { location.href = href; }, 290);
+});
+
 // ── TOAST ──
 const toastEl = document.createElement('div');
 toastEl.className = 'toast';

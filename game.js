@@ -1,5 +1,4 @@
-const params = new URLSearchParams(location.search);
-const gameKey = params.get('game');
+const gameKey = window.GAME_KEY || new URLSearchParams(location.search).get('game');
 const g = GAMES[gameKey];
 
 if (!g) {
@@ -125,3 +124,11 @@ document.getElementById('gp-share')?.addEventListener('click', () => {
     .then(() => window.showToast?.('Ссылка скопирована!'))
     .catch(() => window.showToast?.('Не удалось скопировать'));
 });
+
+// ── PARALLAX ──
+const gpHero = document.querySelector('.gp-hero');
+if (gpHero) {
+  window.addEventListener('scroll', () => {
+    gpHero.style.backgroundPositionY = `calc(50% + ${window.scrollY * 0.38}px)`;
+  }, { passive: true });
+}
