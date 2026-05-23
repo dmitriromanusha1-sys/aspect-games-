@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASPECT — Game Development</title>
+  <link rel="icon" type="image/png" href="LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cursor-glow" id="cursor-glow"></div>
+
+  <header>
+    <nav>
+      <a href="#" class="logo">
+        <img src="LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" alt="ASPECT" class="logo-img" />
+        <span>ASPECT</span>
+      </a>
+      <ul>
+        <li><a href="#games">Игры</a></li>
+        <li><a href="#about">О нас</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="glitch" data-text="ASPECT">ASPECT</h1>
+      <p class="tagline"><span class="typewriter"></span></p>
+    </div>
+  </section>
+
+  <section id="games" class="games">
+    <h2>Наши игры</h2>
+    <div class="grid">
+
+      <button class="card" data-game="resonance" data-thumb="RESONANCE/Снимок экрана 2026-05-23 163854.png">
+        <div class="card-tag">Релиз</div>
+        <h3>RESONANCE</h3>
+        <div class="card-bottom">
+          <span class="version">V.1.7.1</span>
+          <span class="card-genre">Инди · Хоррор</span>
+        </div>
+      </button>
+
+      <button class="card" data-game="fnaf" data-thumb="FNAF/Снимок экрана 2026-05-23 164956.png">
+        <div class="card-tag">Релиз</div>
+        <h3>FNAF</h3>
+        <div class="card-bottom">
+          <span class="version">V.1.6.7</span>
+          <span class="card-genre">Инди · Хоррор</span>
+        </div>
+      </button>
+
+      <button class="card" data-game="evtn" data-thumb="EVTN/Снимок экрана 2026-05-23 165416.png">
+        <div class="card-tag">Релиз</div>
+        <h3>EVTN</h3>
+        <div class="card-bottom">
+          <span class="version">V.1.0.0</span>
+          <span class="card-genre">Рогалик</span>
+        </div>
+      </button>
+
+      <button class="card" data-game="shot" data-thumb="Shot/Снимок экрана 2026-05-23 170029.png">
+        <div class="card-tag">Релиз</div>
+        <h3>Shot</h3>
+        <div class="card-bottom">
+          <span class="version">V.1.9.0</span>
+          <span class="card-genre">Рогалик</span>
+        </div>
+      </button>
+
+      <button class="card" data-game="outpost" data-thumb="Outpost/Снимок экрана 2026-05-23 171003.png">
+        <div class="card-tag beta-tag">Бета</div>
+        <h3>Outpost_Game</h3>
+        <div class="card-bottom">
+          <span class="version">V.0.4.0</span>
+          <span class="card-genre">Рогалик</span>
+        </div>
+      </button>
+
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="about-inner">
+      <h2>О команде</h2>
+      <p>ASPECT — независимая команда по разработке игр. Мы создаём проекты с нуля, постоянно выпуская обновления и развивая наши игры вместе с сообществом.</p>
+      <div class="developer">
+        <div class="dev-avatar">
+          <img src="LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" alt="logo" class="dev-logo" />
+        </div>
+        <div class="dev-info">
+          <span class="dev-name">Романуша Д.С.</span>
+          <span class="dev-role">Разработчик · ASPECT</span>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-num" data-val="5">0</span>
+          <span class="stat-label">Игр</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-val="4">0</span>
+          <span class="stat-label">Релиза</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-val="1">0</span>
+          <span class="stat-label">В разработке</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 ASPECT · Романуша Д.С. All rights reserved.</span>
+  </footer>
+
+  <!-- MODALS -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modal-close" aria-label="Назад">← Назад</button>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="games.js"></script>
+  <script src="modal.js"></script>
+  <script src="init.js"></script>
+</body>
+</html>
