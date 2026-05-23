@@ -9,6 +9,11 @@ document.addEventListener('click', e => {
   setTimeout(() => { location.href = href; }, 290);
 });
 
+// ── BFCACHE FIX: remove page-exit when browser restores page from cache ──
+window.addEventListener('pageshow', e => {
+  if (e.persisted) document.body.classList.remove('page-exit');
+});
+
 // ── TOAST ──
 const toastEl = document.createElement('div');
 toastEl.className = 'toast';
