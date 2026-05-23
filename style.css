@@ -15,7 +15,10 @@
   --muted2: #888;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 
 body {
   background: var(--bg);
@@ -23,6 +26,7 @@ body {
   font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 /* ── NAV ── */
@@ -96,6 +100,8 @@ nav a:hover, nav a.active { color: var(--text); }
 }
 
 .hero-content {
+  width: 100%;
+  text-align: center;
   animation: fadeUp 0.8s ease both;
 }
 
@@ -105,6 +111,8 @@ nav a:hover, nav a.active { color: var(--text); }
   letter-spacing: 0.22em;
   line-height: 1;
   animation: textColor 4s ease-in-out infinite;
+  width: 100%;
+  display: block;
 }
 
 @keyframes textColor {
