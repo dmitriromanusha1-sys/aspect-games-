@@ -675,6 +675,165 @@ footer {
   50%       { border-color: transparent; }
 }
 
+/* ── LOADER ── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  transition: opacity 0.6s ease;
+}
+
+.loader.hide { opacity: 0; pointer-events: none; }
+
+.loader-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  animation: loaderPulse 1s ease-in-out infinite alternate;
+}
+
+.loader-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  color: var(--muted);
+}
+
+@keyframes loaderPulse {
+  from { opacity: 0.4; transform: scale(0.95); }
+  to   { opacity: 1;   transform: scale(1.05); }
+}
+
+/* ── PARTICLES CANVAS ── */
+#particles-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-content { position: relative; z-index: 1; }
+
+/* ── SCROLL DOWN ── */
+.scroll-down {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: 1px solid var(--border2);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  animation: scrollBounce 2s ease-in-out infinite;
+  transition: border-color 0.2s;
+}
+
+.scroll-down:hover { border-color: #555; }
+
+.scroll-down-arrow {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(45deg) translate(-2px, -2px);
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── WIP SECTION ── */
+.wip { border-top: 1px solid var(--border); }
+
+.wip-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 7rem 2rem;
+}
+
+.wip-inner h2 {
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3rem;
+  font-weight: 500;
+}
+
+.wip-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 2.5rem;
+  max-width: 520px;
+  position: relative;
+}
+
+.wip-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.wip-title {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--border2);
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+.wip-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.wip-bar {
+  height: 2px;
+  background: var(--border);
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.wip-progress {
+  height: 100%;
+  width: 0%;
+  background: var(--muted);
+  animation: wipAnim 3s ease-in-out infinite alternate;
+}
+
+@keyframes wipAnim {
+  from { width: 5%; }
+  to   { width: 35%; }
+}
+
+.wip-percent {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }

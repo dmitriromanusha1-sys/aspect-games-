@@ -11,6 +11,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="loader" id="loader">
+    <img src="LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" class="loader-logo" alt="ASPECT" />
+    <span class="loader-text">ASPECT</span>
+  </div>
 
   <header>
     <nav>
@@ -20,16 +24,21 @@
       </a>
       <ul>
         <li><a href="#games">Игры</a></li>
+        <li><a href="#wip">В разработке</a></li>
         <li><a href="#about">О нас</a></li>
       </ul>
     </nav>
   </header>
 
   <section class="hero">
+    <canvas id="particles-canvas"></canvas>
     <div class="hero-content">
       <h1 class="glitch" data-text="ASPECT">ASPECT</h1>
       <p class="tagline"><span class="typewriter"></span></p>
     </div>
+    <button class="scroll-down" id="scroll-down" aria-label="Прокрутить вниз">
+      <span class="scroll-down-arrow"></span>
+    </button>
   </section>
 
   <section id="games" class="games">
@@ -84,6 +93,19 @@
     </div>
   </section>
 
+  <section id="wip" class="wip">
+    <div class="wip-inner">
+      <h2>В разработке</h2>
+      <div class="wip-card">
+        <div class="wip-badge">Скоро</div>
+        <h3 class="wip-title">???</h3>
+        <p class="wip-desc">Следующий проект команды ASPECT. Подробности будут объявлены позже.</p>
+        <div class="wip-bar"><div class="wip-progress"></div></div>
+        <span class="wip-percent">В разработке</span>
+      </div>
+    </div>
+  </section>
+
   <section id="about" class="about">
     <div class="about-inner">
       <h2>О команде</h2>
@@ -129,5 +151,6 @@
   <script src="games.js"></script>
   <script src="modal.js"></script>
   <script src="init.js"></script>
+  <script src="particles.js"></script>
 </body>
 </html>

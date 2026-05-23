@@ -1,3 +1,13 @@
+// ── LOADER ──
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  if (!loader) return;
+  setTimeout(() => {
+    loader.classList.add('hide');
+    setTimeout(() => loader.remove(), 600);
+  }, 1200);
+});
+
 // ── TYPEWRITER ──
 const typeEl = document.querySelector('.typewriter');
 const phrases = ['Indie Game Development', 'Made by ASPECT', 'Романуша Д.С.'];
