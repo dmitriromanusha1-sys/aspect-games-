@@ -77,3 +77,37 @@ document.querySelectorAll('.card').forEach(card => {
     try { playTick(); } catch(e) {}
   });
 });
+
+// ── WIP CANVAS ──
+const wipCanvas = document.getElementById('wip-canvas');
+if (wipCanvas) {
+  const wctx = wipCanvas.getContext('2d');
+  const COLS = 28, ROWS = 14;
+  let wt = 0;
+
+  function resizeWip() {
+    wipCanvas.width = wipCanvas.offsetWidth;
+    wipCanvas.height = wipCanvas.offsetHeight;
+  }
+  resizeWip();
+  window.addEventListener('resize', resizeWip);
+
+  function drawWip() {
+    wctx.clearRect(0, 0, wipCanvas.width, wipCanvas.height);
+    const cw = wipCanvas.width / COLS;
+    const ch = wipCanvas.height / ROWS;
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const wave = Math.sin(wt * 0.8 + c * 0.5 + r * 0.8) * 0.5 + 0.5;
+        const alpha = wave * 0.18 + 0.02;
+        wctx.beginPath();
+        wctx.arc(c * cw + cw / 2, r * ch + ch / 2, 1.2, 0, Math.PI * 2);
+        wctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        wctx.fill();
+      }
+    }
+    wt += 0.03;
+    requestAnimationFrame(drawWip);
+  }
+  drawWip();
+}

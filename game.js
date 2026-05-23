@@ -71,8 +71,9 @@ document.getElementById('game-root').innerHTML = `
       <span class="gp-dev-credit">Разработчик: Романуша Д.С. · ASPECT</span>
       <div class="gp-actions">
         <button class="share-btn" id="gp-share" data-url="${g.url}">⧉ Поделиться</button>
-        <a href="${g.url}" target="_blank" class="play-btn">Играть →</a>
+        <a href="${g.url}" target="_blank" class="play-btn" id="gp-play">Играть →</a>
       </div>
+      <span class="gp-plays" id="gp-plays"></span>
     </div>
   </div>
 `;
@@ -98,6 +99,24 @@ document.querySelectorAll('#gp-dots .dot').forEach(d => {
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') goTo(idx - 1);
   if (e.key === 'ArrowRight') goTo(idx + 1);
+});
+
+// ── PLAY COUNTER ──
+const storageKey = 'played_' + gameKey;
+let playCount = parseInt(localStorage.getItem(storageKey) || '0', 10);
+const playsEl = document.getElementById('gp-plays');
+
+function updatePlaysDisplay() {
+  if (playsEl && playCount > 0) {
+    playsEl.textContent = `▶ Сыграли ${playCount} ${playCount === 1 ? 'раз' : playCount < 5 ? 'раза' : 'раз'}`;
+  }
+}
+updatePlaysDisplay();
+
+document.getElementById('gp-play')?.addEventListener('click', () => {
+  playCount++;
+  localStorage.setItem(storageKey, playCount);
+  updatePlaysDisplay();
 });
 
 // ── SHARE ──

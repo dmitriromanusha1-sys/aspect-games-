@@ -35,6 +35,14 @@ if (burger && burgerNav) {
   });
 }
 
+// ── PLAY COUNTERS ON CARDS ──
+document.querySelectorAll('.card[data-game]').forEach(card => {
+  const key = card.dataset.game;
+  const n = parseInt(localStorage.getItem('played_' + key) || '0', 10);
+  const el = document.getElementById('plays-' + key);
+  if (el && n > 0) el.textContent = `▶ ${n}`;
+});
+
 // ── CUSTOM CURSOR ──
 const cursor = document.getElementById('cursor');
 const cursorDot = document.getElementById('cursor-dot');

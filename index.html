@@ -57,8 +57,9 @@
     </div>
     <div class="grid">
 
-      <a class="card" href="game.html?game=resonance" data-thumb="RESONANCE/Снимок экрана 2026-05-23 163854.png">
+      <a class="card card-horror" href="game.html?game=resonance" data-game="resonance" data-thumb="RESONANCE/Снимок экрана 2026-05-23 163854.png">
         <div class="card-tag">Релиз</div>
+        <span class="card-plays" id="plays-resonance"></span>
         <h3>RESONANCE</h3>
         <div class="card-bottom">
           <span class="version">V.1.7.1</span>
@@ -67,8 +68,9 @@
         </div>
       </a>
 
-      <a class="card" href="game.html?game=fnaf" data-thumb="FNAF/Снимок экрана 2026-05-23 164956.png">
+      <a class="card card-horror" href="game.html?game=fnaf" data-game="fnaf" data-thumb="FNAF/Снимок экрана 2026-05-23 164956.png">
         <div class="card-tag">Релиз</div>
+        <span class="card-plays" id="plays-fnaf"></span>
         <h3>FNAF</h3>
         <div class="card-bottom">
           <span class="version">V.1.6.7</span>
@@ -77,8 +79,9 @@
         </div>
       </a>
 
-      <a class="card" href="game.html?game=evtn" data-thumb="EVTN/Снимок экрана 2026-05-23 165416.png">
+      <a class="card" href="game.html?game=evtn" data-game="evtn" data-thumb="EVTN/Снимок экрана 2026-05-23 165416.png">
         <div class="card-tag">Релиз</div>
+        <span class="card-plays" id="plays-evtn"></span>
         <h3>EVTN</h3>
         <div class="card-bottom">
           <span class="version">V.1.0.0</span>
@@ -87,8 +90,9 @@
         </div>
       </a>
 
-      <a class="card" href="game.html?game=shot" data-thumb="Shot/Снимок экрана 2026-05-23 170029.png">
+      <a class="card" href="game.html?game=shot" data-game="shot" data-thumb="Shot/Снимок экрана 2026-05-23 170029.png">
         <div class="card-tag">Релиз</div>
+        <span class="card-plays" id="plays-shot"></span>
         <h3>Shot</h3>
         <div class="card-bottom">
           <span class="version">V.1.9.0</span>
@@ -97,8 +101,9 @@
         </div>
       </a>
 
-      <a class="card" href="game.html?game=outpost" data-thumb="Outpost/Снимок экрана 2026-05-23 171003.png">
+      <a class="card" href="game.html?game=outpost" data-game="outpost" data-thumb="Outpost/Снимок экрана 2026-05-23 171003.png">
         <div class="card-tag beta-tag">Бета</div>
+        <span class="card-plays" id="plays-outpost"></span>
         <h3>Outpost_Game</h3>
         <div class="card-bottom">
           <span class="version">V.0.4.0</span>
@@ -111,6 +116,7 @@
   </section>
 
   <section id="wip" class="wip">
+    <canvas id="wip-canvas"></canvas>
     <div class="wip-inner">
       <h2>В разработке</h2>
       <div class="wip-card">

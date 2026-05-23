@@ -864,12 +864,27 @@ footer {
 }
 
 /* ── WIP SECTION ── */
-.wip { border-top: 1px solid var(--border); }
+.wip {
+  border-top: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+#wip-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
 
 .wip-inner {
   max-width: 1080px;
   margin: 0 auto;
   padding: 7rem 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .wip-inner h2 {
@@ -950,6 +965,45 @@ footer {
 /* ── CARD AS LINK ── */
 a.card {
   text-decoration: none;
+}
+
+/* ── HORROR CARD GLOW ── */
+.card-horror::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px rgba(180,0,0,0);
+  transition: box-shadow 0.4s ease, background 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.card-horror:hover::after {
+  box-shadow:
+    inset 0 0 0 1px rgba(200,20,20,0.4),
+    0 0 28px rgba(200,0,0,0.3),
+    0 0 60px rgba(180,0,0,0.15);
+}
+
+.card-horror:hover::before {
+  background: linear-gradient(
+    to top,
+    rgba(60,0,0,0.92) 0%,
+    rgba(30,0,0,0.5) 50%,
+    rgba(15,0,0,0.2) 100%
+  );
+}
+
+/* ── CARD PLAYS COUNTER ── */
+.card-plays {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.75rem;
+  font-size: 0.6rem;
+  font-family: monospace;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  z-index: 1;
 }
 
 /* ── DIFFICULTY BADGE ── */
@@ -1186,6 +1240,15 @@ a.card {
   gap: 0.75rem;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.gp-plays {
+  font-size: 0.68rem;
+  font-family: monospace;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-top: 0.75rem;
+  display: block;
 }
 
 /* ── BURGER ── */
