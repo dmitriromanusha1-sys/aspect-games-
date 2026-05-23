@@ -163,6 +163,7 @@ nav a:hover, nav a.active { color: var(--text); }
   flex-direction: column;
   justify-content: flex-end;
   padding: 1.75rem;
+  touch-action: pan-y;
   min-height: 220px;
   background: var(--surface);
   background-size: cover;
