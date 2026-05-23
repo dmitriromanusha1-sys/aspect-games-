@@ -1203,10 +1203,11 @@ a.card {
   position: relative;
   width: 100%;
   aspect-ratio: 16/9;
-  max-height: 62vh;
+  max-height: 420px;
   background: #0a0a0a;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
+  touch-action: pan-y;
 }
 
 .gp-slider-img {
