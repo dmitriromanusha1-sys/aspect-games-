@@ -273,12 +273,12 @@ a.card {
   overflow: hidden;
   touch-action: pan-y;
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateY(28px) scale(0.97);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1);
 }
 
-a.card.visible { opacity: 1; transform: translateY(0); }
-a.card.visible:hover { transform: translateY(-2px); }
+a.card.visible { opacity: 1; transform: translateY(0) scale(1); }
+a.card.visible:hover { transform: translateY(-3px) scale(1.01); }
 
 a.card::before {
   content: '';
@@ -318,6 +318,31 @@ a.card > * { position: relative; z-index: 1; }
   letter-spacing: 0.08em;
   color: var(--muted);
   z-index: 1;
+}
+
+/* ── CARD HOVER HINT ── */
+.card-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fff;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 3;
+  pointer-events: none;
+  backdrop-filter: blur(2px);
+}
+
+a.card:hover .card-hint {
+  opacity: 1;
+  transform: scale(1);
 }
 
 a.card h3 {
@@ -831,6 +856,53 @@ footer {
 }
 
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ═══════════════════════════════
+   404 PAGE
+═══════════════════════════════ */
+.not-found {
+  min-height: calc(100vh - 56px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 56px;
+}
+
+.not-found-inner {
+  text-align: center;
+  padding: 2rem;
+}
+
+.not-found-code {
+  font-size: clamp(6rem, 20vw, 14rem);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: var(--border2);
+  margin-bottom: 1.5rem;
+  animation: glitch404 3s infinite;
+}
+
+@keyframes glitch404 {
+  0%, 88%, 100% { transform: none; color: var(--border2); }
+  90% { transform: translate(-3px, 0) skewX(-2deg); color: #ff2a2a; }
+  92% { transform: translate(3px, 0) skewX(2deg);  color: #2aabee; }
+  94% { transform: none; color: var(--border2); }
+}
+
+.not-found-title {
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+
+.not-found-desc {
+  font-size: 0.9rem;
+  color: var(--muted2);
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
 
 /* ═══════════════════════════════
    GAME PAGE
