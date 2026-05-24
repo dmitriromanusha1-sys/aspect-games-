@@ -1,0 +1,37 @@
+name: Minify Assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.css'
+      - '*.js'
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install tools
+        run: npm install -g terser clean-css-cli
+
+      - name: Minify JS
+        run: |
+          for f in init.js game.js games.js particles.js; do
+            [ -f "$f" ] && terser "$f" --compress --mangle -o "$f"
+          done
+
+      - name: Minify CSS
+        run: cleancss -o style.css style.css
+
+      - name: Commit if changed
+        run: |
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git diff --quiet && echo "No changes" || (git commit -am "chore: minify assets [skip ci]" && git push)

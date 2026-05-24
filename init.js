@@ -92,6 +92,23 @@ document.addEventListener('mouseout', e => {
   if (e.target.closest('a, button')) cursor?.classList.remove('hover');
 });
 
+// ── CURSOR GENRE COLOR ──
+const GENRE_CLASSES = ['genre-horror', 'genre-roguelike', 'genre-strategy'];
+function setCursorGenre(cls) {
+  GENRE_CLASSES.forEach(c => { cursor?.classList.remove(c); cursorDot?.classList.remove(c); });
+  if (cls) { cursor?.classList.add(cls); cursorDot?.classList.add(cls); }
+}
+document.querySelectorAll('.card').forEach(card => {
+  const genre = card.querySelector('.card-genre')?.textContent || '';
+  const cls = genre.includes('Хоррор') ? 'genre-horror'
+             : genre.includes('Стратегия') ? 'genre-strategy'
+             : genre.includes('Рогалик') ? 'genre-roguelike'
+             : null;
+  if (!cls) return;
+  card.addEventListener('mouseenter', () => setCursorGenre(cls));
+  card.addEventListener('mouseleave', () => setCursorGenre(null));
+});
+
 // ── BACK TO TOP ──
 const backTop = document.getElementById('back-to-top');
 if (backTop) {

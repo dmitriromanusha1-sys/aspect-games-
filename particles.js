@@ -20,21 +20,61 @@ const pts = canvas ? Array.from({ length: COUNT }, () => ({
   a:  Math.random() * 0.5 + 0.15,
 })) : [];
 
+// ── SEASONAL PRECIPITATION ──
+const month   = new Date().getMonth() + 1;
+const isSnow  = month === 12 || month <= 2;
+const drops   = canvas ? Array.from({ length: isSnow ? 60 : 80 }, () => ({
+  x:     Math.random() * canvas.width,
+  y:     Math.random() * canvas.height,
+  len:   isSnow ? 0 : (Math.random() * 12 + 8),
+  r:     isSnow ? (Math.random() * 2.5 + 1) : 0,
+  speed: isSnow ? (Math.random() * 0.8 + 0.3) : (Math.random() * 6 + 8),
+  drift: isSnow ? (Math.random() - 0.5) * 0.4 : (Math.random() * 1.5 + 0.5),
+  a:     isSnow ? (Math.random() * 0.35 + 0.1) : (Math.random() * 0.18 + 0.04),
+})) : [];
+
 function draw() {
   if (!ctx) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // ambient particles
   for (const p of pts) {
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(255,255,255,${p.a})`;
     ctx.fill();
-    p.x += p.vx;
-    p.y += p.vy;
+    p.x += p.vx; p.y += p.vy;
     if (p.x < 0)             p.x = canvas.width;
     if (p.x > canvas.width)  p.x = 0;
     if (p.y < 0)             p.y = canvas.height;
     if (p.y > canvas.height) p.y = 0;
   }
+
+  // precipitation
+  for (const d of drops) {
+    ctx.save();
+    ctx.globalAlpha = d.a;
+    if (isSnow) {
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = '#fff';
+      ctx.fill();
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(d.x, d.y);
+      ctx.lineTo(d.x + d.drift * 2, d.y + d.len);
+      ctx.strokeStyle = 'rgba(180,210,255,1)';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    }
+    ctx.restore();
+    d.y += d.speed;
+    d.x += d.drift;
+    if (d.y > canvas.height) { d.y = -d.len - 10; d.x = Math.random() * canvas.width; }
+    if (d.x > canvas.width)  d.x = 0;
+    if (d.x < 0)             d.x = canvas.width;
+  }
+
   requestAnimationFrame(draw);
 }
 draw();

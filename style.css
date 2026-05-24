@@ -410,6 +410,18 @@ a.card h3 {
   font-weight: 500;
 }
 
+/* ── HORROR CARD GLITCH ── */
+@keyframes horrorGlitch {
+  0%, 88%, 100% { filter: none; transform: none; }
+  90% { filter: brightness(1.2) saturate(1.9); transform: translateX(-3px) skewX(-1deg); }
+  92% { filter: brightness(0.8) hue-rotate(12deg); transform: translateX(3px); }
+  94% { filter: brightness(1.1); transform: none; }
+  96% { filter: contrast(1.4) saturate(0.6); transform: translateX(-2px) skewX(1deg); }
+  98% { filter: none; transform: translateX(1px); }
+}
+
+.card-horror:hover { animation: horrorGlitch 2.2s infinite; }
+
 /* ── HORROR CARD GLOW ── */
 .card-horror::after {
   content: '';
@@ -727,6 +739,14 @@ footer {
   border-color: rgba(255,255,255,0.75);
   background: rgba(255,255,255,0.04);
 }
+
+/* Жанровые цвета курсора */
+.cursor.genre-horror   { border-color: rgba(220,30,30,0.7);   }
+.cursor-dot.genre-horror { background: rgba(220,50,50,0.95); }
+.cursor.genre-roguelike  { border-color: rgba(50,200,100,0.7);  }
+.cursor-dot.genre-roguelike { background: rgba(50,200,100,0.95); }
+.cursor.genre-strategy   { border-color: rgba(250,180,30,0.7);  }
+.cursor-dot.genre-strategy  { background: rgba(250,180,30,0.95); }
 
 /* Клик — вспышка */
 .cursor.click {

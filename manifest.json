@@ -1,0 +1,24 @@
+{
+  "name": "ASPECT Games",
+  "short_name": "ASPECT",
+  "description": "Независимая команда по разработке инди-игр. Хорроры, рогалики, стратегии.",
+  "start_url": "/aspect-games-/",
+  "scope": "/aspect-games-/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0f",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
