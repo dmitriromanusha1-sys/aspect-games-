@@ -29,11 +29,11 @@ body {
 }
 
 /* ── PAGE ENTER ANIMATION ── */
-body { animation: pageIn 0.35s ease both; }
+body { animation: pageIn 0.4s ease both; }
 
 @keyframes pageIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* ── NAV ── */
@@ -129,6 +129,7 @@ nav a:hover, nav a.active { color: var(--text); }
   inset: 0;
   background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(255,255,255,0.025) 0%, transparent 70%);
   pointer-events: none;
+  z-index: 0;
 }
 
 #particles-canvas {
@@ -805,8 +806,8 @@ footer {
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* ── TOAST ── */
