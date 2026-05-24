@@ -16,6 +16,42 @@
   --muted2:   #888888;
 }
 
+/* ── LIGHT THEME ── */
+body.light {
+  --bg:       #f4f4f4;
+  --surface:  #eaeaea;
+  --surface2: #dfdfdf;
+  --border:   #d0d0d0;
+  --border2:  #b8b8b8;
+  --text:     #111111;
+  --muted:    #666666;
+  --muted2:   #444444;
+}
+body.light header                { background: rgba(244,244,244,0.93); }
+body.light #nav-links            { background: rgba(244,244,244,0.97); }
+body.light .gp-slider            { background: #ddd; }
+body.light .play-btn             { background: #111; color: #f4f4f4; }
+body.light .play-btn:hover       { background: #333; }
+body.light .hero::before         { background: radial-gradient(ellipse at center, rgba(244,244,244,0) 0%, rgba(244,244,244,0.55) 100%); }
+body.light .loader               { background: var(--bg); }
+
+/* ── THEME TOGGLE ── */
+#theme-toggle {
+  background: none;
+  border: 1px solid var(--border2);
+  color: var(--muted2);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+  transition: border-color 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+#theme-toggle:hover { border-color: var(--muted); color: var(--text); }
+
 /* ── BASE ── */
 html { scroll-behavior: smooth; overflow-x: hidden; }
 

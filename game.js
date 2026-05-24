@@ -191,10 +191,15 @@ function initPlayCounter() {
 
 // ── SHARE ──
 function initShare() {
-  document.getElementById('gp-share')?.addEventListener('click', () => {
-    navigator.clipboard.writeText(g.url)
-      .then(() => window.showToast?.('Ссылка скопирована!'))
-      .catch(() => window.showToast?.('Не удалось скопировать'));
+  document.getElementById('gp-share')?.addEventListener('click', async () => {
+    const shareData = { title: g.title, text: g.description, url: g.url };
+    if (navigator.share && navigator.canShare?.(shareData)) {
+      try { await navigator.share(shareData); } catch {}
+    } else {
+      navigator.clipboard.writeText(g.url)
+        .then(() => window.showToast?.('Ссылка скопирована!'))
+        .catch(() => window.showToast?.('Не удалось скопировать'));
+    }
   });
 }
 

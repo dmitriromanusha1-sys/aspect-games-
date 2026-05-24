@@ -11,6 +11,27 @@ window.showToast = function(msg) {
   toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
 };
 
+// ── THEME ──
+(function() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') document.body.classList.add('light');
+
+  const btn = document.createElement('button');
+  btn.id = 'theme-toggle';
+  btn.setAttribute('aria-label', 'Сменить тему');
+  btn.textContent = document.body.classList.contains('light') ? '☾' : '☀';
+
+  const nav = document.querySelector('nav');
+  const burgerEl = document.getElementById('burger');
+  if (nav) nav.insertBefore(btn, burgerEl || null);
+
+  btn.addEventListener('click', () => {
+    const isLight = document.body.classList.toggle('light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    btn.textContent = isLight ? '☾' : '☀';
+  });
+})();
+
 // ── BURGER ──
 const burger = document.getElementById('burger');
 const navLinks = document.getElementById('nav-links');
@@ -104,6 +125,20 @@ function type() {
   }
 }
 if (typeEl) setTimeout(type, 1000);
+
+// ── PREFETCH ON HOVER ──
+const prefetched = new Set();
+document.querySelectorAll('a.card[href]').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    const href = card.getAttribute('href');
+    if (!href || prefetched.has(href)) return;
+    prefetched.add(href);
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = href;
+    document.head.appendChild(link);
+  }, { once: true });
+});
 
 // ── CARD THUMBNAILS ──
 document.querySelectorAll('.card[data-thumb]').forEach(card => {
