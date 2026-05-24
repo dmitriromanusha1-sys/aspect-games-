@@ -36,18 +36,18 @@ let cx = -100, cy = -100, mx = -100, my = -100;
 document.addEventListener('mousemove', e => {
   mx = e.clientX;
   my = e.clientY;
-  cursor?.classList.add('visible');
-  cursorDot?.classList.add('visible');
+  cursor?.classList.remove('hidden');
+  cursorDot?.classList.remove('hidden');
 });
 
 document.addEventListener('mouseleave', () => {
-  cursor?.classList.remove('visible');
-  cursorDot?.classList.remove('visible');
+  cursor?.classList.add('hidden');
+  cursorDot?.classList.add('hidden');
 });
 
 document.addEventListener('mouseenter', () => {
-  cursor?.classList.add('visible');
-  cursorDot?.classList.add('visible');
+  cursor?.classList.remove('hidden');
+  cursorDot?.classList.remove('hidden');
 });
 
 (function animCursor() {
