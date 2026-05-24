@@ -1,3 +1,8 @@
+// ── SERVICE WORKER ──
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+}
+
 // ── TOAST ──
 const toastEl = document.createElement('div');
 toastEl.className = 'toast';

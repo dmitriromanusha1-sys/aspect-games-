@@ -3,6 +3,15 @@ const g = GAMES[gameKey];
 
 if (!g) { location.href = 'index.html'; }
 
+// Preload first screenshot so skeleton→content transition is faster
+if (g.screenshots?.[0]) {
+  const pl = document.createElement('link');
+  pl.rel = 'preload';
+  pl.as = 'image';
+  pl.href = g.screenshots[0].split('/').map(s => encodeURIComponent(s)).join('/');
+  document.head.appendChild(pl);
+}
+
 document.title = `${g.title} — ASPECT`;
 
 // Encode a local path so Cyrillic/spaces work on GitHub Pages
