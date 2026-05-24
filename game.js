@@ -85,6 +85,9 @@ document.getElementById('game-root').innerHTML = `
   </div>
 `;
 
+// ── PRELOAD ALL SCREENSHOTS ──
+shots.forEach(src => { const img = new Image(); img.src = imgUrl(src); });
+
 // ── SLIDER ──
 let idx = 0;
 
@@ -94,12 +97,8 @@ function goTo(i) {
   const counter = document.getElementById('gp-counter');
   idx = (i + shots.length) % shots.length;
 
-  imgEl.classList.add('fade');
-  setTimeout(() => {
-    imgEl.src = imgUrl(shots[idx]);
-    imgEl.alt = `Скриншот ${idx + 1}`;
-    imgEl.classList.remove('fade');
-  }, 220);
+  imgEl.src = imgUrl(shots[idx]);
+  imgEl.alt = `Скриншот ${idx + 1}`;
 
   document.querySelectorAll('#gp-dots .dot').forEach((d, j) => d.classList.toggle('active', j === idx));
   if (counter) counter.textContent = `${idx + 1} / ${shots.length}`;
