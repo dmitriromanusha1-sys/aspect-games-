@@ -1286,6 +1286,128 @@ footer {
 
 .share-btn:hover { border-color: #555; color: var(--text); }
 
+/* ── LIGHTBOX ── */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+#lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+}
+
+.lb-img {
+  position: relative;
+  max-width: 92vw;
+  max-height: 88vh;
+  object-fit: contain;
+  z-index: 1;
+  display: block;
+  box-shadow: 0 16px 64px rgba(0,0,0,0.8);
+}
+
+.lb-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.lb-close:hover { background: rgba(255,255,255,0.2); }
+
+.lb-prev, .lb-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  width: 48px;
+  height: 48px;
+  font-size: 1.2rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.18); }
+.lb-prev { left: 1.5rem; }
+.lb-next { right: 1.5rem; }
+
+.lb-counter {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  font-family: monospace;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.12em;
+  z-index: 2;
+}
+
+/* ── CARD COPY BUTTON ── */
+.card-copy-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 28px;
+  height: 28px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.5);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+  z-index: 4;
+  backdrop-filter: blur(4px);
+}
+
+a.card:hover .card-copy-btn { opacity: 1; }
+.card-copy-btn:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+
+/* ── DEV TELEGRAM LINK ── */
+.dev-tg {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+  display: block;
+  margin-top: 0.3rem;
+}
+
+.dev-tg:hover { color: var(--text); }
+
 /* ── NEWS ── */
 .news {
   border-top: 1px solid var(--border);

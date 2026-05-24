@@ -119,6 +119,7 @@ function renderContent() {
   document.querySelectorAll('.gp-anim-section').forEach(el => secIo.observe(el));
 
   initSlider();
+  initLightbox();
   initPlayCounter();
   initShare();
   initParallax();
@@ -209,6 +210,58 @@ function initShare() {
         .then(() => window.showToast?.('Ссылка скопирована!'))
         .catch(() => window.showToast?.('Не удалось скопировать'));
     }
+  });
+}
+
+// ── LIGHTBOX ──
+function initLightbox() {
+  const sliderImg = document.getElementById('gp-slider-img');
+  if (!sliderImg || shots.length === 0) return;
+
+  const lb = document.createElement('div');
+  lb.id = 'lightbox';
+  lb.innerHTML = `
+    <div class="lb-overlay"></div>
+    <button class="lb-close" aria-label="Закрыть">✕</button>
+    <button class="lb-prev" aria-label="Назад">&#8592;</button>
+    <img class="lb-img" src="" alt="" />
+    <button class="lb-next" aria-label="Вперёд">&#8594;</button>
+    <span class="lb-counter"></span>`;
+  document.body.appendChild(lb);
+
+  const lbImg     = lb.querySelector('.lb-img');
+  const lbCounter = lb.querySelector('.lb-counter');
+  let lbIdx = 0;
+
+  function lbOpen(i) {
+    lbIdx = (i + shots.length) % shots.length;
+    lbImg.src = imgUrl(shots[lbIdx]);
+    lbCounter.textContent = `${lbIdx + 1} / ${shots.length}`;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function lbClose() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  sliderImg.style.cursor = 'zoom-in';
+  sliderImg.addEventListener('click', () => {
+    const cur = parseInt(document.getElementById('gp-counter')?.textContent || '1') - 1;
+    lbOpen(cur);
+  });
+
+  lb.querySelector('.lb-close').addEventListener('click', lbClose);
+  lb.querySelector('.lb-overlay').addEventListener('click', lbClose);
+  lb.querySelector('.lb-prev').addEventListener('click', () => lbOpen(lbIdx - 1));
+  lb.querySelector('.lb-next').addEventListener('click', () => lbOpen(lbIdx + 1));
+
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     lbClose();
+    if (e.key === 'ArrowLeft')  lbOpen(lbIdx - 1);
+    if (e.key === 'ArrowRight') lbOpen(lbIdx + 1);
   });
 }
 

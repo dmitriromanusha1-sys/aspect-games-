@@ -131,6 +131,22 @@ function type() {
 }
 if (typeEl) setTimeout(type, 1000);
 
+// ── CARD COPY LINK ──
+document.querySelectorAll('a.card[href]').forEach(card => {
+  const btn = document.createElement('button');
+  btn.className = 'card-copy-btn';
+  btn.setAttribute('aria-label', 'Копировать ссылку');
+  btn.textContent = '⎘';
+  card.appendChild(btn);
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(card.href)
+      .then(() => window.showToast?.('Ссылка скопирована!'))
+      .catch(() => window.showToast?.('Не удалось скопировать'));
+  });
+});
+
 // ── CARD THUMBNAIL PREVIEW ──
 const cardPreview = document.createElement('div');
 cardPreview.id = 'card-preview';

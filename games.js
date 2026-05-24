@@ -91,7 +91,7 @@ const GAMES = {
     version: 'V.0.4.0',
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/outpost-game/',
-    genre: 'Рогалик',
+    genre: 'Стратегия',
     difficulty: 'Легко',
     description: 'Стратегическая защита деревни в реальном времени. Стройте башни и укрепления, управляйте ресурсами, прокачивайте ветки навыков. 17 карт, смена погоды и цикл день-ночь.',
     screenshots: [
