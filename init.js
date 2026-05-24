@@ -1,17 +1,21 @@
 // ── PAGE TRANSITION ──
+let navigating = false;
 document.addEventListener('click', e => {
+  if (navigating) return;
   const link = e.target.closest('a[href]');
   if (!link) return;
   const href = link.getAttribute('href');
   if (!href || href.startsWith('#') || link.target === '_blank' || href.startsWith('http') || href.startsWith('mailto')) return;
   e.preventDefault();
+  navigating = true;
   document.body.classList.add('page-exit');
   setTimeout(() => { location.href = href; }, 290);
 });
 
-// ── BFCACHE FIX: remove page-exit when browser restores page from cache ──
+// ── BFCACHE FIX ──
 window.addEventListener('pageshow', e => {
-  if (e.persisted) document.body.classList.remove('page-exit');
+  navigating = false;
+  document.body.classList.remove('page-exit');
 });
 
 // ── TOAST ──

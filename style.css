@@ -969,7 +969,6 @@ body:not(.has-loader) {
 
 body.page-exit {
   animation: pageOut 0.28s ease forwards !important;
-  pointer-events: none;
 }
 
 @keyframes pageOut {
