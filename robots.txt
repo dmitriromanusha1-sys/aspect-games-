@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dmitriromanusha1-sys.github.io/aspect-games-/sitemap.xml
