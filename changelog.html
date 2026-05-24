@@ -1,20 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Outpost_Game — ASPECT</title>
-  <meta name="description" content="Стратегическая защита деревни в реальном времени. Стройте башни, управляйте ресурсами, 17 карт, смена погоды и цикл день-ночь." />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Outpost_Game — ASPECT" />
-  <meta property="og:description" content="Стратегическая защита деревни в реальном времени. Стройте башни и укрепления, управляйте ресурсами. 17 карт, смена погоды и цикл день-ночь." />
-  <meta property="og:image" content="https://dmitriromanusha1-sys.github.io/aspect-games-/LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" />
-  <meta property="og:url" content="https://dmitriromanusha1-sys.github.io/aspect-games-/outpost.html" />
-  <meta property="og:site_name" content="ASPECT Games" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Outpost_Game — ASPECT" />
-  <meta name="twitter:description" content="Стратегическая защита деревни в реальном времени." />
-  <meta name="twitter:image" content="https://dmitriromanusha1-sys.github.io/aspect-games-/LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" />
+  <title>История версий — ASPECT</title>
+  <meta name="description" content="История обновлений всех игр ASPECT: RESONANCE, FNAF, EVTN, Shot, Outpost." />
   <meta name="theme-color" content="#0a0a0f" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" />
@@ -28,6 +18,7 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-dot" id="cursor-dot"></div>
   <button class="back-to-top" id="back-to-top" aria-label="Наверх">↑</button>
+
   <header>
     <nav>
       <a href="index.html" class="logo">
@@ -37,17 +28,46 @@
       <ul id="nav-links">
         <li><a href="index.html#games">Игры</a></li>
         <li><a href="index.html#wip">В разработке</a></li>
+        <li><a href="index.html#news">Новости</a></li>
         <li><a href="index.html#about">О нас</a></li>
         <li><a href="index.html#contacts">Контакты</a></li>
       </ul>
       <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
     </nav>
   </header>
-  <main id="game-root"></main>
+
+  <section class="changelog-page">
+    <div class="changelog-page-inner" id="changelog-root"></div>
+  </section>
+
   <footer><span>© 2026 ASPECT · Романуша Д.С. All rights reserved.</span></footer>
-  <script>window.GAME_KEY = 'outpost';</script>
+
   <script src="games.js?v=23"></script>
-  <script src="game.js?v=23"></script>
+  <script>
+    const root = document.getElementById('changelog-root');
+    const order = ['resonance', 'fnaf', 'evtn', 'shot', 'outpost'];
+    root.innerHTML = `
+      <h1 class="cl-title">История версий</h1>
+      <p class="cl-subtitle">Все обновления всех игр ASPECT</p>
+      <div class="cl-grid">
+        ${order.map(key => {
+          const g = GAMES[key];
+          return `
+            <div class="cl-card">
+              <div class="cl-card-header">
+                <span class="cl-game-name">${g.title}</span>
+                <span class="cl-game-ver">${g.version}</span>
+              </div>
+              <ul class="changelog">
+                ${g.changelog.map((item, i) =>
+                  `<li class="${i === 0 ? 'log-current' : ''}">${item}</li>`
+                ).join('')}
+              </ul>
+              <a href="${key}.html" class="cl-game-link">Открыть игру →</a>
+            </div>`;
+        }).join('')}
+      </div>`;
+  </script>
   <script src="init.js?v=23"></script>
   <script src="particles.js?v=23"></script>
 </body>

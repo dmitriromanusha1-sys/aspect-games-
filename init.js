@@ -1,3 +1,33 @@
+// ── ANALYTICS ──
+(function() {
+  const KEY = 'aspect_analytics';
+  const data = JSON.parse(localStorage.getItem(KEY) || '{}');
+  data.visits = (data.visits || 0) + 1;
+  data.lastVisit = new Date().toISOString();
+  data.pages = data.pages || {};
+  const page = location.pathname.split('/').pop() || 'index.html';
+  data.pages[page] = (data.pages[page] || 0) + 1;
+  localStorage.setItem(KEY, JSON.stringify(data));
+  console.log('%c📊 ASPECT Analytics', 'color:#888;font-size:13px;font-weight:bold', data);
+
+  // Hidden panel — Alt+Shift+A
+  const panel = document.createElement('div');
+  panel.id = 'analytics-panel';
+  panel.innerHTML = `
+    <div class="ap-header"><span>📊 Analytics</span><button class="ap-close" aria-label="Закрыть">✕</button></div>
+    <div class="ap-body">
+      <div class="ap-row"><span>Визитов</span><b>${data.visits}</b></div>
+      <div class="ap-row"><span>Последний визит</span><b>${new Date(data.lastVisit).toLocaleString('ru')}</b></div>
+      <div class="ap-sep"></div>
+      ${Object.entries(data.pages).sort((a,b)=>b[1]-a[1]).map(([p,n])=>`<div class="ap-row"><span>${p}</span><b>${n}</b></div>`).join('')}
+    </div>`;
+  document.body.appendChild(panel);
+  panel.querySelector('.ap-close').addEventListener('click', () => panel.classList.remove('open'));
+  document.addEventListener('keydown', e => {
+    if (e.altKey && e.shiftKey && e.key === 'A') panel.classList.toggle('open');
+  });
+})();
+
 // ── SERVICE WORKER ──
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js');
@@ -240,6 +270,23 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
+// ── SECTION HEADING TYPEWRITER ──
+const headingIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    headingIo.unobserve(e.target);
+    const el = e.target;
+    const text = el.textContent;
+    el.textContent = '';
+    let i = 0;
+    const t = setInterval(() => {
+      el.textContent = text.slice(0, ++i);
+      if (i >= text.length) clearInterval(t);
+    }, 55);
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('.games h2, .wip-inner h2, .news-inner h2, .about-inner h2, .contacts-inner h2').forEach(h => headingIo.observe(h));
+
 // ── NEWS ANIMATIONS ──
 const newsIo = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -261,6 +308,18 @@ const io = new IntersectionObserver(entries => {
 document.querySelectorAll('.card, .developer').forEach((el, i) => {
   el.style.transitionDelay = `${i * 55}ms`;
   io.observe(el);
+});
+
+// ── HERO STATS COUNTER ──
+document.querySelectorAll('.hs-num[data-val]').forEach(el => {
+  const max = +el.dataset.val;
+  let v = 0;
+  const step = Math.ceil(max / 20);
+  const t = setInterval(() => {
+    v = Math.min(v + step, max);
+    el.textContent = v;
+    if (v >= max) clearInterval(t);
+  }, 60);
 });
 
 // ── STAT COUNTER ──

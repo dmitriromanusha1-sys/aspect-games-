@@ -176,6 +176,19 @@ function initSlider() {
       const dx = e.changedTouches[0].clientX - tx;
       if (Math.abs(dx) > 40) dx < 0 ? goTo(idx + 1) : goTo(idx - 1);
     }, { passive: true });
+
+    // ── SLIDER PARALLAX ──
+    slider.addEventListener('mousemove', e => {
+      const rect = slider.getBoundingClientRect();
+      const px = ((e.clientX - rect.left) / rect.width  - 0.5) * 10;
+      const py = ((e.clientY - rect.top)  / rect.height - 0.5) * 6;
+      const imgEl = document.getElementById('gp-slider-img');
+      if (imgEl) imgEl.style.transform = `translate(${px}px, ${py}px)`;
+    }, { passive: true });
+    slider.addEventListener('mouseleave', () => {
+      const imgEl = document.getElementById('gp-slider-img');
+      if (imgEl) imgEl.style.transform = '';
+    });
   }
 }
 
@@ -233,12 +246,25 @@ function initLightbox() {
   const lbCounter = lb.querySelector('.lb-counter');
   let lbIdx = 0;
 
+  function lbClick() {
+    try {
+      const ac = window._audioCtx || (window._audioCtx = new (window.AudioContext || window.webkitAudioContext)());
+      const osc = ac.createOscillator(), gain = ac.createGain();
+      osc.connect(gain); gain.connect(ac.destination);
+      osc.frequency.value = 520;
+      gain.gain.setValueAtTime(0.025, ac.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.07);
+      osc.start(); osc.stop(ac.currentTime + 0.07);
+    } catch (_) {}
+  }
+
   function lbOpen(i) {
     lbIdx = (i + shots.length) % shots.length;
     lbImg.src = imgUrl(shots[lbIdx]);
     lbCounter.textContent = `${lbIdx + 1} / ${shots.length}`;
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
+    lbClick();
   }
 
   function lbClose() {

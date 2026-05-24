@@ -123,22 +123,31 @@ if (wipCanvas) {
 }
 
 // ── HOVER SOUND ──
-let audioCtx;
-function playTick() {
+function playTick(card) {
   try {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc  = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
+    const ac = window._audioCtx || (window._audioCtx = new (window.AudioContext || window.webkitAudioContext)());
+    const genre = card?.querySelector('.card-genre')?.textContent || '';
+    const isHorror   = card?.classList.contains('card-horror');
+    const isStrategy = genre.includes('Стратегия');
+    // horror: низкий жуткий гул; стратегия: средний; рогалик: высокий
+    const freq = isHorror ? 180 : isStrategy ? 440 : 880;
+    const dur  = isHorror ? 0.18 : 0.08;
+    const vol  = isHorror ? 0.03 : 0.04;
+    const type = isHorror ? 'sawtooth' : 'sine';
+
+    const osc  = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.type = type;
     osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.frequency.value = 880;
-    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.08);
+    gain.connect(ac.destination);
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(vol, ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + dur);
     osc.start();
-    osc.stop(audioCtx.currentTime + 0.08);
+    osc.stop(ac.currentTime + dur);
   } catch (_) {}
 }
 
 document.querySelectorAll('.card').forEach(card => {
-  card.addEventListener('mouseenter', playTick);
+  card.addEventListener('mouseenter', () => playTick(card));
 });

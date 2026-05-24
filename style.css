@@ -16,6 +16,16 @@
   --muted2:   #888888;
 }
 
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ── LIGHT THEME ── */
 body.light {
   --bg:       #f4f4f4;
@@ -1141,7 +1151,7 @@ footer {
   height: 100%;
   object-fit: contain;
   display: block;
-  transition: opacity 0.22s ease;
+  transition: opacity 0.22s ease, transform 0.12s ease;
 }
 
 
@@ -1428,6 +1438,92 @@ a.card:hover .card-copy-btn { opacity: 1; }
 
 .dev-tg:hover { color: var(--text); }
 
+/* ── HERO STATS ── */
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: gpFadeUp 0.6s 1.2s ease both;
+}
+
+.hero-stats span {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-stats b {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  display: block;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+/* ── ANALYTICS PANEL ── */
+#analytics-panel {
+  position: fixed;
+  bottom: 5rem;
+  right: 2rem;
+  width: 280px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  z-index: 5000;
+  font-size: 0.78rem;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+#analytics-panel.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.ap-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted2);
+}
+
+.ap-close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 2px 4px;
+}
+
+.ap-close:hover { color: var(--text); }
+
+.ap-body { padding: 0.5rem 0.85rem 0.75rem; }
+
+.ap-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  color: var(--muted);
+  font-family: monospace;
+  font-size: 0.72rem;
+}
+
+.ap-row b { color: var(--text); font-weight: 600; }
+.ap-sep { height: 1px; background: var(--border); margin: 0.4rem 0; }
+
 /* ── NEWS ── */
 .news {
   border-top: 1px solid var(--border);
@@ -1542,6 +1638,73 @@ a.card:hover .card-copy-btn { opacity: 1; }
   opacity: 1;
   transform: scale(1);
 }
+
+/* ── CHANGELOG PAGE ── */
+.changelog-page { padding-top: 56px; }
+
+.changelog-page-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+}
+
+.cl-title {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.cl-subtitle {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 3rem;
+}
+
+.cl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.cl-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cl-card-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cl-game-name {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.cl-game-ver {
+  font-size: 0.7rem;
+  font-family: monospace;
+  color: var(--muted2);
+}
+
+.cl-game-link {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  margin-top: auto;
+  transition: color 0.15s;
+}
+
+.cl-game-link:hover { color: var(--text); }
 
 /* ═══════════════════════════════
    RESPONSIVE
