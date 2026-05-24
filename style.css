@@ -531,7 +531,7 @@ a.card h3 {
 
 @keyframes wipAnim {
   from { width: 5%; }
-  to   { width: 35%; }
+  to   { width: 40%; }
 }
 
 .wip-percent {
@@ -1285,6 +1285,121 @@ footer {
 }
 
 .share-btn:hover { border-color: #555; color: var(--text); }
+
+/* ── NEWS ── */
+.news {
+  border-top: 1px solid var(--border);
+}
+
+.news-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 7rem 2rem;
+}
+
+.news-inner h2 {
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3rem;
+  font-weight: 500;
+}
+
+.news-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.news-item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+
+.news-item:first-child { border-top: 1px solid var(--border); }
+.news-item.visible { opacity: 1; transform: translateY(0); }
+
+.news-date {
+  font-size: 0.68rem;
+  font-family: monospace;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  padding-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.news-text {
+  font-size: 0.9rem;
+  color: var(--muted2);
+  line-height: 1.7;
+}
+
+.news-text strong { color: var(--text); font-weight: 600; }
+
+/* ── 404 GAME LINKS ── */
+.not-found-games {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.not-found-games-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.not-found-games-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+.nf-game-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border2);
+  color: var(--muted2);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.nf-game-btn:hover { border-color: var(--muted); color: var(--text); }
+
+/* ── CARD THUMBNAIL PREVIEW ── */
+#card-preview {
+  position: fixed;
+  pointer-events: none;
+  z-index: 200;
+  width: 220px;
+  aspect-ratio: 16/9;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--border2);
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+}
+
+#card-preview.visible {
+  opacity: 1;
+  transform: scale(1);
+}
 
 /* ═══════════════════════════════
    RESPONSIVE

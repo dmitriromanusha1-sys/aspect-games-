@@ -131,6 +131,27 @@ function type() {
 }
 if (typeEl) setTimeout(type, 1000);
 
+// ── CARD THUMBNAIL PREVIEW ──
+const cardPreview = document.createElement('div');
+cardPreview.id = 'card-preview';
+document.body.appendChild(cardPreview);
+
+document.querySelectorAll('.card[data-thumb]').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    const raw = card.dataset.thumb;
+    const encoded = raw.split('/').map(s => encodeURIComponent(s)).join('/');
+    cardPreview.style.backgroundImage = `url('${encoded}')`;
+    cardPreview.classList.add('visible');
+  });
+  card.addEventListener('mousemove', e => {
+    cardPreview.style.left = (e.clientX + 20) + 'px';
+    cardPreview.style.top  = Math.min(e.clientY - 60, window.innerHeight - 140) + 'px';
+  });
+  card.addEventListener('mouseleave', () => {
+    cardPreview.classList.remove('visible');
+  });
+});
+
 // ── PREFETCH ON HOVER ──
 const prefetched = new Set();
 document.querySelectorAll('a.card[href]').forEach(card => {
@@ -152,11 +173,25 @@ document.querySelectorAll('.card[data-thumb]').forEach(card => {
   card.style.backgroundImage = `url('${encoded}')`;
 });
 
-// ── PLAY COUNTERS ON CARDS ──
+// ── PLAY COUNTERS ON CARDS (animate count-up on reveal) ──
 document.querySelectorAll('.card[data-game]').forEach(card => {
   const n = parseInt(localStorage.getItem('played_' + card.dataset.game) || '0', 10);
   const el = document.getElementById('plays-' + card.dataset.game);
-  if (el && n > 0) el.textContent = `▶ ${n}`;
+  if (!el || n === 0) return;
+  const playsIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      playsIo.unobserve(e.target);
+      let v = 0;
+      const step = Math.ceil(n / 20);
+      const t = setInterval(() => {
+        v = Math.min(v + step, n);
+        el.textContent = `▶ ${v}`;
+        if (v >= n) clearInterval(t);
+      }, 40);
+    });
+  }, { threshold: 0.5 });
+  playsIo.observe(card);
 });
 
 // ── FILTER ──
@@ -170,6 +205,17 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
       card.style.display = (f === 'all' || genre.includes(f)) ? '' : 'none';
     });
   });
+});
+
+// ── NEWS ANIMATIONS ──
+const newsIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); newsIo.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.news-item').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 70}ms`;
+  newsIo.observe(el);
 });
 
 // ── SCROLL ANIMATIONS ──
