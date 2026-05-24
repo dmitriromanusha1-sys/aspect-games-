@@ -700,11 +700,41 @@ a.card h3 {
 /* ── FOOTER ── */
 footer {
   border-top: 1px solid var(--border);
-  padding: 2rem;
-  text-align: center;
-  font-size: 0.75rem;
+  padding: 2.5rem 2rem;
+}
+
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  justify-content: center;
+}
+
+.footer-links a {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+
+.footer-links a:hover { color: var(--text); }
+
+.footer-copy {
+  font-size: 0.72rem;
   color: var(--muted);
   letter-spacing: 0.06em;
+  text-align: center;
 }
 
 /* ── CUSTOM CURSOR ── */
@@ -1706,6 +1736,62 @@ a.card:hover .card-copy-btn { opacity: 1; }
 
 .cl-game-link:hover { color: var(--text); }
 
+/* ── SCROLL PROGRESS ── */
+#scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #ff2a2a, #ffd700);
+  z-index: 10000;
+  pointer-events: none;
+  transition: width 0.08s linear;
+}
+
+/* ── AURORA HERO ── */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 40% at 20% 65%, rgba(255,42,42,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 35% at 80% 38%, rgba(255,215,0,0.05) 0%, transparent 60%);
+  animation: auroraShift 10s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes auroraShift {
+  0%   { opacity: 0.35; }
+  100% { opacity: 1; }
+}
+
+/* ── CARD TAGS ── */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.45rem;
+}
+
+.card-tags span {
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.06);
+  padding: 0.12rem 0.4rem;
+  border-radius: 2px;
+}
+
+/* ── NAV TOTAL PLAYS ── */
+#nav-total-plays {
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  padding: 0 0.25rem;
+}
+
 /* ═══════════════════════════════
    RESPONSIVE
 ═══════════════════════════════ */
@@ -1729,7 +1815,7 @@ a.card:hover .card-copy-btn { opacity: 1; }
     list-style: none;
   }
 
-  #nav-links.open { max-height: 260px; padding: 1rem 0 1.5rem; }
+  #nav-links.open { max-height: 320px; padding: 1rem 0 1.5rem; }
   #nav-links li { width: 100%; text-align: center; }
   #nav-links a { display: block; padding: 0.9rem 2rem; font-size: 0.9rem; letter-spacing: 0.12em; }
 }

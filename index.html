@@ -23,7 +23,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=23" />
+  <link rel="canonical" href="https://dmitriromanusha1-sys.github.io/aspect-games-/" />
+  <link rel="stylesheet" href="style.css?v=24" />
 </head>
 <body class="has-loader">
   <div class="cursor" id="cursor"></div>
@@ -46,6 +47,7 @@
         <li><a href="#news">Новости</a></li>
         <li><a href="#about">О нас</a></li>
         <li><a href="#contacts">Контакты</a></li>
+        <li><a href="changelog.html">Changelog</a></li>
       </ul>
       <button class="burger" id="burger" aria-label="Меню">
         <span></span><span></span><span></span>
@@ -84,6 +86,7 @@
         <span class="card-plays" id="plays-resonance"></span>
         <div class="card-hint">Открыть →</div>
         <h3>RESONANCE</h3>
+        <div class="card-tags"><span>#horror</span><span>#hardcore</span><span>#stealth</span></div>
         <div class="card-bottom">
           <span class="version">V.1.7.1</span>
           <span class="card-genre">Инди · Хоррор</span>
@@ -96,6 +99,7 @@
         <span class="card-plays" id="plays-fnaf"></span>
         <div class="card-hint">Открыть →</div>
         <h3>FNAF</h3>
+        <div class="card-tags"><span>#horror</span><span>#survival</span><span>#nights</span></div>
         <div class="card-bottom">
           <span class="version">V.1.6.7</span>
           <span class="card-genre">Инди · Хоррор</span>
@@ -108,6 +112,7 @@
         <span class="card-plays" id="plays-evtn"></span>
         <div class="card-hint">Открыть →</div>
         <h3>EVTN</h3>
+        <div class="card-tags"><span>#roguelike</span><span>#shooter</span><span>#evolution</span></div>
         <div class="card-bottom">
           <span class="version">V.1.0.0</span>
           <span class="card-genre">Рогалик</span>
@@ -120,6 +125,7 @@
         <span class="card-plays" id="plays-shot"></span>
         <div class="card-hint">Открыть →</div>
         <h3>Shot</h3>
+        <div class="card-tags"><span>#roguelike</span><span>#cyberpunk</span><span>#shooter</span></div>
         <div class="card-bottom">
           <span class="version">V.1.9.0</span>
           <span class="card-genre">Рогалик</span>
@@ -132,6 +138,7 @@
         <span class="card-plays" id="plays-outpost"></span>
         <div class="card-hint">Открыть →</div>
         <h3>Outpost_Game</h3>
+        <div class="card-tags"><span>#strategy</span><span>#defense</span><span>#beta</span></div>
         <div class="card-bottom">
           <span class="version">V.0.4.0</span>
           <span class="card-genre">Стратегия</span>
@@ -147,7 +154,7 @@
     <div class="wip-inner">
       <h2>В разработке</h2>
       <div class="wip-card">
-        <div class="wip-badge">В разработке</div>
+        <div class="wip-badge">Бета</div>
         <h3 class="wip-title">Outpost_Game</h3>
         <p class="wip-desc">Стратегическая защита деревни — первая игра команды ASPECT. Активно дорабатывается: новые карты, механики и полноценный релиз.</p>
         <div class="wip-bar"><div class="wip-progress"></div></div>
@@ -183,7 +190,8 @@
   <section id="about" class="about">
     <div class="about-inner">
       <h2>О команде</h2>
-      <p>ASPECT — независимая команда по разработке игр. Мы создаём проекты с нуля, постоянно выпуская обновления и развивая наши игры вместе с сообществом.</p>
+      <p>ASPECT — независимая команда по разработке игр. Основана в декабре 2025 года. Мы создаём проекты с нуля, постоянно выпуская обновления и развивая наши игры вместе с сообществом.</p>
+      <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--muted);line-height:1.7">За несколько месяцев вышло пять игр разных жанров — от хоррора до стратегии. Каждый проект развивается итерационно: новые механики, карты и балансировка выходят регулярно.</p>
       <div class="developer">
         <div class="dev-avatar">
           <img src="LOGO/LOGO.jpg" alt="logo" class="dev-logo" loading="lazy" />
@@ -228,11 +236,21 @@
   </section>
 
   <footer>
-    <span>© 2026 ASPECT · Романуша Д.С. All rights reserved.</span>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="resonance.html">RESONANCE</a>
+        <a href="fnaf.html">FNAF</a>
+        <a href="evtn.html">EVTN</a>
+        <a href="shot.html">Shot</a>
+        <a href="outpost.html">Outpost_Game</a>
+        <a href="changelog.html">История версий</a>
+      </div>
+      <span class="footer-copy">© 2026 ASPECT · Романуша Д.С. All rights reserved.</span>
+    </div>
   </footer>
 
-  <script src="games.js?v=23"></script>
-  <script src="init.js?v=23"></script>
-  <script src="particles.js?v=23"></script>
+  <script src="games.js?v=24"></script>
+  <script src="init.js?v=24"></script>
+  <script src="particles.js?v=24"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@ const GAMES = {
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/resonance/',
     genre: 'Инди · Хоррор',
+    tags: ['#horror', '#hardcore', '#stealth'],
     difficulty: 'Хардкор',
     description: 'Хоррор про охранника на секретном Объекте 499. Выживайте в ночные смены, следя за камерами наблюдения и управляя системами безопасности. Каждая ночь опаснее предыдущей.',
     screenshots: [
@@ -29,6 +30,7 @@ const GAMES = {
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/fnaf-game/',
     genre: 'Инди · Хоррор',
+    tags: ['#horror', '#survival', '#nights'],
     difficulty: 'Сложно',
     description: 'Выживите 7 ночей в роли охранника пиццерии Freddy Fazbear. Следите за камерами, закрывайте двери и экономьте энергию, пока четыре аниматроника — Freddy, Bonnie, Chica и Foxy — охотятся на вас.',
     screenshots: [
@@ -52,6 +54,7 @@ const GAMES = {
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/evolution/',
     genre: 'Рогалик',
+    tags: ['#roguelike', '#shooter', '#evolution'],
     difficulty: 'Средне',
     description: 'Волновой шутер с системой эволюции оружия — от лука до плазменной пушки. Выживайте в 8 волнах врагов, прокачивайте характеристики и навыки, сражайтесь с боссами. Доступны режимы Нормальный и Хардкор.',
     screenshots: [
@@ -70,6 +73,7 @@ const GAMES = {
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/Shot/',
     genre: 'Рогалик',
+    tags: ['#roguelike', '#cyberpunk', '#shooter'],
     difficulty: 'Средне',
     description: 'Киберпанк-шутер с 10 уровнями и финальным боссом. Семь видов оружия от пистолета до лазерной пушки, система прокачки арсенала, ежедневные испытания и неоновая атмосфера будущего.',
     screenshots: [
@@ -92,6 +96,7 @@ const GAMES = {
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/outpost-game/',
     genre: 'Стратегия',
+    tags: ['#strategy', '#defense', '#beta'],
     difficulty: 'Легко',
     description: 'Стратегическая защита деревни в реальном времени. Стройте башни и укрепления, управляйте ресурсами, прокачивайте ветки навыков. 17 карт, смена погоды и цикл день-ночь.',
     screenshots: [

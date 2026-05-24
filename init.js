@@ -1,3 +1,14 @@
+// ── SCROLL PROGRESS ──
+(function() {
+  const bar = document.createElement('div');
+  bar.id = 'scroll-progress';
+  document.body.prepend(bar);
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }, { passive: true });
+})();
+
 // ── ANALYTICS ──
 (function() {
   const KEY = 'aspect_analytics';
@@ -59,6 +70,35 @@ window.showToast = function(msg) {
   const nav = document.querySelector('nav');
   const burgerEl = document.getElementById('burger');
   if (nav) nav.insertBefore(btn, burgerEl || null);
+
+  // ── NAV: TOTAL PLAYS ──
+  const totalPlays = ['resonance','fnaf','evtn','shot','outpost']
+    .reduce((s, k) => s + parseInt(localStorage.getItem('played_' + k) || '0', 10), 0);
+  if (totalPlays > 0 && nav) {
+    const playsSpan = document.createElement('span');
+    playsSpan.id = 'nav-total-plays';
+    playsSpan.textContent = '▶ ' + totalPlays;
+    playsSpan.title = 'Всего запусков игр';
+    nav.insertBefore(playsSpan, burgerEl || null);
+  }
+
+  // ── NAV: RANDOM GAME ──
+  if (nav) {
+    const GAME_KEYS = ['resonance','fnaf','evtn','shot','outpost'];
+    const rndLi = document.createElement('li');
+    const rndA = document.createElement('a');
+    rndA.href = '#';
+    rndA.textContent = '🎲';
+    rndA.title = 'Случайная игра';
+    rndA.style.fontSize = '1rem';
+    rndA.addEventListener('click', e => {
+      e.preventDefault();
+      location.href = GAME_KEYS[Math.floor(Math.random() * GAME_KEYS.length)] + '.html';
+    });
+    rndLi.appendChild(rndA);
+    const navUl = document.getElementById('nav-links');
+    if (navUl) navUl.appendChild(rndLi);
+  }
 
   btn.addEventListener('click', () => {
     const isLight = document.body.classList.toggle('light');
@@ -199,7 +239,10 @@ const cardPreview = document.createElement('div');
 cardPreview.id = 'card-preview';
 document.body.appendChild(cardPreview);
 
+const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+
 document.querySelectorAll('.card[data-thumb]').forEach(card => {
+  if (!isFinePointer) return;
   card.addEventListener('mouseenter', () => {
     const raw = card.dataset.thumb;
     const encoded = raw.split('/').map(s => encodeURIComponent(s)).join('/');
