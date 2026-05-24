@@ -31,11 +31,16 @@ if (burger && navLinks) {
 // ── CUSTOM CURSOR ──
 const cursor    = document.getElementById('cursor');
 const cursorDot = document.getElementById('cursor-dot');
-let cx = -100, cy = -100, mx = -100, my = -100;
+
+// Кольцо — с лагом; точка — мгновенно
+let rx = window.innerWidth / 2, ry = window.innerHeight / 2;
+let mx = rx, my = ry;
 
 document.addEventListener('mousemove', e => {
   mx = e.clientX;
   my = e.clientY;
+  // точка следует мгновенно
+  if (cursorDot) cursorDot.style.left = mx + 'px', cursorDot.style.top = my + 'px';
   cursor?.classList.remove('hidden');
   cursorDot?.classList.remove('hidden');
 });
@@ -45,19 +50,29 @@ document.addEventListener('mouseleave', () => {
   cursorDot?.classList.add('hidden');
 });
 
-document.addEventListener('mouseenter', () => {
+document.addEventListener('mouseenter', e => {
+  mx = e.clientX; my = e.clientY;
   cursor?.classList.remove('hidden');
   cursorDot?.classList.remove('hidden');
 });
 
-(function animCursor() {
-  cx += (mx - cx) * 0.12;
-  cy += (my - cy) * 0.12;
-  if (cursor)    cursor.style.transform    = `translate(${cx - 16}px,${cy - 16}px)`;
-  if (cursorDot) cursorDot.style.transform = `translate(${mx - 3}px,${my - 3}px)`;
-  requestAnimationFrame(animCursor);
+// клик — вспышка кольца
+document.addEventListener('mousedown', () => {
+  cursor?.classList.add('click');
+});
+document.addEventListener('mouseup', () => {
+  cursor?.classList.remove('click');
+});
+
+// кольцо — с лагом через rAF
+(function animRing() {
+  rx += (mx - rx) * 0.13;
+  ry += (my - ry) * 0.13;
+  if (cursor) { cursor.style.left = rx + 'px'; cursor.style.top = ry + 'px'; }
+  requestAnimationFrame(animRing);
 })();
 
+// hover на интерактивных элементах
 document.addEventListener('mouseover', e => {
   if (e.target.closest('a, button')) cursor?.classList.add('hover');
 });

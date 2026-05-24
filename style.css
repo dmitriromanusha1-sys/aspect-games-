@@ -121,7 +121,6 @@ nav a:hover, nav a.active { color: var(--text); }
   text-align: center;
   border-bottom: 1px solid var(--border);
   position: relative;
-  overflow: hidden;
 }
 
 .hero::before {
@@ -625,42 +624,58 @@ footer {
 }
 
 /* ── CUSTOM CURSOR ── */
-* { cursor: none !important; }
-
-.cursor {
-  position: fixed;
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(255,255,255,0.5);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition: width 0.18s, height 0.18s, border-color 0.18s, opacity 0.25s;
-  will-change: transform;
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
 }
 
-.cursor.hidden { opacity: 0; }
-.cursor.hover  { width: 48px; height: 48px; border-color: rgba(255,255,255,0.9); }
-
+/* Точка — следует мгновенно */
 .cursor-dot {
   position: fixed;
-  width: 6px;
-  height: 6px;
+  top: 0; left: 0;
+  width: 5px;
+  height: 5px;
   background: #fff;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
-  transition: opacity 0.25s;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.25s, transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
   will-change: transform;
 }
 
-.cursor-dot.hidden { opacity: 0; }
-
-/* скрываем кастомный курсор на тач-устройствах */
-@media (hover: none) {
-  .cursor, .cursor-dot { display: none !important; }
-  * { cursor: auto !important; }
+/* Кольцо — следует с лагом */
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.25s, width 0.25s, height 0.25s, border-color 0.25s, background 0.25s;
+  will-change: transform;
 }
+
+/* Hover — кольцо сжимается и подсвечивается */
+.cursor.hover {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.04);
+}
+
+/* Клик — вспышка */
+.cursor.click {
+  width: 20px;
+  height: 20px;
+  border-color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.15);
+  transition: width 0.08s, height 0.08s, background 0.08s;
+}
+
+.cursor.hidden, .cursor-dot.hidden { opacity: 0; }
 
 /* ── BACK TO TOP ── */
 .back-to-top {
@@ -828,7 +843,6 @@ footer {
   display: flex;
   align-items: flex-end;
   padding-top: 56px;
-  overflow: hidden;
 }
 
 .gp-hero-overlay {
