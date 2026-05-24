@@ -675,7 +675,6 @@ footer {
   transition: width 0.08s, height 0.08s, background 0.08s;
 }
 
-.cursor.hidden, .cursor-dot.hidden { opacity: 0; }
 
 /* ── BACK TO TOP ── */
 .back-to-top {

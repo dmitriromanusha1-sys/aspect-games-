@@ -39,21 +39,7 @@ let mx = rx, my = ry;
 document.addEventListener('mousemove', e => {
   mx = e.clientX;
   my = e.clientY;
-  // точка следует мгновенно
-  if (cursorDot) cursorDot.style.left = mx + 'px', cursorDot.style.top = my + 'px';
-  cursor?.classList.remove('hidden');
-  cursorDot?.classList.remove('hidden');
-});
-
-document.addEventListener('mouseleave', () => {
-  cursor?.classList.add('hidden');
-  cursorDot?.classList.add('hidden');
-});
-
-document.addEventListener('mouseenter', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor?.classList.remove('hidden');
-  cursorDot?.classList.remove('hidden');
+  if (cursorDot) { cursorDot.style.left = mx + 'px'; cursorDot.style.top = my + 'px'; }
 });
 
 // клик — вспышка кольца
