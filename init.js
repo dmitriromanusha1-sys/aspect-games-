@@ -33,7 +33,22 @@ const cursor    = document.getElementById('cursor');
 const cursorDot = document.getElementById('cursor-dot');
 let cx = -100, cy = -100, mx = -100, my = -100;
 
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+document.addEventListener('mousemove', e => {
+  mx = e.clientX;
+  my = e.clientY;
+  cursor?.classList.add('visible');
+  cursorDot?.classList.add('visible');
+});
+
+document.addEventListener('mouseleave', () => {
+  cursor?.classList.remove('visible');
+  cursorDot?.classList.remove('visible');
+});
+
+document.addEventListener('mouseenter', () => {
+  cursor?.classList.add('visible');
+  cursorDot?.classList.add('visible');
+});
 
 (function animCursor() {
   cx += (mx - cx) * 0.12;

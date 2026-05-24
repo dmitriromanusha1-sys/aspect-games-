@@ -635,10 +635,12 @@ footer {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transition: width 0.18s, height 0.18s, border-color 0.18s;
+  opacity: 0;
+  transition: width 0.18s, height 0.18s, border-color 0.18s, opacity 0.2s;
   will-change: transform;
 }
 
+.cursor.visible { opacity: 1; }
 .cursor.hover { width: 48px; height: 48px; border-color: rgba(255,255,255,0.9); }
 
 .cursor-dot {
@@ -649,7 +651,17 @@ footer {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.2s;
   will-change: transform;
+}
+
+.cursor-dot.visible { opacity: 1; }
+
+/* скрываем кастомный курсор на тач-устройствах */
+@media (hover: none) {
+  .cursor, .cursor-dot { display: none !important; }
+  * { cursor: auto !important; }
 }
 
 /* ── BACK TO TOP ── */
