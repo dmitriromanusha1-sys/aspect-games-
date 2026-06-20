@@ -12,8 +12,8 @@ function renderSlider(screenshots) {
   return `
     <div class="slider" id="slider">
       <img class="slider-img" id="slider-img" src="${screenshots[0]}" alt="Screenshot" />
-      <button class="slider-btn slider-prev" id="slider-prev" aria-label="Назад">&#8592;</button>
-      <button class="slider-btn slider-next" id="slider-next" aria-label="Вперёд">&#8594;</button>
+      <button class="slider-btn slider-prev" id="slider-prev" aria-label="РќР°Р·Р°Рґ">&#8592;</button>
+      <button class="slider-btn slider-next" id="slider-next" aria-label="Р’РїРµСЂС‘Рґ">&#8594;</button>
       <div class="slider-dots" id="slider-dots">
         ${screenshots.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" data-i="${i}"></span>`).join('')}
       </div>
@@ -47,7 +47,7 @@ function openModal(gameKey) {
   const g = GAMES[gameKey];
   if (!g) return;
 
-  const isBeta = g.status === 'Бета';
+  const isBeta = g.status === 'Р‘РµС‚Р°';
   const changelogHTML = g.changelog
     .map((item, i) => `<li class="${i === 0 ? 'log-current' : ''}">${item}</li>`)
     .join('');
@@ -67,15 +67,15 @@ function openModal(gameKey) {
     <p class="modal-desc">${g.description}</p>
     <div class="modal-divider"></div>
     <div class="modal-section">
-      <span class="modal-section-label">История версий</span>
+      <span class="modal-section-label">РСЃС‚РѕСЂРёСЏ РІРµСЂСЃРёР№</span>
       <ul class="changelog">${changelogHTML}</ul>
     </div>
     <div class="modal-divider"></div>
     <div class="modal-footer">
-      <span class="modal-dev">Разработчик: Романуша Д.С. · ASPECT</span>
+      <span class="modal-dev">Р Р°Р·СЂР°Р±РѕС‚С‡РёРє: Р РѕРјР°РЅСѓС€Р° Р”.РЎ. В· ASPECT</span>
       <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
-        <button class="share-btn" id="share-btn" data-url="${g.url}">⧉ Поделиться</button>
-        <a href="${g.url}" target="_blank" class="play-btn">Играть →</a>
+        <button class="share-btn" id="share-btn" data-url="${g.url}">в§‰ РџРѕРґРµР»РёС‚СЊСЃСЏ</button>
+        <a href="${g.url}" target="_blank" class="play-btn">${g.downloadOnly ? 'РЎРєР°С‡Р°С‚СЊ в†“' : 'РРіСЂР°С‚СЊ в†’'}</a>
       </div>
     </div>
   `;
