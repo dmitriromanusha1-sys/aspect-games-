@@ -3,7 +3,7 @@ const g = GAMES[gameKey];
 
 if (!g) { location.href = 'index.html'; }
 
-// Preload first screenshot so skeletonв†’content transition is faster
+// Preload first screenshot so skeleton→content transition is faster
 if (g.screenshots?.[0]) {
   const pl = document.createElement('link');
   pl.rel = 'preload';
@@ -12,7 +12,7 @@ if (g.screenshots?.[0]) {
   document.head.appendChild(pl);
 }
 
-document.title = `${g.title} вЂ” ASPECT`;
+document.title = `${g.title} — ASPECT`;
 
 // Encode a local path so Cyrillic/spaces work on GitHub Pages
 function imgUrl(raw) {
@@ -21,15 +21,15 @@ function imgUrl(raw) {
 }
 
 const diffClass = {
-  'Р›РµРіРєРѕ':   'diff-easy',
-  'РЎСЂРµРґРЅРµ':  'diff-medium',
-  'РЎР»РѕР¶РЅРѕ':  'diff-hard',
-  'РҐР°СЂРґРєРѕСЂ': 'diff-hardcore',
+  'Легко':   'diff-easy',
+  'Средне':  'diff-medium',
+  'Сложно':  'diff-hard',
+  'Хардкор': 'diff-hardcore',
 }[g.difficulty] || '';
 
 const shots = g.screenshots || [];
 
-// в”Ђв”Ђ SKELETON в”Ђв”Ђ
+// ── SKELETON ──
 const root = document.getElementById('game-root');
 root.innerHTML = `
   <div class="gp-skeleton">
@@ -47,10 +47,10 @@ const sliderHTML = shots.length ? `
   <div class="gp-slider" id="gp-slider">
     <img class="gp-slider-img" id="gp-slider-img"
          src="${imgUrl(shots[0])}"
-         alt="РЎРєСЂРёРЅС€РѕС‚ 1" />
+         alt="Скриншот 1" />
     ${shots.length > 1 ? `
-      <button class="slider-btn slider-prev" id="gp-prev" aria-label="РќР°Р·Р°Рґ">&#8592;</button>
-      <button class="slider-btn slider-next" id="gp-next" aria-label="Р’РїРµСЂС‘Рґ">&#8594;</button>
+      <button class="slider-btn slider-prev" id="gp-prev" aria-label="Назад">&#8592;</button>
+      <button class="slider-btn slider-next" id="gp-next" aria-label="Вперёд">&#8594;</button>
       <div class="slider-dots" id="gp-dots">
         ${shots.map((_,i) => `<span class="dot${i===0?' active':''}" data-i="${i}"></span>`).join('')}
       </div>
@@ -68,9 +68,9 @@ function renderContent() {
     <section class="gp-hero gp-anim-hero" id="gp-hero" style="background-image:url('${imgUrl(shots[0])}')">
       <div class="gp-hero-overlay"></div>
       <div class="gp-hero-content">
-        <a href="index.html" class="gp-back">в†ђ Р’СЃРµ РёРіСЂС‹</a>
+        <a href="index.html" class="gp-back">← Все игры</a>
         <div class="gp-status-row">
-          <span class="gp-tag${g.status==='Р‘РµС‚Р°'?' beta-tag':''}">${g.status}</span>
+          <span class="gp-tag${g.status==='Бета'?' beta-tag':''}">${g.status}</span>
           ${g.difficulty ? `<span class="diff-badge ${diffClass}">${g.difficulty}</span>` : ''}
         </div>
         <h1 class="gp-title">${g.title}</h1>
@@ -86,24 +86,24 @@ function renderContent() {
       ${sliderHTML}
 
       <div class="gp-section gp-anim-section" style="--si:0">
-        <span class="gp-section-label">РћР± РёРіСЂРµ</span>
+        <span class="gp-section-label">Об игре</span>
         <p class="gp-desc">${g.description}</p>
       </div>
 
       <div class="gp-divider"></div>
 
       <div class="gp-section gp-anim-section" style="--si:1">
-        <span class="gp-section-label">РСЃС‚РѕСЂРёСЏ РІРµСЂСЃРёР№</span>
+        <span class="gp-section-label">История версий</span>
         <ul class="changelog">${changelogHTML}</ul>
       </div>
 
       <div class="gp-divider"></div>
 
       <div class="gp-footer-row gp-anim-section" style="--si:2">
-        <span class="gp-dev-credit">Р Р°Р·СЂР°Р±РѕС‚С‡РёРє: Р РѕРјР°РЅСѓС€Р° Р”.РЎ. В· ASPECT</span>
+        <span class="gp-dev-credit">Разработчик: Романуша Д.С. · ASPECT</span>
         <div class="gp-actions">
-          <button class="share-btn" id="gp-share">&#10697; РџРѕРґРµР»РёС‚СЊСЃСЏ</button>
-          <a href="${g.url}" target="_blank" rel="noopener" class="play-btn" id="gp-play">${g.downloadOnly ? 'РЎРєР°С‡Р°С‚СЊ в†“' : 'РРіСЂР°С‚СЊ в†’'}</a>
+          <button class="share-btn" id="gp-share">&#10697; Поделиться</button>
+          <a href="${g.url}" target="_blank" rel="noopener" class="play-btn" id="gp-play">${g.downloadOnly ? 'Скачать ↓' : 'Играть →'}</a>
         </div>
       </div>
       <span class="gp-plays" id="gp-plays"></span>
@@ -134,10 +134,10 @@ if (shots.length) {
   renderContent();
 }
 
-// в”Ђв”Ђ PRELOAD REST OF SCREENSHOTS в”Ђв”Ђ
+// ── PRELOAD REST OF SCREENSHOTS ──
 shots.slice(1).forEach(src => { const img = new Image(); img.src = imgUrl(src); });
 
-// в”Ђв”Ђ SLIDER в”Ђв”Ђ
+// ── SLIDER ──
 function initSlider() {
   let idx = 0;
 
@@ -149,7 +149,7 @@ function initSlider() {
     imgEl.style.opacity = '0';
     setTimeout(() => {
       imgEl.src = imgUrl(shots[idx]);
-      imgEl.alt = `РЎРєСЂРёРЅС€РѕС‚ ${idx + 1}`;
+      imgEl.alt = `Скриншот ${idx + 1}`;
       imgEl.style.opacity = '1';
     }, 120);
     document.querySelectorAll('#gp-dots .dot').forEach((d, j) => d.classList.toggle('active', j === idx));
@@ -167,7 +167,7 @@ function initSlider() {
     if (e.key === 'ArrowRight') goTo(idx + 1);
   });
 
-  // в”Ђв”Ђ SWIPE в”Ђв”Ђ
+  // ── SWIPE ──
   const slider = document.getElementById('gp-slider');
   if (slider) {
     let tx = 0;
@@ -177,7 +177,7 @@ function initSlider() {
       if (Math.abs(dx) > 40) dx < 0 ? goTo(idx + 1) : goTo(idx - 1);
     }, { passive: true });
 
-    // в”Ђв”Ђ SLIDER PARALLAX в”Ђв”Ђ
+    // ── SLIDER PARALLAX ──
     slider.addEventListener('mousemove', e => {
       const rect = slider.getBoundingClientRect();
       const px = ((e.clientX - rect.left) / rect.width  - 0.5) * 10;
@@ -192,15 +192,15 @@ function initSlider() {
   }
 }
 
-// в”Ђв”Ђ PLAY COUNTER в”Ђв”Ђ
+// ── PLAY COUNTER ──
 function initPlayCounter() {
   let playCount = parseInt(localStorage.getItem('played_' + gameKey) || '0', 10);
   const playsEl = document.getElementById('gp-plays');
 
   function updatePlays() {
     if (playsEl && playCount > 0) {
-      const word = playCount === 1 ? 'СЂР°Р·' : playCount < 5 ? 'СЂР°Р·Р°' : 'СЂР°Р·';
-      playsEl.textContent = `в–¶ РЎС‹РіСЂР°Р»Рё ${playCount} ${word}`;
+      const word = playCount === 1 ? 'раз' : playCount < 5 ? 'раза' : 'раз';
+      playsEl.textContent = `▶ Сыграли ${playCount} ${word}`;
     }
   }
   updatePlays();
@@ -212,7 +212,7 @@ function initPlayCounter() {
   });
 }
 
-// в”Ђв”Ђ SHARE в”Ђв”Ђ
+// ── SHARE ──
 function initShare() {
   document.getElementById('gp-share')?.addEventListener('click', async () => {
     const shareData = { title: g.title, text: g.description, url: g.url };
@@ -220,13 +220,13 @@ function initShare() {
       try { await navigator.share(shareData); } catch {}
     } else {
       navigator.clipboard.writeText(g.url)
-        .then(() => window.showToast?.('РЎСЃС‹Р»РєР° СЃРєРѕРїРёСЂРѕРІР°РЅР°!'))
-        .catch(() => window.showToast?.('РќРµ СѓРґР°Р»РѕСЃСЊ СЃРєРѕРїРёСЂРѕРІР°С‚СЊ'));
+        .then(() => window.showToast?.('Ссылка скопирована!'))
+        .catch(() => window.showToast?.('Не удалось скопировать'));
     }
   });
 }
 
-// в”Ђв”Ђ LIGHTBOX в”Ђв”Ђ
+// ── LIGHTBOX ──
 function initLightbox() {
   const sliderImg = document.getElementById('gp-slider-img');
   if (!sliderImg || shots.length === 0) return;
@@ -235,10 +235,10 @@ function initLightbox() {
   lb.id = 'lightbox';
   lb.innerHTML = `
     <div class="lb-overlay"></div>
-    <button class="lb-close" aria-label="Р—Р°РєСЂС‹С‚СЊ">вњ•</button>
-    <button class="lb-prev" aria-label="РќР°Р·Р°Рґ">&#8592;</button>
+    <button class="lb-close" aria-label="Закрыть">✕</button>
+    <button class="lb-prev" aria-label="Назад">&#8592;</button>
     <img class="lb-img" src="" alt="" />
-    <button class="lb-next" aria-label="Р’РїРµСЂС‘Рґ">&#8594;</button>
+    <button class="lb-next" aria-label="Вперёд">&#8594;</button>
     <span class="lb-counter"></span>`;
   document.body.appendChild(lb);
 
@@ -291,7 +291,7 @@ function initLightbox() {
   });
 }
 
-// в”Ђв”Ђ PARALLAX HERO в”Ђв”Ђ
+// ── PARALLAX HERO ──
 function initParallax() {
   const heroEl = document.getElementById('gp-hero');
   if (heroEl) {
