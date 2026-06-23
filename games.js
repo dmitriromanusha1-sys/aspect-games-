@@ -91,12 +91,12 @@ const GAMES = {
   },
   outpost: {
     title: 'Outpost_Game',
-    status: 'Бета',
-    version: 'V.0.4.0',
+    status: 'Релиз',
+    version: 'V.1.1.0',
     released: '2026',
     url: 'https://dmitriromanusha1-sys.github.io/outpost-game/',
     genre: 'Стратегия',
-    tags: ['#strategy', '#defense', '#beta'],
+    tags: ['#strategy', '#defense', '#release'],
     difficulty: 'Легко',
     description: 'Стратегическая защита деревни в реальном времени. Стройте башни и укрепления, управляйте ресурсами, прокачивайте ветки навыков. 17 карт, смена погоды и цикл день-ночь.',
     screenshots: [
@@ -107,6 +107,8 @@ const GAMES = {
       'Outpost/outpost-5.jpg',
     ],
     changelog: [
+      'V.1.1.0 — Анимация атаки врагов, лимит врагов против лагов, баланс сложности',
+      'V.1.0.0 — Релиз: исправлены баги, добавлены метаданные и скачивание',
       'V.0.4.0 — Новые механики строительства',
       'V.0.3.0 — Добавлены враги и волны',
       'V.0.2.0 — Базовый геймплей',
