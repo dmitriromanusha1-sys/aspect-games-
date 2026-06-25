@@ -145,7 +145,15 @@ const GAMES = {
     difficulty: 'Средне',
     downloadOnly: true,
     description: 'Survival-хоррор от первого лица: вы заперты в многоэтажке, заполненной зомби. Исследуйте этажи, обыскивайте квартиры, собирайте оружие и припасы, следите за голодом, жаждой и энергией, читайте записки, чтобы раскрыть, что произошло в здании. Процедурная генерация этажей, шумовая система ИИ зомби, дневник, достижения и сохранения.',
-    screenshots: [],
+    screenshots: [
+      'FLOORBYFLOOR/floorbyfloor-1.png',
+      'FLOORBYFLOOR/floorbyfloor-2.png',
+      'FLOORBYFLOOR/floorbyfloor-3.png',
+      'FLOORBYFLOOR/floorbyfloor-4.png',
+      'FLOORBYFLOOR/floorbyfloor-5.png',
+      'FLOORBYFLOOR/floorbyfloor-6.png',
+      'FLOORBYFLOOR/floorbyfloor-7.png',
+    ],
     changelog: [
       'V.1.0 — Релиз: инвентарь, дневник, достижения, сохранения, настройки яркости/чувствительности, экранный отклик урона',
     ],
