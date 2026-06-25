@@ -128,6 +128,9 @@ const GAMES = {
     screenshots: [
       'OLIGARCH/oligarch-1.png',
       'OLIGARCH/oligarch-2.png',
+      'OLIGARCH/oligarch-3.png',
+      'OLIGARCH/oligarch-4.png',
+      'OLIGARCH/oligarch-5.png',
     ],
     changelog: [
       'V.1.0.0 — Полноценный релиз: смены, образование с экзаменами, сон и жильё, сезоны года, радио-тюнер, слоты сохранений, 4 сложности',
