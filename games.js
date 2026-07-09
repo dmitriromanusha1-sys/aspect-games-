@@ -152,7 +152,7 @@
     status: 'Релиз',
     version: 'V.1.0',
     released: '2026',
-    url: 'https://github.com/dmitriromanusha1-sys/floor-by-floor/releases/download/v1.0/FloorByFloor.zip',
+    url: 'https://aspect-games-rd.itch.io/floorbyfloor',
     genre: 'Хоррор',
     tags: ['#horror', '#survival', '#release'],
     difficulty: 'Средне',
