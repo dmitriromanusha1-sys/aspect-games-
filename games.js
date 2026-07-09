@@ -119,7 +119,7 @@
     status: 'Релиз',
     version: 'V.2.0.0',
     released: '2026',
-    url: 'https://github.com/dmitriromanusha1-sys/zero-to-oligarch/releases/download/v2.0.0/ZeroToOligarch-2.0.0-win64.zip',
+    url: 'https://aspect-games-rd.itch.io/zero-to-oligarch',
     genre: 'Симулятор',
     tags: ['#simulator', '#economy', '#tycoon', '#release'],
     difficulty: 'Средне',
