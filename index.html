@@ -24,7 +24,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="canonical" href="https://dmitriromanusha1-sys.github.io/aspect-games-/" />
-  <link rel="stylesheet" href="style.css?v=24" />
+  <link rel="stylesheet" href="style.css?v=29" />
 </head>
 <body class="has-loader">
   <div class="cursor" id="cursor"></div>
@@ -79,7 +79,10 @@
       <button class="filter-btn" data-filter="Рогалик">Рогалик</button>
       <button class="filter-btn" data-filter="Стратегия">Стратегия</button>
       <button class="filter-btn" data-filter="Симулятор">Симулятор</button>
+      <button class="filter-btn" data-filter="Survival">Survival</button>
+      <input type="search" id="game-search" placeholder="Поиск… ( / )" autocomplete="off" aria-label="Поиск по играм" />
     </div>
+    <p id="search-empty" hidden>Ничего не найдено — попробуй другой запрос.</p>
     <div class="grid">
 
       <a class="card card-horror" href="posledniy.html" data-game="posledniy" data-thumb="POSLEDNIY/posledniy-1.png">
@@ -286,6 +289,7 @@
           <p class="news-text">Начало разработки. Первые пять игр команды в порядке создания: Outpost → Shot → EVTN → ЖЕЛЕЗНЫЙ ЦЕХ → RESONANCE.</p>
         </li>
       </ul>
+      <button id="news-more" class="news-more" hidden>Показать ещё ↓</button>
     </div>
   </section>
 
@@ -317,6 +321,10 @@
         <div class="stat">
           <span class="stat-num" data-val="0">0</span>
           <span class="stat-label">В разработке</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" id="stat-days" data-val="0">0</span>
+          <span class="stat-label">Дней разработки</span>
         </div>
       </div>
     </div>
@@ -352,22 +360,23 @@
     <div class="footer-inner">
       <div class="footer-links">
         <a href="posledniy.html">ПОСЛЕДНИЙ РЕЙС</a>
+        <a href="coredrift.html">Core Drift</a>
+        <a href="oligarch.html">Zero to Oligarch</a>
+        <a href="floorbyfloor.html">Floor by Floor</a>
         <a href="resonance.html">RESONANCE</a>
         <a href="fnaf.html">ЖЕЛЕЗНЫЙ ЦЕХ</a>
         <a href="evtn.html">EVTN</a>
         <a href="shot.html">Shot</a>
         <a href="outpost.html">Outpost_Game</a>
-        <a href="oligarch.html">Zero to Oligarch</a>
-        <a href="floorbyfloor.html">Floor by Floor</a>
         <a href="changelog.html">История версий</a>
       </div>
       <span class="footer-copy">© 2026 ASPECT · Романуша Д.С. All rights reserved.</span>
     </div>
   </footer>
 
-  <script src="games.js?v=28"></script>
-  <script src="init.js?v=28"></script>
-  <script src="particles.js?v=28"></script>
+  <script src="games.js?v=29"></script>
+  <script src="init.js?v=29"></script>
+  <script src="particles.js?v=29"></script>
 </body>
 </html>
 

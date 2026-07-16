@@ -1830,3 +1830,83 @@ a.card:hover .card-copy-btn { opacity: 1; }
   .wip-card { padding: 1.75rem; }
   .gp-footer-row { flex-direction: column; align-items: flex-start; }
 }
+
+/* ═══ v29: ПОИСК · ИГРА ДНЯ · НОВОСТИ · ГЛИТЧ ═══ */
+
+/* поиск по играм */
+#game-search {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.4rem 1rem;
+  font-size: 0.78rem;
+  font-family: inherit;
+  letter-spacing: 0.05em;
+  min-width: 190px;
+  margin-left: auto;
+  border-radius: 0;
+  outline: none;
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+#game-search:focus { border-color: var(--muted); }
+#game-search::placeholder { color: var(--muted); }
+
+#search-empty {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 0 0 1.5rem;
+}
+
+/* при tilt карточка выходит поверх соседей */
+a.card:hover { z-index: 5; }
+
+/* игра дня */
+.gotd-badge {
+  position: absolute;
+  top: 3rem;
+  right: 1.75rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #eab308;
+  border: 1px solid rgba(234, 179, 8, 0.45);
+  padding: 0.22rem 0.55rem;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 2;
+  pointer-events: none;
+}
+a.card.gotd { box-shadow: inset 0 0 0 1px rgba(234, 179, 8, 0.28); }
+
+/* новости: свернуть/показать ещё */
+.news-item.news-hidden { display: none; }
+.news-more {
+  display: block;
+  margin: 2rem auto 0;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted2);
+  padding: 0.55rem 1.6rem;
+  font-size: 0.72rem;
+  font-family: inherit;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.news-more:hover { color: var(--text); border-color: var(--muted); }
+
+/* глитч-режим (пасхалка) */
+body.glitch-mode { animation: glitch-flicker 4s infinite steps(1); }
+@keyframes glitch-flicker {
+  0%, 92%, 96%, 100% { filter: none; }
+  93% { filter: invert(1) hue-rotate(90deg); }
+  94% { filter: none; }
+  95% { filter: saturate(3) contrast(1.4) hue-rotate(-30deg); }
+}
+
+@media (max-width: 640px) {
+  #game-search { margin-left: 0; width: 100%; }
+  .gotd-badge { top: 2.6rem; right: 1rem; }
+}

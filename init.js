@@ -72,7 +72,7 @@ window.showToast = function(msg) {
   if (nav) nav.insertBefore(btn, burgerEl || null);
 
   // ── NAV: TOTAL PLAYS ──
-  const totalPlays = ['resonance','fnaf','evtn','shot','outpost']
+  const totalPlays = ['posledniy','coredrift','oligarch','floorbyfloor','resonance','fnaf','evtn','shot','outpost']
     .reduce((s, k) => s + parseInt(localStorage.getItem('played_' + k) || '0', 10), 0);
   if (totalPlays > 0 && nav) {
     const playsSpan = document.createElement('span');
@@ -84,7 +84,7 @@ window.showToast = function(msg) {
 
   // ── NAV: RANDOM GAME ──
   if (nav) {
-    const GAME_KEYS = ['posledniy','resonance','fnaf','evtn','shot','outpost'];
+    const GAME_KEYS = ['posledniy','coredrift','oligarch','floorbyfloor','resonance','fnaf','evtn','shot','outpost'];
     const rndLi = document.createElement('li');
     const rndA = document.createElement('a');
     rndA.href = '#';
@@ -300,18 +300,49 @@ document.querySelectorAll('.card[data-game]').forEach(card => {
   playsIo.observe(card);
 });
 
-// ── FILTER ──
+// ── FILTER + SEARCH ──
+const searchInput = document.getElementById('game-search');
+const searchEmpty = document.getElementById('search-empty');
+let activeFilter = 'all';
+
+function applyGameFilters() {
+  const q = (searchInput?.value || '').trim().toLowerCase();
+  let shown = 0;
+  document.querySelectorAll('.card').forEach(card => {
+    const genre = card.querySelector('.card-genre')?.textContent || '';
+    const hay = ((card.querySelector('h3')?.textContent || '') + ' ' + genre + ' ' +
+      (card.querySelector('.card-tags')?.textContent || '')).toLowerCase();
+    const show = (activeFilter === 'all' || genre.includes(activeFilter)) && (!q || hay.includes(q));
+    card.style.display = show ? '' : 'none';
+    if (show) shown++;
+  });
+  if (searchEmpty) searchEmpty.hidden = shown > 0;
+}
+
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const f = btn.dataset.filter;
-    document.querySelectorAll('.card').forEach(card => {
-      const genre = card.querySelector('.card-genre')?.textContent || '';
-      card.style.display = (f === 'all' || genre.includes(f)) ? '' : 'none';
-    });
+    activeFilter = btn.dataset.filter;
+    applyGameFilters();
   });
 });
+
+if (searchInput) {
+  searchInput.addEventListener('input', applyGameFilters);
+  // «/» — фокус в поиск, Esc — очистить
+  document.addEventListener('keydown', e => {
+    const tag = document.activeElement?.tagName || '';
+    if (e.key === '/' && !/INPUT|TEXTAREA/.test(tag)) {
+      e.preventDefault();
+      searchInput.focus();
+    } else if (e.key === 'Escape' && document.activeElement === searchInput) {
+      searchInput.value = '';
+      applyGameFilters();
+      searchInput.blur();
+    }
+  });
+}
 
 // ── SECTION HEADING TYPEWRITER ──
 const headingIo = new IntersectionObserver(entries => {
@@ -411,3 +442,130 @@ if (logoImg) {
 document.getElementById('scroll-down')?.addEventListener('click', () => {
   document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' });
 });
+
+// ── ИГРА ДНЯ ──
+(function() {
+  const cards = [...document.querySelectorAll('.card[data-game]')];
+  if (!cards.length) return;
+  const d = new Date();
+  const seed = d.getFullYear() * 372 + (d.getMonth() + 1) * 31 + d.getDate();
+  const card = cards[seed % cards.length];
+  const badge = document.createElement('div');
+  badge.className = 'gotd-badge';
+  badge.textContent = '★ Игра дня';
+  card.appendChild(badge);
+  card.classList.add('gotd');
+})();
+
+// ── 3D TILT КАРТОЧЕК ──
+(function() {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('a.card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transition = 'transform 0.12s ease-out';
+    });
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width  - 0.5;
+      const py = (e.clientY - r.top)  / r.height - 0.5;
+      card.style.transform =
+        `perspective(700px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 7).toFixed(2)}deg) translateY(-3px) scale(1.015)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = '';
+      card.style.transform = '';
+    });
+  });
+})();
+
+// ── НОВОСТИ: СВЕРНУТЬ ──
+(function() {
+  const items = [...document.querySelectorAll('.news-item')];
+  const btn = document.getElementById('news-more');
+  const LIMIT = 6;
+  if (!btn || items.length <= LIMIT) return;
+  const collapse = () => {
+    items.slice(LIMIT).forEach(el => el.classList.add('news-hidden'));
+    btn.textContent = `Показать ещё (${items.length - LIMIT}) ↓`;
+  };
+  collapse();
+  btn.hidden = false;
+  btn.addEventListener('click', () => {
+    if (items.some(el => el.classList.contains('news-hidden'))) {
+      items.forEach(el => { el.classList.remove('news-hidden'); el.style.transitionDelay = '0ms'; });
+      btn.textContent = 'Свернуть ↑';
+    } else {
+      collapse();
+      document.getElementById('news')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+})();
+
+// ── ДНЕЙ РАЗРАБОТКИ (с 27.12.2025) ──
+(function() {
+  const el = document.getElementById('stat-days');
+  if (!el) return;
+  el.dataset.val = Math.max(1, Math.floor((Date.now() - new Date(2025, 11, 27).getTime()) / 86400000));
+})();
+
+// ── ДОСТИЖЕНИЯ ПОСЕТИТЕЛЯ ──
+(function() {
+  const KEY = 'aspect_achievements';
+  const earned = JSON.parse(localStorage.getItem(KEY) || '{}');
+  const GAMES = ['posledniy','coredrift','oligarch','floorbyfloor','resonance','fnaf','evtn','shot','outpost'];
+  const DEFS = {
+    explorer: { icon: '🗺', name: 'Исследователь', desc: 'Открыть страницы всех 9 игр' },
+    night:    { icon: '🌙', name: 'Ночной гость',  desc: 'Зайти на сайт с 00:00 до 05:00' },
+    regular:  { icon: '🔥', name: 'Свой человек',  desc: '10 визитов на сайт' },
+    konami:   { icon: '👾', name: 'Код доступа',   desc: 'Ввести секретный код' },
+  };
+  window.grantAchievement = function(id) {
+    if (earned[id] || !DEFS[id]) return;
+    earned[id] = new Date().toISOString();
+    localStorage.setItem(KEY, JSON.stringify(earned));
+    window.showToast?.(`${DEFS[id].icon} Достижение: ${DEFS[id].name}`);
+  };
+
+  const visited = JSON.parse(localStorage.getItem('aspect_visited') || '[]');
+  const page = (location.pathname.split('/').pop() || '').replace('.html', '');
+  if (GAMES.includes(page) && !visited.includes(page)) {
+    visited.push(page);
+    localStorage.setItem('aspect_visited', JSON.stringify(visited));
+  }
+  if (GAMES.every(g => visited.includes(g))) window.grantAchievement('explorer');
+  const h = new Date().getHours();
+  if (h >= 0 && h < 5) window.grantAchievement('night');
+  if ((JSON.parse(localStorage.getItem('aspect_analytics') || '{}').visits || 0) >= 10) window.grantAchievement('regular');
+
+  // блок в панели Alt+Shift+A
+  const apBody = document.querySelector('#analytics-panel .ap-body');
+  if (apBody) {
+    const sep = document.createElement('div');
+    sep.className = 'ap-sep';
+    apBody.appendChild(sep);
+    Object.entries(DEFS).forEach(([id, d]) => {
+      const row = document.createElement('div');
+      row.className = 'ap-row';
+      row.title = d.desc;
+      row.innerHTML = `<span>${d.icon} ${d.name}</span><b>${earned[id] ? '✓' : '—'}</b>`;
+      apBody.appendChild(row);
+    });
+  }
+})();
+
+// ── KONAMI → ГЛИТЧ-РЕЖИМ ──
+(function() {
+  const SEQ = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let pos = 0;
+  document.addEventListener('keydown', e => {
+    if (/INPUT|TEXTAREA/.test(document.activeElement?.tagName || '')) return;
+    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    pos = (k === SEQ[pos]) ? pos + 1 : (k === SEQ[0] ? 1 : 0);
+    if (pos < SEQ.length) return;
+    pos = 0;
+    const on = document.body.classList.toggle('glitch-mode');
+    window.grantAchievement?.('konami');
+    window.showToast?.(on ? '👾 ГЛИТЧ-РЕЖИМ АКТИВИРОВАН' : 'Глитч-режим выключен');
+  });
+})();

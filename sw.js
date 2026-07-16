@@ -1,8 +1,9 @@
-const CACHE = 'aspect-v3';
+const CACHE = 'aspect-v4';
 
 const STATIC = [
   './',
   './index.html',
+  './posledniy.html',
   './resonance.html',
   './fnaf.html',
   './evtn.html',
