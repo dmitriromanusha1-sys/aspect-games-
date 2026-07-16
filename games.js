@@ -1,4 +1,26 @@
 ﻿﻿﻿﻿const GAMES = {
+  posledniy: {
+    title: 'ПОСЛЕДНИЙ РЕЙС',
+    status: 'Релиз',
+    version: 'V.1.0.0',
+    released: '2026',
+    url: 'https://aspect-games-rd.itch.io/posledniy-reys',
+    downloadOnly: true,
+    genre: 'Инди · Хоррор',
+    tags: ['#horror', '#nights', '#survival'],
+    difficulty: 'Хардкор',
+    description: 'Заброшенная станция метро, которой нет в расписании двадцать лет. Ты — ночной диспетчер: пульт, пятнадцать камер, дверь и вентиляция. По станции ходят трое, и у каждого своя механика — машиниста держит дверь, смотрительницу нельзя выпускать из виду, путеец ползёт по вентиляции. Закроешь всё разом — задохнёшься. Продержись 10 ночей до утра. И не расписывайся.',
+    screenshots: [
+      'POSLEDNIY/posledniy-1.png',
+      'POSLEDNIY/posledniy-2.png',
+      'POSLEDNIY/posledniy-3.png',
+      'POSLEDNIY/posledniy-4.png',
+      'POSLEDNIY/posledniy-5.png',
+    ],
+    changelog: [
+      'V.1.0.0 — Первый полный релиз: 15 локаций, 3 антагониста, 10 ночей, лор дневником, концовка',
+    ],
+  },
   resonance: {
     title: 'RESONANCE',
     status: 'Релиз',

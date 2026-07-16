@@ -84,7 +84,7 @@ window.showToast = function(msg) {
 
   // ── NAV: RANDOM GAME ──
   if (nav) {
-    const GAME_KEYS = ['resonance','fnaf','evtn','shot','outpost'];
+    const GAME_KEYS = ['posledniy','resonance','fnaf','evtn','shot','outpost'];
     const rndLi = document.createElement('li');
     const rndA = document.createElement('a');
     rndA.href = '#';
