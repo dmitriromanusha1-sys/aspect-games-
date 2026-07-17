@@ -78,7 +78,6 @@ function renderContent() {
           <span class="gp-version">${g.version}</span>
           <span class="gp-genre">${g.genre}</span>
           <span class="gp-year">${g.released}</span>
-          ${g.size ? `<span class="gp-year">${g.size}</span>` : ''}
         </div>
       </div>
     </section>
@@ -104,7 +103,7 @@ function renderContent() {
         <span class="gp-dev-credit">Разработчик: Романуша Д.С. · ASPECT</span>
         <div class="gp-actions">
           <button class="share-btn" id="gp-share">&#10697; Поделиться</button>
-          <a href="${g.url}" target="_blank" rel="noopener" class="play-btn" id="gp-play">${g.downloadOnly ? 'Скачать ↓' : 'Играть →'}</a>
+          <a href="${g.url}" target="_blank" rel="noopener" class="play-btn" id="gp-play">${g.downloadOnly ? `Скачать${g.size ? ` (${g.size})` : ''} ↓` : 'Играть →'}</a>
         </div>
       </div>
       <span class="gp-plays" id="gp-plays"></span>

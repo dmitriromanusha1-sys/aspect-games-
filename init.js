@@ -272,16 +272,6 @@ document.querySelectorAll('a.card[href]').forEach(card => {
   }, { once: true });
 });
 
-// ── РАЗМЕР СКАЧИВАНИЯ НА КАРТОЧКАХ ── (единый источник — GAMES.size)
-if (typeof GAMES !== 'undefined') {
-  document.querySelectorAll('.card[data-game]').forEach(card => {
-    const g = GAMES[card.dataset.game];
-    if (!g || !g.size) return;
-    const version = card.querySelector('.version');
-    if (version) version.textContent += ` · ${g.size}`;
-  });
-}
-
 // ── CARD THUMBNAILS ──
 document.querySelectorAll('.card[data-thumb]').forEach(card => {
   const raw = card.dataset.thumb;
