@@ -78,6 +78,7 @@ function renderContent() {
           <span class="gp-version">${g.version}</span>
           <span class="gp-genre">${g.genre}</span>
           <span class="gp-year">${g.released}</span>
+          ${g.size ? `<span class="gp-year">${g.size}</span>` : ''}
         </div>
       </div>
     </section>

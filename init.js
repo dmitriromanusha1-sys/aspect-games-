@@ -272,6 +272,16 @@ document.querySelectorAll('a.card[href]').forEach(card => {
   }, { once: true });
 });
 
+// ── РАЗМЕР СКАЧИВАНИЯ НА КАРТОЧКАХ ── (единый источник — GAMES.size)
+if (typeof GAMES !== 'undefined') {
+  document.querySelectorAll('.card[data-game]').forEach(card => {
+    const g = GAMES[card.dataset.game];
+    if (!g || !g.size) return;
+    const version = card.querySelector('.version');
+    if (version) version.textContent += ` · ${g.size}`;
+  });
+}
+
 // ── CARD THUMBNAILS ──
 document.querySelectorAll('.card[data-thumb]').forEach(card => {
   const raw = card.dataset.thumb;
@@ -473,7 +483,7 @@ document.getElementById('scroll-down')?.addEventListener('click', () => {
       <h3 class="gotd-title">${game.title}</h3>
       <p class="gotd-desc">${game.description}</p>
       <div class="gotd-actions">
-        <a class="gotd-download" href="${game.url}" target="_blank" rel="noopener">Скачать →</a>
+        <a class="gotd-download" href="${game.url}" target="_blank" rel="noopener">Скачать${game.size ? ` (${game.size})` : ''} →</a>
         <a class="gotd-more" href="${key}.html">Подробнее</a>
       </div>
     </div>`;
