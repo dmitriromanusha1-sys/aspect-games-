@@ -443,18 +443,40 @@ document.getElementById('scroll-down')?.addEventListener('click', () => {
   document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' });
 });
 
-// ── ИГРА ДНЯ ──
+// ── ИГРА ДНЯ ── (один и тот же выбор на бейдже карточки и в баннере наверху)
 (function() {
-  const cards = [...document.querySelectorAll('.card[data-game]')];
-  if (!cards.length) return;
+  if (typeof GAMES === 'undefined') return;
+  const keys = Object.keys(GAMES);
+  if (!keys.length) return;
   const d = new Date();
   const seed = d.getFullYear() * 372 + (d.getMonth() + 1) * 31 + d.getDate();
-  const card = cards[seed % cards.length];
-  const badge = document.createElement('div');
-  badge.className = 'gotd-badge';
-  badge.textContent = '★ Игра дня';
-  card.appendChild(badge);
-  card.classList.add('gotd');
+  const key = keys[seed % keys.length];
+  const game = GAMES[key];
+
+  // Бейдж на карточке в общей сетке.
+  const card = document.querySelector(`.card[data-game="${key}"]`);
+  if (card) {
+    const badge = document.createElement('div');
+    badge.className = 'gotd-badge';
+    badge.textContent = '★ Игра дня';
+    card.appendChild(badge);
+    card.classList.add('gotd');
+  }
+
+  // Баннер наверху — сразу с кнопкой скачать, без перехода на страницу игры.
+  const section = document.getElementById('gotd');
+  if (!section || !game) return;
+  const thumb = (game.screenshots && game.screenshots[0]) || '';
+  section.innerHTML = `
+    <div class="gotd-inner" style="--gotd-bg: url('${encodeURI(thumb)}')">
+      <div class="gotd-label">★ Игра дня</div>
+      <h3 class="gotd-title">${game.title}</h3>
+      <p class="gotd-desc">${game.description}</p>
+      <div class="gotd-actions">
+        <a class="gotd-download" href="${game.url}" target="_blank" rel="noopener">Скачать →</a>
+        <a class="gotd-more" href="${key}.html">Подробнее</a>
+      </div>
+    </div>`;
 })();
 
 // ── 3D TILT КАРТОЧЕК ──

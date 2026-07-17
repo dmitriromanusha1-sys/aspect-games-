@@ -1910,3 +1910,86 @@ body.glitch-mode { animation: glitch-flicker 4s infinite steps(1); }
   #game-search { margin-left: 0; width: 100%; }
   .gotd-badge { top: 2.6rem; right: 1rem; }
 }
+
+/* ═══ ИГРА ДНЯ — баннер наверху ═══ */
+.gotd-section { position: relative; }
+.gotd-section:empty { display: none; }
+
+.gotd-inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding: 2.4rem 2rem;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  background:
+    linear-gradient(to right, rgba(5,5,7,0.94) 0%, rgba(5,5,7,0.75) 55%, rgba(5,5,7,0.35) 100%),
+    var(--gotd-bg) center / cover no-repeat;
+  overflow: hidden;
+}
+
+.gotd-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #eab308;
+  margin-bottom: 0.6rem;
+}
+
+.gotd-title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.7rem;
+  max-width: 640px;
+}
+
+.gotd-desc {
+  color: var(--muted2);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 560px;
+  margin-bottom: 1.4rem;
+}
+
+.gotd-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.gotd-download {
+  background: #eab308;
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1.6rem;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.15s;
+}
+.gotd-download:hover { background: #fbbf24; transform: translateY(-1px); }
+
+.gotd-more {
+  color: var(--muted2);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 0.4rem;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.gotd-more:hover { color: var(--text); border-color: var(--muted); }
+
+/* ── ЗАМЕТКА О ПЛАТФОРМЕ ── */
+.platform-note {
+  color: var(--muted2);
+  font-size: 0.78rem;
+  margin: -1.5rem 0 1.6rem;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 640px) {
+  .gotd-inner { margin-top: 2rem; padding: 1.8rem 1.4rem; min-height: 0; }
+  .gotd-title { max-width: 100%; }
+  .gotd-desc { max-width: 100%; }
+}
