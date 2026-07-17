@@ -1988,6 +1988,12 @@ body.glitch-mode { animation: glitch-flicker 4s infinite steps(1); }
   letter-spacing: 0.02em;
 }
 
+.smartscreen-note {
+  max-width: 720px;
+  line-height: 1.6;
+  margin-top: -1rem;
+}
+
 @media (max-width: 640px) {
   .gotd-inner { margin-top: 2rem; padding: 1.8rem 1.4rem; min-height: 0; }
   .gotd-title { max-width: 100%; }
