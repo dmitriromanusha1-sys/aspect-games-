@@ -535,9 +535,9 @@ document.getElementById('scroll-down')?.addEventListener('click', () => {
 (function() {
   const KEY = 'aspect_achievements';
   const earned = JSON.parse(localStorage.getItem(KEY) || '{}');
-  const GAMES = ['posledniy','coredrift','oligarch','floorbyfloor','resonance','fnaf','evtn','shot','outpost'];
+  const GAMES = ['posledniy','coredrift','oligarch','floorbyfloor','resonance','fnaf','evtn','shot','outpost','zone'];
   const DEFS = {
-    explorer: { icon: '🗺', name: 'Исследователь', desc: 'Открыть страницы всех 9 игр' },
+    explorer: { icon: '🗺', name: 'Исследователь', desc: 'Открыть страницы всех 10 игр' },
     night:    { icon: '🌙', name: 'Ночной гость',  desc: 'Зайти на сайт с 00:00 до 05:00' },
     regular:  { icon: '🔥', name: 'Свой человек',  desc: '10 визитов на сайт' },
     konami:   { icon: '👾', name: 'Код доступа',   desc: 'Ввести секретный код' },
