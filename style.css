@@ -1009,8 +1009,7 @@ footer {
 }
 
 .sk-hero {
-  height: 56vh;
-  min-height: 320px;
+  height: 160px;
   background: var(--surface);
   animation: shimmer 1.4s infinite linear;
   background-image: linear-gradient(90deg, var(--surface) 0%, var(--surface2) 40%, var(--surface) 80%);
@@ -1071,35 +1070,15 @@ footer {
 /* ═══════════════════════════════
    GAME PAGE
 ═══════════════════════════════ */
-.gp-hero {
-  min-height: 56vh;
-  background-size: cover;
-  background-position: center 30%;
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  padding-top: 56px;
-}
-
-.gp-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(10,10,10,1)   0%,
-    rgba(10,10,10,0.65) 45%,
-    rgba(10,10,10,0.3)  100%
-  );
-  pointer-events: none;
-}
-
-.gp-hero-content {
-  position: relative;
-  z-index: 1;
+/* Раньше здесь был на весь экран фон-скриншот с текстом поверх — из-за него
+   заголовок и подписи наезжали на то, что уже нарисовано на самом скриншоте
+   (у промо-кадров часто уже есть свой заголовок и подписи). Теперь это простой
+   текстовый блок без фона: фотографии показывает только слайдер ниже. */
+.gp-topbar {
   max-width: 1080px;
   width: 100%;
   margin: 0 auto;
-  padding: 3.5rem 2rem 3rem;
+  padding: calc(56px + 2.5rem) 2rem 2rem;
 }
 
 .gp-back {

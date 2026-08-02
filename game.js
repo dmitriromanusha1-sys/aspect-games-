@@ -65,22 +65,19 @@ const changelogHTML = g.changelog
 // Render real content after first screenshot loads (or immediately if no shots)
 function renderContent() {
   root.innerHTML = `
-    <section class="gp-hero gp-anim-hero" id="gp-hero" style="background-image:url('${imgUrl(shots[0])}')">
-      <div class="gp-hero-overlay"></div>
-      <div class="gp-hero-content">
-        <a href="index.html" class="gp-back">← Все игры</a>
-        <div class="gp-status-row">
-          <span class="gp-tag${g.status==='Бета'?' beta-tag':''}">${g.status}</span>
-          ${g.difficulty ? `<span class="diff-badge ${diffClass}">${g.difficulty}</span>` : ''}
-        </div>
-        <h1 class="gp-title">${g.title}</h1>
-        <div class="gp-meta">
-          <span class="gp-version">${g.version}</span>
-          <span class="gp-genre">${g.genre}</span>
-          <span class="gp-year">${g.released}</span>
-        </div>
+    <div class="gp-topbar gp-anim-hero" id="gp-hero">
+      <a href="index.html" class="gp-back">← Все игры</a>
+      <div class="gp-status-row">
+        <span class="gp-tag${g.status==='Бета'?' beta-tag':''}">${g.status}</span>
+        ${g.difficulty ? `<span class="diff-badge ${diffClass}">${g.difficulty}</span>` : ''}
       </div>
-    </section>
+      <h1 class="gp-title">${g.title}</h1>
+      <div class="gp-meta">
+        <span class="gp-version">${g.version}</span>
+        <span class="gp-genre">${g.genre}</span>
+        <span class="gp-year">${g.released}</span>
+      </div>
+    </div>
 
     <div class="gp-body">
       ${sliderHTML}
@@ -122,7 +119,6 @@ function renderContent() {
   initLightbox();
   initPlayCounter();
   initShare();
-  initParallax();
 }
 
 if (shots.length) {
@@ -291,12 +287,3 @@ function initLightbox() {
   });
 }
 
-// ── PARALLAX HERO ──
-function initParallax() {
-  const heroEl = document.getElementById('gp-hero');
-  if (heroEl) {
-    window.addEventListener('scroll', () => {
-      heroEl.style.backgroundPositionY = `calc(30% + ${window.scrollY * 0.3}px)`;
-    }, { passive: true });
-  }
-}
