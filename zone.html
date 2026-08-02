@@ -3,7 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ASPECT — Игра</title>
+  <title>Zone — ASPECT</title>
+  <meta name="description" content="2D battle royale сверху вниз против 30 ботов: сжимающаяся зона, обвесы на оружие, шлем и бронежилет по раздельным зонам попадания, сеточный инвентарь, десять тактических паттернов ИИ." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Zone — ASPECT" />
+  <meta property="og:description" content="Процедурная карта, звук и музыка целиком сгенерированы кодом. Легендарная редкость со своим свечением на земле, на бойце и на пуле." />
+  <meta property="og:image" content="https://dmitriromanusha1-sys.github.io/aspect-games-/LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" />
+  <meta property="og:url" content="https://dmitriromanusha1-sys.github.io/aspect-games-/zone.html" />
+  <meta property="og:site_name" content="ASPECT Games" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Zone — ASPECT" />
+  <meta name="twitter:description" content="2D battle royale сверху вниз против 30 ботов на процедурной карте." />
+  <meta name="twitter:image" content="https://dmitriromanusha1-sys.github.io/aspect-games-/LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" />
   <meta name="theme-color" content="#0a0a0f" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" />
@@ -11,14 +22,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="canonical" href="https://dmitriromanusha1-sys.github.io/aspect-games-/game.html" />
+  <link rel="canonical" href="https://dmitriromanusha1-sys.github.io/aspect-games-/zone.html" />
     <link rel="stylesheet" href="style.css?v=33"
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
   <div class="cursor-dot" id="cursor-dot"></div>
   <button class="back-to-top" id="back-to-top" aria-label="Наверх">↑</button>
-
   <header>
     <nav>
       <a href="index.html" class="logo">
@@ -32,14 +42,10 @@
         <li><a href="index.html#about">О нас</a></li>
         <li><a href="index.html#contacts">Контакты</a></li>
       </ul>
-      <button class="burger" id="burger" aria-label="Меню">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
     </nav>
   </header>
-
   <main id="game-root"></main>
-
   <footer>
     <div class="footer-inner">
       <div class="footer-links">
@@ -58,8 +64,7 @@
       <span class="footer-copy">© 2026 ASPECT · Романуша Д.С. All rights reserved.</span>
     </div>
   </footer>
-
-  <script>if (!window.GAME_KEY) location.replace('index.html');</script>
+  <script>window.GAME_KEY = 'zone';</script>
   <script src="games.js?v=33"></script>
   <script src="game.js?v=33"></script>
   <script src="init.js?v=33"></script>
