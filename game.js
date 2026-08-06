@@ -100,7 +100,9 @@ function renderContent() {
         <span class="gp-dev-credit">Разработчик: Романуша Д.С. · ASPECT</span>
         <div class="gp-actions">
           <button class="share-btn" id="gp-share">&#10697; Поделиться</button>
-          <a href="${g.url}" target="_blank" rel="noopener" class="play-btn" id="gp-play">${g.downloadOnly ? `Скачать${g.size ? ` (${g.size})` : ''} ↓` : 'Играть →'}</a>
+          ${g.url
+            ? `<a href="${g.url}" target="_blank" rel="noopener" class="play-btn" id="gp-play">${g.downloadOnly ? `Скачать${g.size ? ` (${g.size})` : ''} ↓` : 'Играть →'}</a>`
+            : `<span class="play-btn play-btn-disabled" id="gp-play">Скоро</span>`}
         </div>
       </div>
       <span class="gp-plays" id="gp-plays"></span>

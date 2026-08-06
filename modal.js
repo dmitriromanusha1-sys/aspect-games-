@@ -75,7 +75,9 @@ function openModal(gameKey) {
       <span class="modal-dev">Разработчик: Романуша Д.С. · ASPECT</span>
       <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
         <button class="share-btn" id="share-btn" data-url="${g.url}">⧉ Поделиться</button>
-        <a href="${g.url}" target="_blank" class="play-btn">${g.downloadOnly ? 'Скачать ↓' : 'Играть →'}</a>
+        ${g.url
+          ? `<a href="${g.url}" target="_blank" class="play-btn">${g.downloadOnly ? 'Скачать ↓' : 'Играть →'}</a>`
+          : `<span class="play-btn play-btn-disabled">Скоро</span>`}
       </div>
     </div>
   `;

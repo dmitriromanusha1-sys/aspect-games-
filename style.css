@@ -1308,6 +1308,14 @@ footer {
 
 .play-btn:hover { background: #d8d8d8; transform: translateY(-1px); }
 
+.play-btn-disabled {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--muted);
+  cursor: default;
+}
+.play-btn-disabled:hover { background: transparent; transform: none; }
+
 .share-btn {
   display: inline-flex;
   align-items: center;
