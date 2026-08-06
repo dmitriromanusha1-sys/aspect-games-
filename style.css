@@ -1333,6 +1333,22 @@ footer {
 
 .share-btn:hover { border-color: #555; color: var(--text); }
 
+.archive-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background: none;
+  border: 1px solid var(--border2);
+  color: var(--muted2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.archive-btn:hover { border-color: #555; color: var(--text); }
+
 /* ── LIGHTBOX ── */
 #lightbox {
   position: fixed;

@@ -98,6 +98,8 @@
     released: '2026',
     url: 'https://aspect-games-rd.itch.io/armament',
     downloadOnly: true,
+    archiveUrl: 'evtn.html',
+    archiveLabel: 'Архив: EVTN',
     size: '63 МБ',
     genre: 'Рогалик',
     tags: ['#roguelike', '#shooter', '#evolution', '#remake'],
