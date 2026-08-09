@@ -446,7 +446,9 @@ document.getElementById('scroll-down')?.addEventListener('click', () => {
 // ── ИГРА ДНЯ ── (один и тот же выбор на бейдже карточки и в баннере наверху)
 (function() {
   if (typeof GAMES === 'undefined') return;
-  const keys = Object.keys(GAMES);
+  // Архивные игры в ротацию не идут: у них нет карточки в сетке, и предлагать
+  // скачать заброшенный проект вместо его продолжения незачем.
+  const keys = Object.keys(GAMES).filter(k => GAMES[k].status !== 'Архив');
   if (!keys.length) return;
   const d = new Date();
   const seed = d.getFullYear() * 372 + (d.getMonth() + 1) * 31 + d.getDate();

@@ -1,4 +1,4 @@
-﻿const CACHE = 'aspect-v7';
+﻿const CACHE = 'aspect-v8';
 
 const STATIC = [
   './',
