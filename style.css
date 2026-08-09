@@ -276,6 +276,18 @@ nav a:hover, nav a.active { color: var(--text); }
   gap: 0.5rem;
   margin-bottom: 2rem;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Кнопки жанров переносятся внутри своего блока, а поиск остаётся справа
+   на той же строке. Раньше кнопки и поиск лежали одним рядом: как только
+   кнопок стало восемь, ряд переносился и поиск уезжал под них. */
+.filter-btns {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .filter-btn {
@@ -1829,6 +1841,9 @@ a.card:hover .card-copy-btn { opacity: 1; }
   .stats { gap: 2rem; }
   .stat-num { font-size: 2.25rem; }
   .filter-bar { flex-wrap: wrap; }
+  /* на узком экране поиск занимает свою строку целиком — так он не жмётся
+     до нечитаемой ширины рядом с кнопками */
+  #game-search { width: 100%; margin-left: 0; flex: 1 1 100%; }
   .hero-content h1 { letter-spacing: 0.12em; }
   .wip-card { padding: 1.75rem; }
   .gp-footer-row { flex-direction: column; align-items: flex-start; }
@@ -1847,6 +1862,7 @@ a.card:hover .card-copy-btn { opacity: 1; }
   letter-spacing: 0.05em;
   min-width: 190px;
   margin-left: auto;
+  flex: 0 0 auto;
   border-radius: 0;
   outline: none;
   transition: border-color 0.15s;

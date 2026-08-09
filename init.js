@@ -84,7 +84,12 @@ window.showToast = function(msg) {
 
   // ── NAV: RANDOM GAME ──
   if (nav) {
-    const GAME_KEYS = ['posledniy','coredrift','oligarch','floorbyfloor','resonance','fnaf','evtn','shot','outpost'];
+    // Список берём из каталога, а не держим руками: захардкоженный отставал —
+    // в нём не было ARMAMENT, KIN и Zone, зато были архивные EVTN и Shot,
+    // и «случайная игра» уводила на заброшенные проекты.
+    const GAME_KEYS = (typeof GAMES !== 'undefined')
+      ? Object.keys(GAMES).filter(k => GAMES[k].status !== 'Архив')
+      : ['posledniy', 'coredrift', 'oligarch', 'floorbyfloor', 'resonance', 'fnaf', 'outpost'];
     const rndLi = document.createElement('li');
     const rndA = document.createElement('a');
     rndA.href = '#';
