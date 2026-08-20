@@ -41,9 +41,14 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://dmitriromanusha1-sys.github.io/aspect-games-/outpost.html</loc>
+    <loc>https://dmitriromanusha1-sys.github.io/aspect-games-/lastestate.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dmitriromanusha1-sys.github.io/aspect-games-/outpost.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dmitriromanusha1-sys.github.io/aspect-games-/oligarch.html</loc>

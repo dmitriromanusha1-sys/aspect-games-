@@ -9,6 +9,7 @@ const STATIC = [
   './evtn.html',
   './armament.html',
   './shot.html',
+  './lastestate.html',
   './outpost.html',
   './oligarch.html',
   './floorbyfloor.html',

@@ -72,7 +72,7 @@ window.showToast = function(msg) {
   if (nav) nav.insertBefore(btn, burgerEl || null);
 
   // ── NAV: TOTAL PLAYS ──
-  const totalPlays = ['posledniy','coredrift','oligarch','floorbyfloor','resonance','fnaf','evtn','shot','outpost']
+  const totalPlays = ['posledniy','coredrift','oligarch','floorbyfloor','resonance','fnaf','evtn','shot','lastestate']
     .reduce((s, k) => s + parseInt(localStorage.getItem('played_' + k) || '0', 10), 0);
   if (totalPlays > 0 && nav) {
     const playsSpan = document.createElement('span');
@@ -542,7 +542,7 @@ document.getElementById('scroll-down')?.addEventListener('click', () => {
 (function() {
   const KEY = 'aspect_achievements';
   const earned = JSON.parse(localStorage.getItem(KEY) || '{}');
-  const GAMES = ['posledniy','coredrift','oligarch','floorbyfloor','resonance','fnaf','evtn','shot','outpost','zone'];
+  const GAMES = ['posledniy','coredrift','oligarch','floorbyfloor','resonance','fnaf','evtn','shot','lastestate','zone'];
   const DEFS = {
     explorer: { icon: '🗺', name: 'Исследователь', desc: 'Открыть страницы всех 10 игр' },
     night:    { icon: '🌙', name: 'Ночной гость',  desc: 'Зайти на сайт с 00:00 до 05:00' },
