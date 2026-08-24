@@ -1,0 +1,17 @@
+{
+  "name": "ASP Tracker",
+  "short_name": "ASP Tracker",
+  "description": "Цели, бюджет, привычки и финансовый калькулятор в одном приложении",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f7f2",
+  "theme_color": "#1f8a4c",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

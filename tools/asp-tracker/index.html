@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ASP Tracker</title>
+<link rel="stylesheet" href="styles.css" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icon.svg" type="image/svg+xml" />
+<meta name="theme-color" content="#1f8a4c" />
+</head>
+<body>
+<div id="app">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">📌 ASP Tracker</div>
+    <a href="../../tools.html" style="display:block;font-size:12px;color:var(--text-muted);text-decoration:none;margin:-6px 0 10px;">← ASPECT</a>
+    <div class="sidebar-search">
+      <input id="globalSearch" type="text" placeholder="🔍 Поиск везде… (Ctrl+K)" autocomplete="off" />
+      <div id="globalSearchResults" class="global-search-results" hidden></div>
+    </div>
+    <nav class="side-nav">
+      <button class="side-nav-btn active" data-section="overview">🏠 Обзор</button>
+
+      <div class="side-nav-label">Планирование</div>
+      <button class="side-nav-btn" data-section="goals">🎯 Цели</button>
+      <button class="side-nav-btn" data-section="habits">✅ Привычки</button>
+
+      <div class="side-nav-label">Финансы</div>
+      <button class="side-nav-btn" data-section="finance">💰 Финансы</button>
+
+      <div class="side-nav-label">Обзор данных</div>
+      <button class="side-nav-btn" data-section="analytics">📊 Аналитика</button>
+      <button class="side-nav-btn" data-section="tools">🛠 Инструменты</button>
+    </nav>
+    <div class="sidebar-footer">
+      <button id="themeToggleBtn" class="sidebar-icon-btn" title="Тема">🌙 Тёмная тема</button>
+      <button class="side-nav-btn" data-section="settings">⚙️ Настройки</button>
+    </div>
+  </aside>
+
+  <div class="main-col">
+
+  <!-- ================= OVERVIEW SECTION ================= -->
+  <section id="section-overview" class="app-section active">
+    <header class="topbar">
+      <h1>Обзор</h1>
+    </header>
+
+    <div class="overview-grid">
+      <div class="stat-card">
+        <div class="stat-label">Активных целей</div>
+        <div id="ovActiveGoals" class="stat-value">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Целей закрыто в срок</div>
+        <div id="ovOnTimeRate" class="stat-value">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Баланс бюджета</div>
+        <div id="ovBalance" class="stat-value">0 ₽</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Привычки сегодня</div>
+        <div id="ovHabitsToday" class="stat-value">0/0</div>
+      </div>
+      <div class="stat-card stat-card-clickable" id="ovPomoCard" data-goto="tools">
+        <div class="stat-label">Помидоров сегодня</div>
+        <div id="ovPomoToday" class="stat-value">0</div>
+      </div>
+      <div class="stat-card stat-card-clickable" id="ovUrgentCard" data-goto="tools">
+        <div class="stat-label">Важно и срочно</div>
+        <div id="ovUrgentTasks" class="stat-value">0</div>
+      </div>
+    </div>
+
+    <div id="backupBanner" class="backup-banner" hidden>
+      <span>💾 Давно не делали резервную копию данных.</span>
+      <button id="backupBannerBtn" class="secondary-btn">Экспортировать сейчас</button>
+      <button id="backupBannerDismiss" class="icon-btn">✕</button>
+    </div>
+
+    <div class="overview-columns">
+      <div class="overview-block">
+        <h3>⏰ Ближайшие дедлайны</h3>
+        <div id="ovDeadlines" class="overview-list"></div>
+      </div>
+      <div class="overview-block">
+        <h3>✅ Привычки на сегодня</h3>
+        <div id="ovHabitsList" class="overview-list"></div>
+      </div>
+    </div>
+
+    <div class="overview-columns">
+      <div class="overview-block">
+        <h3>⚡ Быстро: операция бюджета</h3>
+        <div class="quick-add-row">
+          <select id="qaTxType"><option value="expense">Расход</option><option value="income">Доход</option></select>
+          <input id="qaTxAmount" type="number" min="0" step="0.01" placeholder="Сумма" />
+          <input id="qaTxCategory" type="text" placeholder="Категория" />
+          <button id="qaTxAddBtn" class="primary-btn">Добавить</button>
+        </div>
+      </div>
+      <div class="overview-block">
+        <h3>⚡ Быстро: новая цель</h3>
+        <div class="quick-add-row">
+          <input id="qaGoalTitle" type="text" placeholder="Название цели" />
+          <input id="qaGoalDeadline" type="date" />
+          <button id="qaGoalAddBtn" class="primary-btn">Создать</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GOALS SECTION ================= -->
+  <section id="section-goals" class="app-section">
+    <header class="topbar">
+      <h1>Цели</h1>
+      <nav class="tabs">
+        <button class="tab-btn active" data-view="list">Список</button>
+        <button class="tab-btn" data-view="kanban">Канбан</button>
+        <button class="tab-btn" data-view="calendar">Календарь</button>
+      </nav>
+      <div class="template-picker">
+        <select id="goalTemplateSelect">
+          <option value="">Из шаблона…</option>
+          <option value="learn-language">Выучить язык</option>
+          <option value="save-money">Накопить сумму</option>
+          <option value="fitness">Привести себя в форму</option>
+          <option value="read-books">Прочитать N книг</option>
+          <option value="career">Сменить/повысить работу</option>
+        </select>
+      </div>
+      <button id="newGoalBtn" class="primary-btn">+ Новая цель</button>
+    </header>
+
+    <div id="goalsStats" class="overview-grid goals-stats"></div>
+
+    <main>
+      <section id="listView" class="view active">
+        <div class="toolbar">
+          <input id="searchInput" type="text" placeholder="Поиск по названию/описанию…" />
+          <select id="filterTerm">
+            <option value="">Все сроки</option>
+            <option value="short">Краткосрочная</option>
+            <option value="mid">Среднесрочная</option>
+            <option value="long">Долгосрочная</option>
+          </select>
+          <select id="filterStatus">
+            <option value="">Все статусы</option>
+            <option value="planned">Запланирована</option>
+            <option value="active">В процессе</option>
+            <option value="done">Закрыта</option>
+            <option value="overdue">Просрочена</option>
+          </select>
+          <select id="filterPriority">
+            <option value="">Все приоритеты</option>
+            <option value="high">Высокий</option>
+            <option value="medium">Средний</option>
+            <option value="low">Низкий</option>
+          </select>
+          <select id="filterTag">
+            <option value="">Все теги</option>
+          </select>
+          <select id="sortBy">
+            <option value="openDesc">Сначала новые (открытие)</option>
+            <option value="openAsc">Сначала старые (открытие)</option>
+            <option value="closeAsc">Дедлайн (ближайший)</option>
+            <option value="priority">По приоритету</option>
+            <option value="title">По названию</option>
+          </select>
+          <label class="checkbox-label"><input type="checkbox" id="showArchived" /> Показывать архивные</label>
+          <button id="toggleSelectModeBtn" class="secondary-btn">Выбрать несколько</button>
+        </div>
+        <div id="bulkActionsBar" class="bulk-actions-bar" hidden>
+          <span id="bulkSelectedCount">Выбрано: 0</span>
+          <button id="bulkArchiveBtn" class="secondary-btn">Архивировать</button>
+          <button id="bulkTagBtn" class="secondary-btn">Добавить тег</button>
+          <button id="bulkDeleteBtn" class="danger-btn">Удалить безвозвратно</button>
+        </div>
+        <div id="goalList" class="goal-list"></div>
+        <p id="emptyState" class="empty-state" hidden>Пока нет целей. Нажмите «+ Новая цель», чтобы начать.</p>
+      </section>
+
+      <section id="kanbanView" class="view">
+        <div class="kanban-board">
+          <div class="kanban-col" data-status="planned">
+            <h3>Запланировано</h3>
+            <div class="kanban-list" data-status="planned"></div>
+          </div>
+          <div class="kanban-col" data-status="active">
+            <h3>В процессе</h3>
+            <div class="kanban-list" data-status="active"></div>
+          </div>
+          <div class="kanban-col" data-status="done">
+            <h3>Закрыто</h3>
+            <div class="kanban-list" data-status="done"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="calendarView" class="view">
+        <div class="toolbar">
+          <button id="prevMonth" class="icon-btn">←</button>
+          <h2 id="calendarTitle"></h2>
+          <button id="nextMonth" class="icon-btn">→</button>
+          <button id="todayBtn" class="secondary-btn">Сегодня</button>
+          <select id="calFilterTerm">
+            <option value="">Все сроки</option>
+            <option value="short">Краткосрочная</option>
+            <option value="mid">Среднесрочная</option>
+            <option value="long">Долгосрочная</option>
+          </select>
+          <select id="calFilterStatus">
+            <option value="">Все статусы</option>
+            <option value="planned">Запланирована</option>
+            <option value="active">В процессе</option>
+            <option value="done">Закрыта</option>
+            <option value="overdue">Просрочена</option>
+          </select>
+        </div>
+        <div id="calendarGrid" class="calendar-grid"></div>
+        <div id="dayDetails" class="day-details" hidden>
+          <h3 id="dayDetailsTitle"></h3>
+          <div id="dayDetailsList"></div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <!-- ================= HABITS SECTION ================= -->
+  <section id="section-habits" class="app-section">
+    <header class="topbar">
+      <h1>Привычки</h1>
+      <nav class="tabs">
+        <button class="tab-btn active" data-habitview="week">Неделя</button>
+        <button class="tab-btn" data-habitview="month">Месяц (heatmap)</button>
+      </nav>
+      <div class="template-picker">
+        <select id="habitTemplateSelect">
+          <option value="">Из шаблона…</option>
+          <option value="water">Пить 2л воды</option>
+          <option value="sport">Заниматься спортом</option>
+          <option value="read">Читать книгу</option>
+          <option value="meditate">Медитация</option>
+          <option value="sleep">Спать 8 часов</option>
+          <option value="no-smoke">Не курить</option>
+        </select>
+      </div>
+      <button id="newHabitBtn" class="primary-btn">+ Привычка</button>
+    </header>
+
+    <div id="habitsStats" class="overview-grid goals-stats"></div>
+
+    <div class="toolbar">
+      <input id="habitSearch" type="text" placeholder="Поиск по названию…" />
+      <select id="habitGroupFilter">
+        <option value="">Все группы</option>
+      </select>
+      <select id="habitFrequencyFilter">
+        <option value="">Все типы</option>
+        <option value="daily">Ежедневные</option>
+        <option value="weekly">N раз в неделю</option>
+        <option value="custom">По дням недели</option>
+      </select>
+      <label class="checkbox-label"><input type="checkbox" id="showArchivedHabits" /> Показывать архивные</label>
+    </div>
+
+    <div id="habitWeekControls" class="toolbar">
+      <button id="habitPrevWeek" class="icon-btn">←</button>
+      <h2 id="habitWeekLabel"></h2>
+      <button id="habitNextWeek" class="icon-btn">→</button>
+      <button id="habitTodayBtn" class="secondary-btn">Текущая неделя</button>
+    </div>
+    <div id="habitGroupsBar" class="habit-groups-bar"></div>
+    <div id="habitTable" class="habit-table"></div>
+
+    <div id="habitMonthControls" class="toolbar" hidden>
+      <button id="habitPrevMonth" class="icon-btn">←</button>
+      <h2 id="habitMonthLabel"></h2>
+      <button id="habitNextMonth" class="icon-btn">→</button>
+    </div>
+    <div id="habitHeatmap" class="habit-heatmap" hidden></div>
+
+    <p id="habitEmptyState" class="empty-state" hidden>Пока нет привычек. Нажмите «+ Привычка».</p>
+  </section>
+
+  <!-- ================= FINANCE HUB (Бюджет + Долги + Калькулятор) ================= -->
+  <section id="section-finance" class="app-section">
+    <header class="topbar">
+      <h1>Финансы</h1>
+      <nav class="tabs fin-hub-tabs">
+        <button class="fin-hub-tab active" data-fintab="overview">Обзор</button>
+        <button class="fin-hub-tab" data-fintab="transactions">Операции</button>
+        <button class="fin-hub-tab" data-fintab="debts">Долги</button>
+        <button class="fin-hub-tab" data-fintab="calculator">Калькулятор</button>
+      </nav>
+    </header>
+
+    <!-- ===== Overview panel: combined net worth dashboard ===== -->
+    <div id="finPanelOverview" class="fin-tab-panel active">
+      <div id="finNetWorthStats" class="overview-grid goals-stats"></div>
+
+      <div class="analytics-columns">
+        <div class="analytics-block">
+          <h3>Баланс по месяцам</h3>
+          <div id="finOverviewChart" class="chart-container"></div>
+        </div>
+        <div class="analytics-block">
+          <h3>Финансовое здоровье</h3>
+          <div id="finHealthBox" class="fin-health-box"></div>
+        </div>
+      </div>
+
+      <div class="analytics-columns">
+        <div class="analytics-block">
+          <h3>Последние операции</h3>
+          <div id="finRecentTx" class="tx-list"></div>
+        </div>
+        <div class="analytics-block">
+          <h3>Долги — сводка</h3>
+          <div id="finDebtsSummaryList" class="tx-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Transactions panel (was: Бюджет) ===== -->
+    <div id="finPanelTransactions" class="fin-tab-panel">
+      <div class="toolbar">
+        <button id="manageLimitsBtn" class="secondary-btn">Лимиты категорий</button>
+        <button id="exportCsvBtn" class="secondary-btn">Экспорт CSV</button>
+        <button id="newTxBtn" class="primary-btn">+ Операция</button>
+      </div>
+
+      <div class="budget-summary">
+        <div class="stat-card">
+          <div class="stat-label">Баланс</div>
+          <div id="budgetBalance" class="stat-value">0 ₽</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Доходы (за месяц)</div>
+          <div id="budgetIncome" class="stat-value positive">0 ₽</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Расходы (за месяц)</div>
+          <div id="budgetExpense" class="stat-value negative">0 ₽</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <input id="txSearch" type="text" placeholder="Поиск по описанию…" />
+        <select id="txTypeFilter">
+          <option value="">Все типы</option>
+          <option value="income">Доходы</option>
+          <option value="expense">Расходы</option>
+        </select>
+        <select id="txCategoryFilter">
+          <option value="">Все категории</option>
+        </select>
+        <input id="txMonthFilter" type="month" />
+      </div>
+
+      <div class="two-col">
+        <div id="txList" class="tx-list"></div>
+        <div class="category-breakdown">
+          <h3>По категориям (расходы, текущий месяц)</h3>
+          <div id="categoryChart"></div>
+        </div>
+      </div>
+      <p id="txEmptyState" class="empty-state" hidden>Нет операций. Добавьте первую через «+ Операция».</p>
+    </div>
+
+    <!-- ===== Debts panel ===== -->
+    <div id="finPanelDebts" class="fin-tab-panel">
+      <div class="toolbar">
+        <button id="newDebtBtn" class="primary-btn">+ Долг</button>
+      </div>
+
+      <div class="budget-summary">
+        <div class="stat-card">
+          <div class="stat-label">Мне должны</div>
+          <div id="debtsOwedToMe" class="stat-value positive">0 ₽</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Я должен</div>
+          <div id="debtsIOwe" class="stat-value negative">0 ₽</div>
+        </div>
+      </div>
+
+      <div id="debtsList" class="tx-list"></div>
+      <p id="debtsEmptyState" class="empty-state" hidden>Долгов нет. Отлично!</p>
+    </div>
+
+    <!-- ===== Calculator panel ===== -->
+    <div id="finPanelCalculator" class="fin-tab-panel">
+      <nav class="tabs">
+        <button class="tab-btn active" data-fcalc="savings">Накопления</button>
+        <button class="tab-btn" data-fcalc="loan">Кредит</button>
+        <button class="tab-btn" data-fcalc="deposit">Вклад</button>
+      </nav>
+
+      <!-- Savings goal calculator -->
+      <div class="fcalc-view active" data-fcalc-view="savings">
+        <p class="hint">Сколько нужно откладывать в месяц, чтобы накопить нужную сумму к дате — с учётом простого процента на остаток.</p>
+        <div class="fcalc-grid">
+          <label>Целевая сумма, ₽ <input id="sTarget" type="number" min="0" value="500000" /></label>
+          <label>Уже накоплено, ₽ <input id="sCurrent" type="number" min="0" value="0" /></label>
+          <label>Срок, месяцев <input id="sMonths" type="number" min="1" value="12" /></label>
+          <label>Годовая доходность, % <input id="sRate" type="number" min="0" step="0.1" value="0" /></label>
+        </div>
+        <button id="sCalcBtn" class="primary-btn">Рассчитать</button>
+        <div id="sResult" class="fcalc-result"></div>
+        <button id="sCreateGoalBtn" class="secondary-btn" hidden>🎯 Создать цель из расчёта</button>
+      </div>
+
+      <!-- Loan calculator -->
+      <div class="fcalc-view" data-fcalc-view="loan">
+        <p class="hint">Расчёт ежемесячного аннуитетного платежа по кредиту.</p>
+        <div class="fcalc-grid">
+          <label>Сумма кредита, ₽ <input id="lAmount" type="number" min="0" value="1000000" /></label>
+          <label>Годовая ставка, % <input id="lRate" type="number" min="0" step="0.1" value="15" /></label>
+          <label>Срок, месяцев <input id="lMonths" type="number" min="1" value="24" /></label>
+        </div>
+        <button id="lCalcBtn" class="primary-btn">Рассчитать</button>
+        <div id="lResult" class="fcalc-result"></div>
+        <button id="lAddDebtBtn" class="secondary-btn" hidden>🤝 Добавить как долг</button>
+      </div>
+
+      <!-- Deposit calculator -->
+      <div class="fcalc-view" data-fcalc-view="deposit">
+        <p class="hint">Расчёт итоговой суммы вклада с капитализацией процентов.</p>
+        <div class="fcalc-grid">
+          <label>Сумма вклада, ₽ <input id="dAmount" type="number" min="0" value="300000" /></label>
+          <label>Годовая ставка, % <input id="dRate" type="number" min="0" step="0.1" value="12" /></label>
+          <label>Срок, месяцев <input id="dMonths" type="number" min="1" value="12" /></label>
+          <label>Капитализация
+            <select id="dCapitalization">
+              <option value="1">Ежемесячная</option>
+              <option value="3">Ежеквартальная</option>
+              <option value="12">Ежегодная</option>
+            </select>
+          </label>
+        </div>
+        <button id="dCalcBtn" class="primary-btn">Рассчитать</button>
+        <div id="dResult" class="fcalc-result"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ANALYTICS SECTION ================= -->
+  <section id="section-analytics" class="app-section">
+    <header class="topbar">
+      <h1>Аналитика</h1>
+      <button id="exportReportBtn" class="secondary-btn">⬇ Экспортировать отчёт</button>
+    </header>
+
+    <div id="analyticsKpiStats" class="overview-grid goals-stats"></div>
+
+    <div class="analytics-block">
+      <h3>
+        Баланс бюджета по месяцам
+        <span class="range-picker" id="balanceRangePicker">
+          <button class="range-btn" data-range="6">6 мес</button>
+          <button class="range-btn active" data-range="12">12 мес</button>
+          <button class="range-btn" data-range="24">24 мес</button>
+        </span>
+      </h3>
+      <div id="chartMonthlyBalance" class="chart-container"></div>
+    </div>
+
+    <div class="analytics-columns">
+      <div class="analytics-block">
+        <h3>Доходы vs Расходы по месяцам</h3>
+        <div id="chartIncomeExpense" class="chart-container"></div>
+      </div>
+      <div class="analytics-block">
+        <h3>Топ категорий расходов (6 мес)</h3>
+        <div id="chartTopCategories"></div>
+      </div>
+    </div>
+
+    <div class="analytics-columns">
+      <div class="analytics-block">
+        <h3>Выполнение привычек по неделям</h3>
+        <div id="chartHabitTrend" class="chart-container"></div>
+      </div>
+      <div class="analytics-block">
+        <h3>Накопления: план vs факт</h3>
+        <div id="chartSavingsGoals" class="chart-container"></div>
+      </div>
+    </div>
+
+    <div class="analytics-block">
+      <h3>Лидерборд привычек</h3>
+      <div id="habitsLeaderboard" class="leaderboard-table-wrap"></div>
+    </div>
+
+    <div class="analytics-columns">
+      <div class="analytics-block">
+        <h3>Цели по приоритету</h3>
+        <div id="chartGoalsPriority"></div>
+      </div>
+      <div class="analytics-block">
+        <h3>Цели по сроку</h3>
+        <div id="chartGoalsTerm"></div>
+      </div>
+    </div>
+
+    <div class="analytics-block">
+      <h3>Годовой отчёт <select id="reportYearSelect"></select></h3>
+      <div id="yearlyReport" class="overview-grid"></div>
+    </div>
+  </section>
+
+  <!-- ================= TOOLS SECTION ================= -->
+  <section id="section-tools" class="app-section">
+    <header class="topbar">
+      <h1>Инструменты</h1>
+    </header>
+
+    <div class="toolbar">
+      <input id="toolSearch" type="text" placeholder="🔍 Поиск инструмента…" />
+    </div>
+
+    <div id="toolGroups" class="tool-groups">
+      <div class="tool-group" data-group="Здоровье">
+        <div class="tool-group-label">Здоровье</div>
+        <nav class="tabs tools-tabs">
+          <button class="tab-btn active" data-tool="bmi">ИМТ</button>
+          <button class="tab-btn" data-tool="calories">Калории</button>
+        </nav>
+      </div>
+
+      <div class="tool-group" data-group="Финансы">
+        <div class="tool-group-label">Финансы</div>
+        <nav class="tabs tools-tabs">
+          <button class="tab-btn" data-tool="invest">Инвест-рост</button>
+          <button class="tab-btn" data-tool="tax">НДФЛ</button>
+          <button class="tab-btn" data-tool="rule72">Правило 72</button>
+          <button class="tab-btn" data-tool="percent">Проценты</button>
+          <button class="tab-btn" data-tool="split">Разделить счёт</button>
+        </nav>
+      </div>
+
+      <div class="tool-group" data-group="Продуктивность">
+        <div class="tool-group-label">Продуктивность</div>
+        <nav class="tabs tools-tabs">
+          <button class="tab-btn" data-tool="pomodoro">Pomodoro</button>
+          <button class="tab-btn" data-tool="timer">Таймер</button>
+          <button class="tab-btn" data-tool="dates">Даты и возраст</button>
+        </nav>
+      </div>
+
+      <div class="tool-group" data-group="Самоанализ">
+        <div class="tool-group-label">Самоанализ</div>
+        <nav class="tabs tools-tabs">
+          <button class="tab-btn" data-tool="wheel">Колесо баланса</button>
+          <button class="tab-btn" data-tool="swot">SWOT</button>
+          <button class="tab-btn" data-tool="eisenhower">Матрица Эйзенхауэра</button>
+        </nav>
+      </div>
+
+      <div class="tool-group" data-group="Разное">
+        <div class="tool-group-label">Разное</div>
+        <nav class="tabs tools-tabs">
+          <button class="tab-btn" data-tool="units">Конвертер единиц</button>
+          <button class="tab-btn" data-tool="color">Цвет</button>
+          <button class="tab-btn" data-tool="text">Текст</button>
+          <button class="tab-btn" data-tool="random">Случайность</button>
+          <button class="tab-btn" data-tool="worldclock">Время в мире</button>
+          <button class="tab-btn" data-tool="password">Пароль</button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- BMI -->
+    <div class="tool-view active" data-tool-view="bmi">
+      <p class="hint">Индекс массы тела и ориентировочная норма веса.</p>
+      <div class="fcalc-grid">
+        <label>Рост, см <input id="bmiHeight" type="number" min="0" value="175" /></label>
+        <label>Вес, кг <input id="bmiWeight" type="number" min="0" value="70" /></label>
+      </div>
+      <button id="bmiCalcBtn" class="primary-btn">Рассчитать</button>
+      <div id="bmiResult" class="fcalc-result"></div>
+    </div>
+
+    <!-- Calories / macros -->
+    <div class="tool-view" data-tool-view="calories">
+      <p class="hint">Норма калорий и БЖУ по формуле Миффлина-Сан Жеора.</p>
+      <div class="fcalc-grid">
+        <label>Пол
+          <select id="calGender"><option value="male">Мужской</option><option value="female">Женский</option></select>
+        </label>
+        <label>Возраст <input id="calAge" type="number" min="0" value="30" /></label>
+        <label>Рост, см <input id="calHeight" type="number" min="0" value="175" /></label>
+        <label>Вес, кг <input id="calWeight" type="number" min="0" value="70" /></label>
+        <label>Активность
+          <select id="calActivity">
+            <option value="1.2">Минимальная (сидячая работа)</option>
+            <option value="1.375">Лёгкая (1-3 тренировки/нед)</option>
+            <option value="1.55" selected>Средняя (3-5 тренировок/нед)</option>
+            <option value="1.725">Высокая (6-7 тренировок/нед)</option>
+            <option value="1.9">Очень высокая (физ. работа + тренировки)</option>
+          </select>
+        </label>
+        <label>Цель
+          <select id="calGoal">
+            <option value="lose">Похудение</option>
+            <option value="maintain" selected>Поддержание</option>
+            <option value="gain">Набор массы</option>
+          </select>
+        </label>
+      </div>
+      <button id="calCalcBtn" class="primary-btn">Рассчитать</button>
+      <div id="calResult" class="fcalc-result"></div>
+    </div>
+
+    <!-- Unit converter -->
+    <div class="tool-view" data-tool-view="units">
+      <p class="hint">Конвертация величин, а также валют по вручную заданному курсу.</p>
+      <div class="fcalc-grid">
+        <label>Категория
+          <select id="unitCategory">
+            <option value="length">Длина</option>
+            <option value="weight">Вес</option>
+            <option value="volume">Объём</option>
+            <option value="currency">Валюта (свой курс)</option>
+          </select>
+        </label>
+      </div>
+      <div id="unitConverterBody" class="fcalc-grid"></div>
+      <div id="unitResult" class="fcalc-result"></div>
+    </div>
+
+    <!-- Investment growth -->
+    <div class="tool-view" data-tool-view="invest">
+      <p class="hint">Рост капитала во времени при регулярных взносах и заданной доходности.</p>
+      <div class="fcalc-grid">
+        <label>Стартовая сумма, ₽ <input id="invStart" type="number" min="0" value="100000" /></label>
+        <label>Взнос в месяц, ₽ <input id="invMonthly" type="number" min="0" value="10000" /></label>
+        <label>Годовая доходность, % <input id="invRate" type="number" min="0" step="0.1" value="10" /></label>
+        <label>Срок, лет <input id="invYears" type="number" min="1" value="10" /></label>
+      </div>
+      <button id="invCalcBtn" class="primary-btn">Рассчитать</button>
+      <div id="invResult" class="fcalc-result"></div>
+      <div id="invChart" class="chart-container"></div>
+    </div>
+
+    <!-- Tax / NDFL -->
+    <div class="tool-view" data-tool-view="tax">
+      <p class="hint">Перевод между суммой «на руки» и «грязной» зарплатой (НДФЛ 13%).</p>
+      <div class="fcalc-grid">
+        <label>Направление
+          <select id="taxDirection">
+            <option value="grossToNet">Знаю сумму до налога → хочу на руки</option>
+            <option value="netToGross">Знаю сумму на руки → хочу до налога</option>
+          </select>
+        </label>
+        <label>Сумма, ₽ <input id="taxAmount" type="number" min="0" value="100000" /></label>
+        <label>Ставка НДФЛ, % <input id="taxRate" type="number" min="0" step="1" value="13" /></label>
+      </div>
+      <button id="taxCalcBtn" class="primary-btn">Рассчитать</button>
+      <div id="taxResult" class="fcalc-result"></div>
+    </div>
+
+    <!-- Pomodoro -->
+    <div class="tool-view" data-tool-view="pomodoro">
+      <p class="hint">Таймер техники Pomodoro: 25 минут работы / 5 минут отдыха (настраивается).</p>
+      <div class="fcalc-grid">
+        <label>Работа, мин <input id="pomoWork" type="number" min="1" value="25" /></label>
+        <label>Отдых, мин <input id="pomoBreak" type="number" min="1" value="5" /></label>
+        <label>Отмечать привычку при завершении рабочего цикла
+          <select id="pomoHabitLink">
+            <option value="">— не отмечать —</option>
+          </select>
+        </label>
+      </div>
+      <div class="pomodoro-display">
+        <div id="pomoTime" class="pomodoro-time">25:00</div>
+        <div id="pomoPhase" class="pomodoro-phase">Работа</div>
+      </div>
+      <div class="add-row">
+        <button id="pomoStartBtn" class="primary-btn">Старт</button>
+        <button id="pomoPauseBtn" class="secondary-btn" hidden>Пауза</button>
+        <button id="pomoResetBtn" class="secondary-btn">Сброс</button>
+      </div>
+      <div class="hint">Завершённых циклов сегодня: <span id="pomoCount">0</span></div>
+    </div>
+
+    <!-- Date calculator -->
+    <div class="tool-view" data-tool-view="dates">
+      <p class="hint">Разница между датами или сколько дней осталось/прошло.</p>
+      <div class="fcalc-grid">
+        <label>Дата 1 <input id="dateA" type="date" /></label>
+        <label>Дата 2 <input id="dateB" type="date" /></label>
+      </div>
+      <button id="dateCalcBtn" class="primary-btn">Рассчитать</button>
+      <div id="dateResult" class="fcalc-result"></div>
+
+      <hr class="modal-divider" />
+      <p class="hint">Точный возраст по дате рождения.</p>
+      <div class="fcalc-grid">
+        <label>Дата рождения <input id="birthDate" type="date" /></label>
+      </div>
+      <button id="ageCalcBtn" class="primary-btn">Рассчитать возраст</button>
+      <div id="ageResult" class="fcalc-result"></div>
+    </div>
+
+    <!-- Percentage calculator -->
+    <div class="tool-view" data-tool-view="percent">
+      <p class="hint">Три частых расчёта с процентами.</p>
+      <div class="fcalc-grid">
+        <label>Сколько составляет <input id="pctA" type="number" value="20" /> % от <input id="pctB" type="number" value="500" /></label>
+      </div>
+      <button id="pctOfCalcBtn" class="primary-btn">Рассчитать</button>
+      <div id="pctOfResult" class="fcalc-result"></div>
+      <hr class="modal-divider" />
+      <div class="fcalc-grid">
+        <label>Число <input id="pctX" type="number" value="100" /> — это сколько % от <input id="pctY" type="number" value="400" /></label>
+      </div>
+      <button id="pctShareCalcBtn" class="primary-btn">Рассчитать</button>
+      <div id="pctShareResult" class="fcalc-result"></div>
+      <hr class="modal-divider" />
+      <div class="fcalc-grid">
+        <label>Изменение с <input id="pctFrom" type="number" value="100" /> до <input id="pctTo" type="number" value="120" /></label>
+      </div>
+      <button id="pctChangeCalcBtn" class="primary-btn">Рассчитать</button>
+      <div id="pctChangeResult" class="fcalc-result"></div>
+    </div>
+
+    <!-- Bill splitter -->
+    <div class="tool-view" data-tool-view="split">
+      <p class="hint">Разделить общий счёт между несколькими людьми, с учётом чаевых.</p>
+      <div class="fcalc-grid">
+        <label>Сумма счёта, ₽ <input id="splitAmount" type="number" min="0" value="3000" /></label>
+        <label>Чаевые, % <input id="splitTip" type="number" min="0" value="10" /></label>
+        <label>Количество человек <input id="splitPeople" type="number" min="1" value="3" /></label>
+      </div>
+      <button id="splitCalcBtn" class="primary-btn">Рассчитать</button>
+      <div id="splitResult" class="fcalc-result"></div>
+    </div>
+
+    <!-- Simple timer/stopwatch -->
+    <div class="tool-view" data-tool-view="timer">
+      <p class="hint">Простой секундомер и обратный таймер — независимо от Pomodoro.</p>
+      <div class="pomodoro-display">
+        <div id="stopwatchTime" class="pomodoro-time">00:00:00</div>
+      </div>
+      <div class="add-row">
+        <button id="stopwatchStartBtn" class="primary-btn">Старт</button>
+        <button id="stopwatchPauseBtn" class="secondary-btn" hidden>Пауза</button>
+        <button id="stopwatchResetBtn" class="secondary-btn">Сброс</button>
+      </div>
+      <hr class="modal-divider" />
+      <p class="hint">Обратный отсчёт</p>
+      <div class="fcalc-grid">
+        <label>Минут <input id="countdownMinutes" type="number" min="0" value="10" /></label>
+      </div>
+      <div class="add-row">
+        <button id="countdownStartBtn" class="secondary-btn">Запустить обратный отсчёт</button>
+      </div>
+    </div>
+
+    <!-- Password generator -->
+    <div class="tool-view" data-tool-view="password">
+      <p class="hint">Генератор случайных паролей (работает локально в браузере).</p>
+      <div class="fcalc-grid">
+        <label>Длина <input id="pwdLength" type="number" min="4" max="64" value="16" /></label>
+        <label class="checkbox-label"><input type="checkbox" id="pwdUpper" checked /> Заглавные буквы</label>
+        <label class="checkbox-label"><input type="checkbox" id="pwdDigits" checked /> Цифры</label>
+        <label class="checkbox-label"><input type="checkbox" id="pwdSymbols" checked /> Символы</label>
+      </div>
+      <button id="pwdGenBtn" class="primary-btn">Сгенерировать</button>
+      <div id="pwdResult" class="fcalc-result"></div>
+    </div>
+
+    <!-- Color converter -->
+    <div class="tool-view" data-tool-view="color">
+      <p class="hint">Конвертация цвета между HEX, RGB и HSL.</p>
+      <div class="fcalc-grid">
+        <label>Выбрать цвет <input id="colorPicker" type="color" value="#1f8a4c" /></label>
+        <label>HEX <input id="colorHex" type="text" value="#1f8a4c" /></label>
+      </div>
+      <button id="colorConvertBtn" class="primary-btn">Конвертировать</button>
+      <div id="colorResult" class="fcalc-result"></div>
+    </div>
+
+    <!-- Text tools -->
+    <div class="tool-view" data-tool-view="text">
+      <p class="hint">Счётчик символов/слов и смена регистра.</p>
+      <label>Текст
+        <textarea id="textInput" rows="6" placeholder="Вставьте или введите текст…"></textarea>
+      </label>
+      <div id="textStats" class="fcalc-result"></div>
+      <div class="add-row">
+        <button id="textUpperBtn" class="secondary-btn">ВЕРХНИЙ РЕГИСТР</button>
+        <button id="textLowerBtn" class="secondary-btn">нижний регистр</button>
+        <button id="textCapitalizeBtn" class="secondary-btn">Каждое Слово С Заглавной</button>
+        <button id="textCopyBtn" class="secondary-btn">Скопировать</button>
+      </div>
+    </div>
+
+    <!-- Random generator -->
+    <div class="tool-view" data-tool-view="random">
+      <p class="hint">Кубик, монетка, случайное число или выбор из списка.</p>
+      <div class="fcalc-grid">
+        <label>Случайное число от <input id="randMin" type="number" value="1" /> до <input id="randMax" type="number" value="100" /></label>
+      </div>
+      <div class="add-row">
+        <button id="randNumberBtn" class="secondary-btn">🎲 Число</button>
+        <button id="randDiceBtn" class="secondary-btn">🎲 Кубик (1-6)</button>
+        <button id="randCoinBtn" class="secondary-btn">🪙 Монетка</button>
+      </div>
+      <div id="randResult" class="fcalc-result"></div>
+      <hr class="modal-divider" />
+      <label>Список вариантов (по одному на строку)
+        <textarea id="randListInput" rows="4" placeholder="Вариант 1&#10;Вариант 2&#10;Вариант 3"></textarea>
+      </label>
+      <button id="randPickBtn" class="secondary-btn">🎯 Выбрать случайный</button>
+      <div id="randPickResult" class="fcalc-result"></div>
+    </div>
+
+    <!-- World clock -->
+    <div class="tool-view" data-tool-view="worldclock">
+      <p class="hint">Текущее время в разных городах (по времени вашего устройства).</p>
+      <div id="worldClockList" class="world-clock-list"></div>
+    </div>
+
+    <!-- Rule of 72 -->
+    <div class="tool-view" data-tool-view="rule72">
+      <p class="hint">За сколько лет капитал удвоится при заданной годовой доходности (приблизительно).</p>
+      <div class="fcalc-grid">
+        <label>Годовая доходность, % <input id="r72Rate" type="number" min="0.1" step="0.1" value="10" /></label>
+      </div>
+      <button id="r72CalcBtn" class="primary-btn">Рассчитать</button>
+      <div id="r72Result" class="fcalc-result"></div>
+    </div>
+
+    <!-- Wheel of Life -->
+    <div class="tool-view" data-tool-view="wheel">
+      <p class="hint">Оцените каждую сферу жизни от 1 до 10 — визуальная карта баланса. Сохраняется автоматически.</p>
+      <div id="wheelSliders" class="wheel-sliders"></div>
+      <div id="wheelChart" class="wheel-chart-container"></div>
+    </div>
+
+    <!-- SWOT -->
+    <div class="tool-view" data-tool-view="swot">
+      <p class="hint">SWOT-анализ перед постановкой цели. Сохраняется автоматически.</p>
+      <div class="swot-grid">
+        <label class="swot-cell swot-s">Сильные стороны (S)<textarea id="swotS" rows="5"></textarea></label>
+        <label class="swot-cell swot-w">Слабые стороны (W)<textarea id="swotW" rows="5"></textarea></label>
+        <label class="swot-cell swot-o">Возможности (O)<textarea id="swotO" rows="5"></textarea></label>
+        <label class="swot-cell swot-t">Угрозы (T)<textarea id="swotT" rows="5"></textarea></label>
+      </div>
+    </div>
+
+    <!-- Eisenhower matrix -->
+    <div class="tool-view" data-tool-view="eisenhower">
+      <p class="hint">Быстрая сортировка задач по важности/срочности — независимо от целей.</p>
+      <div class="add-row">
+        <input id="eisenTaskText" type="text" placeholder="Новая задача…" />
+        <select id="eisenTaskQuadrant">
+          <option value="do">Важно и срочно</option>
+          <option value="plan">Важно, не срочно</option>
+          <option value="delegate">Не важно, срочно</option>
+          <option value="drop">Не важно, не срочно</option>
+        </select>
+        <button id="eisenAddBtn" class="secondary-btn">Добавить</button>
+      </div>
+      <div class="eisenhower-grid">
+        <div class="eisen-quad eisen-do"><h3>Важно и срочно — сделать</h3><div class="eisen-list" data-quad="do"></div></div>
+        <div class="eisen-quad eisen-plan"><h3>Важно, не срочно — запланировать</h3><div class="eisen-list" data-quad="plan"></div></div>
+        <div class="eisen-quad eisen-delegate"><h3>Не важно, срочно — делегировать</h3><div class="eisen-list" data-quad="delegate"></div></div>
+        <div class="eisen-quad eisen-drop"><h3>Не важно, не срочно — убрать</h3><div class="eisen-list" data-quad="drop"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SETTINGS SECTION ================= -->
+  <section id="section-settings" class="app-section">
+    <header class="topbar">
+      <h1>Настройки</h1>
+    </header>
+
+    <div class="settings-grid">
+      <div class="settings-card">
+        <h3>🎨 Внешний вид</h3>
+        <label>Тема оформления
+          <select id="settingsThemeSelect">
+            <option value="system">Как в системе</option>
+            <option value="light">Светлая</option>
+            <option value="dark">Тёмная</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="settings-card">
+        <h3>🔔 Уведомления</h3>
+        <p class="hint">Браузерные уведомления работают только при открытии приложения через <code>http://localhost</code> или после публикации на хостинге с HTTPS — через <code>file://</code> браузеры их блокируют.</p>
+        <button id="settingsNotifBtn" class="secondary-btn">Разрешить уведомления</button>
+        <label>Напоминать про невыполненные привычки в
+          <select id="settingsHabitReminderHour">
+            <option value="17">17:00</option>
+            <option value="18">18:00</option>
+            <option value="19">19:00</option>
+            <option value="20">20:00</option>
+            <option value="21">21:00</option>
+            <option value="22">22:00</option>
+          </select>
+        </label>
+        <label>Напоминать о дедлайне новой цели за
+          <input id="settingsDefaultReminderDays" type="number" min="0" max="60" value="3" /> дней (по умолчанию для новых целей)
+        </label>
+      </div>
+
+      <div class="settings-card">
+        <h3>💾 Резервные копии</h3>
+        <p class="hint">Все данные хранятся только в этом браузере. Если очистить кэш или сменить устройство — данные будут потеряны без резервной копии.</p>
+        <div class="add-row">
+          <button id="settingsExportBtn" class="secondary-btn">⬇ Экспортировать данные</button>
+          <label class="secondary-btn file-btn">
+            ⬆ Импортировать данные
+            <input id="settingsImportInput" type="file" accept="application/json" hidden />
+          </label>
+        </div>
+        <label>Напоминать о бэкапе, если давности больше чем
+          <input id="settingsBackupThreshold" type="number" min="1" max="90" value="7" /> дней
+        </label>
+      </div>
+
+      <div class="settings-card">
+        <h3>📊 Хранилище</h3>
+        <div id="settingsStorageStats" class="hint"></div>
+      </div>
+
+      <div class="settings-card settings-card-danger">
+        <h3>⚠️ Опасная зона</h3>
+        <p class="hint">Полностью удаляет все цели, операции, привычки, долги и настройки из этого браузера. Действие необратимо — предварительно сделайте экспорт.</p>
+        <button id="settingsResetBtn" class="danger-btn">Очистить все данные</button>
+      </div>
+
+      <div class="settings-card">
+        <h3>ℹ️ О приложении</h3>
+        <p class="hint">ASP Tracker — цели, привычки, бюджет и инструменты в одном приложении. Работает полностью локально, без сервера: все данные остаются в вашем браузере.</p>
+      </div>
+    </div>
+  </section>
+
+  </div>
+</div>
+
+<!-- GOAL MODAL -->
+<div id="goalModal" class="modal-backdrop" hidden>
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Новая цель</h2>
+      <button id="closeModalBtn" class="icon-btn">✕</button>
+    </div>
+
+    <div class="modal-tabs">
+      <button class="modal-tab-btn active" data-tab="main">Основное</button>
+      <button class="modal-tab-btn" data-tab="plan">План</button>
+      <button class="modal-tab-btn" data-tab="forecast">Прогнозы</button>
+      <button class="modal-tab-btn" data-tab="notes">Заметки</button>
+      <button class="modal-tab-btn" data-tab="links">Связи</button>
+      <button class="modal-tab-btn" data-tab="history">История</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-tab-content active" data-tab-content="main">
+        <div class="field-row">
+          <label class="goal-icon-field">Иконка
+            <input id="fIcon" type="text" maxlength="2" placeholder="🎯" />
+          </label>
+          <label class="goal-color-field checkbox-label">
+            <input type="checkbox" id="fColorEnabled" /> Свой цвет
+            <input id="fColor" type="color" value="#1f8a4c" disabled />
+          </label>
+          <label style="flex:3">Название *
+            <input id="fTitle" type="text" placeholder="Например: Выучить испанский до B2" />
+          </label>
+        </div>
+        <label>Описание
+          <textarea id="fDescription" rows="3" placeholder="Свободное описание цели…"></textarea>
+        </label>
+        <div class="field-row">
+          <label>Тип срока
+            <select id="fTerm">
+              <option value="short">Краткосрочная</option>
+              <option value="mid">Среднесрочная</option>
+              <option value="long">Долгосрочная</option>
+            </select>
+          </label>
+          <label>Приоритет
+            <select id="fPriority">
+              <option value="low">Низкий</option>
+              <option value="medium" selected>Средний</option>
+              <option value="high">Высокий</option>
+            </select>
+          </label>
+        </div>
+        <label>Теги (через запятую)
+          <input id="fTags" type="text" placeholder="работа, здоровье, финансы…" />
+        </label>
+        <label>Родительская цель (сделать подцелью)
+          <select id="fParentGoal">
+            <option value="">— нет, это цель верхнего уровня —</option>
+          </select>
+        </label>
+        <div class="field-row">
+          <label>Дата открытия
+            <input id="fOpenDate" type="date" />
+          </label>
+          <label>Дата закрытия (дедлайн)
+            <input id="fCloseDate" type="date" />
+          </label>
+        </div>
+        <p class="hint">Статус вычисляется автоматически по датам. Можно закрыть цель вручную раньше срока.</p>
+        <div class="field-row">
+          <label class="checkbox-label"><input type="checkbox" id="fManuallyClosed" /> Закрыта вручную</label>
+          <label>Напомнить за, дней до дедлайна
+            <input id="fReminderDays" type="number" min="0" max="60" value="3" />
+          </label>
+        </div>
+      </div>
+
+      <div class="modal-tab-content" data-tab-content="plan">
+        <p class="hint">Шаги плана реализации цели — можно добавить срок к каждому шагу (подцель/чекпоинт).</p>
+        <div id="planSteps" class="plan-steps"></div>
+        <div class="add-row">
+          <input id="newStepText" type="text" placeholder="Новый шаг…" />
+          <input id="newStepDate" type="date" title="Срок шага (необязательно)" />
+          <button id="addStepBtn" class="secondary-btn">Добавить</button>
+        </div>
+      </div>
+
+      <div class="modal-tab-content" data-tab-content="forecast">
+        <label>😟 Пессимистичный сценарий
+          <textarea id="fPessimistic" rows="3"></textarea>
+        </label>
+        <label>😐 Реалистичный сценарий
+          <textarea id="fRealistic" rows="3"></textarea>
+        </label>
+        <label>😊 Оптимистичный сценарий
+          <textarea id="fOptimistic" rows="3"></textarea>
+        </label>
+      </div>
+
+      <div class="modal-tab-content" data-tab-content="notes">
+        <p class="hint">Журнал заметок — свободные записи мыслей с датой.</p>
+        <div class="add-row">
+          <textarea id="newNoteText" rows="2" placeholder="Новая запись…"></textarea>
+          <button id="addNoteBtn" class="secondary-btn">Добавить</button>
+        </div>
+        <div id="notesList" class="notes-list"></div>
+      </div>
+
+      <div class="modal-tab-content" data-tab-content="links">
+        <label class="checkbox-label"><input type="checkbox" id="fSavingsEnabled" /> Отслеживать накопление денег на эту цель (по операциям бюджета)</label>
+        <label id="fSavingsTargetWrap">Целевая сумма, ₽
+          <input id="fSavingsTarget" type="number" min="0" placeholder="Например: 200000" />
+        </label>
+        <div id="fSavingsProgress" class="hint"></div>
+        <p class="hint">Чтобы деньги считались взносом в эту цель — при создании операции дохода/расхода в «Бюджете» выберите эту цель в поле «Цель».</p>
+        <hr class="modal-divider" />
+        <p class="hint">Привычки, привязанные к этой цели:</p>
+        <div id="fLinkedHabits" class="linked-habits-list"></div>
+        <hr class="modal-divider" />
+        <p class="hint">Подцели:</p>
+        <div id="fSubgoalsList" class="linked-habits-list"></div>
+        <hr class="modal-divider" />
+        <p class="hint">Ссылки/референсы (курсы, статьи, файлы):</p>
+        <div id="fLinksList" class="links-list"></div>
+        <div class="add-row">
+          <input id="newLinkLabel" type="text" placeholder="Название" />
+          <input id="newLinkUrl" type="text" placeholder="URL" />
+          <button id="addLinkBtn" class="secondary-btn">Добавить</button>
+        </div>
+      </div>
+
+      <div class="modal-tab-content" data-tab-content="history">
+        <p class="hint">Журнал изменений цели.</p>
+        <div id="goalHistoryList" class="notes-list"></div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <div class="footer-left">
+        <button id="deleteGoalBtn" class="danger-btn" hidden>Архивировать</button>
+        <button id="duplicateGoalBtn" class="secondary-btn" hidden>Дублировать</button>
+        <button id="copySummaryBtn" class="secondary-btn" hidden>Скопировать сводку</button>
+      </div>
+      <div class="footer-right">
+        <button id="cancelModalBtn" class="secondary-btn">Отмена</button>
+        <button id="saveGoalBtn" class="primary-btn">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRANSACTION MODAL -->
+<div id="txModal" class="modal-backdrop" hidden>
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2 id="txModalTitle">Новая операция</h2>
+      <button id="closeTxModalBtn" class="icon-btn">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tab-content active" style="display:flex">
+        <div class="field-row">
+          <label>Тип
+            <select id="txType">
+              <option value="expense">Расход</option>
+              <option value="income">Доход</option>
+            </select>
+          </label>
+          <label>Сумма, ₽
+            <input id="txAmount" type="number" min="0" step="0.01" />
+          </label>
+        </div>
+        <label>Категория
+          <input id="txCategory" list="txCategoryList" placeholder="Например: Продукты" />
+          <datalist id="txCategoryList"></datalist>
+        </label>
+        <label>Описание
+          <input id="txDescription" type="text" placeholder="Необязательно" />
+        </label>
+        <label>Дата
+          <input id="txDate" type="date" />
+        </label>
+        <label>Цель (необязательно)
+          <select id="txGoal">
+            <option value="">— не привязано —</option>
+          </select>
+        </label>
+        <label class="checkbox-label"><input type="checkbox" id="txRecurring" /> Повторять ежемесячно</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button id="deleteTxBtn" class="danger-btn" hidden>Удалить</button>
+      <div class="footer-right">
+        <button id="cancelTxModalBtn" class="secondary-btn">Отмена</button>
+        <button id="saveTxBtn" class="primary-btn">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HABIT MODAL -->
+<div id="habitModal" class="modal-backdrop" hidden>
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2 id="habitModalTitle">Новая привычка</h2>
+      <button id="closeHabitModalBtn" class="icon-btn">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tab-content active" style="display:flex">
+        <div class="field-row">
+          <label class="goal-icon-field">Иконка
+            <input id="habitIcon" type="text" maxlength="2" placeholder="✅" />
+          </label>
+          <label style="flex:3">Название *
+            <input id="habitTitle" type="text" placeholder="Например: Пить 2л воды" />
+          </label>
+        </div>
+        <label>Периодичность
+          <select id="habitFrequency">
+            <option value="daily">Ежедневно</option>
+            <option value="weekly">N раз в неделю</option>
+            <option value="custom">По определённым дням недели</option>
+          </select>
+        </label>
+        <label id="habitTargetWrap" hidden>Целевое кол-во раз в неделю
+          <input id="habitTarget" type="number" min="1" max="7" value="3" />
+        </label>
+        <div id="habitCustomDaysWrap" class="weekday-picker" hidden>
+          <span class="hint">Дни недели:</span>
+          <div class="weekday-picker-row">
+            <label><input type="checkbox" value="0" class="habit-custom-day" />Пн</label>
+            <label><input type="checkbox" value="1" class="habit-custom-day" />Вт</label>
+            <label><input type="checkbox" value="2" class="habit-custom-day" />Ср</label>
+            <label><input type="checkbox" value="3" class="habit-custom-day" />Чт</label>
+            <label><input type="checkbox" value="4" class="habit-custom-day" />Пт</label>
+            <label><input type="checkbox" value="5" class="habit-custom-day" />Сб</label>
+            <label><input type="checkbox" value="6" class="habit-custom-day" />Вс</label>
+          </div>
+        </div>
+        <label>Цвет
+          <input id="habitColor" type="color" value="#1f8a4c" />
+        </label>
+        <label>Связанная цель (необязательно)
+          <select id="habitGoal">
+            <option value="">— не привязано —</option>
+          </select>
+        </label>
+        <label>Группа/рутина (необязательно)
+          <input id="habitGroup" type="text" placeholder="Например: Утро" list="habitGroupList" />
+          <datalist id="habitGroupList"></datalist>
+        </label>
+        <div id="habitStatsBox" class="hint"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="footer-left">
+        <button id="archiveHabitBtn" class="danger-btn" hidden>Архивировать</button>
+        <button id="deleteHabitBtn" class="secondary-btn" hidden>Удалить безвозвратно</button>
+      </div>
+      <div class="footer-right">
+        <button id="cancelHabitModalBtn" class="secondary-btn">Отмена</button>
+        <button id="saveHabitBtn" class="primary-btn">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY LIMITS MODAL -->
+<div id="limitsModal" class="modal-backdrop" hidden>
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2>Лимиты по категориям</h2>
+      <button id="closeLimitsModalBtn" class="icon-btn">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="hint">Задайте месячный лимит расходов для категории — при превышении в разбивке появится предупреждение.</p>
+      <div id="limitsList" class="limits-list"></div>
+      <div class="add-row">
+        <input id="newLimitCategory" type="text" placeholder="Категория" />
+        <input id="newLimitAmount" type="number" min="0" placeholder="Лимит, ₽" />
+        <button id="addLimitBtn" class="secondary-btn">Добавить</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="footer-right">
+        <button id="closeLimitsModalBtn2" class="secondary-btn">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DEBT MODAL -->
+<div id="debtModal" class="modal-backdrop" hidden>
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2 id="debtModalTitle">Новый долг</h2>
+      <button id="closeDebtModalBtn" class="icon-btn">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tab-content active" style="display:flex">
+        <label>Тип
+          <select id="debtType">
+            <option value="owe">Я должен</option>
+            <option value="owed">Мне должны</option>
+          </select>
+        </label>
+        <label>Контрагент
+          <input id="debtPerson" type="text" placeholder="Кому/кто" />
+        </label>
+        <div class="field-row">
+          <label>Сумма, ₽
+            <input id="debtAmount" type="number" min="0" step="0.01" />
+          </label>
+          <label>Уже погашено, ₽
+            <input id="debtPaid" type="number" min="0" step="0.01" value="0" />
+          </label>
+        </div>
+        <label>Срок возврата (необязательно)
+          <input id="debtDueDate" type="date" />
+        </label>
+        <label>Комментарий
+          <input id="debtComment" type="text" placeholder="Необязательно" />
+        </label>
+        <div id="debtPaymentBlock" class="debt-payment-block" hidden>
+          <hr class="modal-divider" />
+          <p class="hint">Внести платёж — сумма добавится к «Уже погашено» и одновременно создаст операцию в «Бюджете».</p>
+          <div class="debt-payment-row">
+            <input id="debtPaymentAmount" type="number" min="0" step="0.01" placeholder="Сумма платежа" />
+            <button id="debtPaymentBtn" class="secondary-btn">Внести платёж</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button id="deleteDebtBtn" class="danger-btn" hidden>Удалить</button>
+      <div class="footer-right">
+        <button id="cancelDebtModalBtn" class="secondary-btn">Отмена</button>
+        <button id="saveDebtBtn" class="primary-btn">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HABIT DAY NOTE MODAL -->
+<div id="habitNoteModal" class="modal-backdrop" hidden>
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2>Заметка к отметке</h2>
+      <button id="closeHabitNoteModalBtn" class="icon-btn">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tab-content active" style="display:flex">
+        <textarea id="habitNoteText" rows="3" placeholder="Например: почему не получилось сегодня…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="footer-right">
+        <button id="cancelHabitNoteBtn" class="secondary-btn">Отмена</button>
+        <button id="saveHabitNoteBtn" class="primary-btn">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="toasts.js"></script>
+<script src="goals.js"></script>
+<script src="budget.js"></script>
+<script src="habits.js"></script>
+<script src="finance.js"></script>
+<script src="debts.js"></script>
+<script src="overview.js"></script>
+<script src="analytics.js"></script>
+<script src="finance-hub.js"></script>
+<script src="data.js"></script>
+<script src="settings.js"></script>
+<script src="search.js"></script>
+<script src="tools.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

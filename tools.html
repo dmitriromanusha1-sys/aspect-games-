@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>История версий — ASPECT</title>
-  <meta name="description" content="История обновлений всех игр ASPECT: RESONANCE, ЖЕЛЕЗНЫЙ ЦЕХ, EVTN, Shot, Outpost." />
+  <title>Инструменты — ASPECT</title>
+  <meta name="description" content="Полезные инструменты от ASPECT: ASP Tracker — трекер целей, привычек и финансов." />
   <meta name="theme-color" content="#0a0a0f" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="LOGO/Gemini_Generated_Image_vqp7wtvqp7wtvqp7.png" />
@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="canonical" href="https://dmitriromanusha1-sys.github.io/aspect-games-/changelog.html" />
-    <link rel="stylesheet" href="style.css?v=37" />
+  <link rel="canonical" href="https://dmitriromanusha1-sys.github.io/aspect-games-/tools.html" />
+  <link rel="stylesheet" href="style.css?v=37" />
 </head>
 <body>
   <div class="cursor" id="cursor"></div>
@@ -33,13 +33,30 @@
         <li><a href="index.html#about">О нас</a></li>
         <li><a href="index.html#contacts">Контакты</a></li>
         <li><a href="tools.html">Инструменты</a></li>
+        <li><a href="changelog.html">Changelog</a></li>
       </ul>
       <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
     </nav>
   </header>
 
   <section class="changelog-page">
-    <div class="changelog-page-inner" id="changelog-root"></div>
+    <div class="changelog-page-inner">
+      <h1 class="cl-title">Инструменты</h1>
+      <p class="cl-subtitle">Не игры, но тоже наши — приложения для повседневных задач</p>
+      <div class="cl-grid">
+        <div class="cl-card">
+          <div class="cl-card-header">
+            <span class="cl-game-name">📌 ASP Tracker</span>
+            <span class="cl-game-ver">web</span>
+          </div>
+          <p style="color:var(--text-muted,#9a9aa5);font-size:14px;line-height:1.5;margin:8px 0 14px;">
+            Трекер целей, привычек, финансов и продуктивности. Работает прямо в браузере,
+            все данные хранятся локально — ничего не отправляется на сервер. Можно установить как приложение (PWA).
+          </p>
+          <a href="tools/asp-tracker/index.html" class="cl-game-link">Открыть ASP Tracker →</a>
+        </div>
+      </div>
+    </div>
   </section>
 
   <footer>
@@ -62,32 +79,6 @@
     </div>
   </footer>
 
-  <script src="games.js?v=37"></script>
-  <script>
-    const root = document.getElementById('changelog-root');
-    const order = ['resonance', 'fnaf', 'evtn', 'armament', 'kin', 'shot', 'lastestate', 'outpost'];
-    root.innerHTML = `
-      <h1 class="cl-title">История версий</h1>
-      <p class="cl-subtitle">Все обновления всех игр ASPECT</p>
-      <div class="cl-grid">
-        ${order.map(key => {
-          const g = GAMES[key];
-          return `
-            <div class="cl-card">
-              <div class="cl-card-header">
-                <span class="cl-game-name">${g.title}</span>
-                <span class="cl-game-ver">${g.version}</span>
-              </div>
-              <ul class="changelog">
-                ${g.changelog.map((item, i) =>
-                  `<li class="${i === 0 ? 'log-current' : ''}">${item}</li>`
-                ).join('')}
-              </ul>
-              <a href="${key}.html" class="cl-game-link">Открыть игру →</a>
-            </div>`;
-        }).join('')}
-      </div>`;
-  </script>
   <script src="init.js?v=37"></script>
   <script src="particles.js?v=37"></script>
 </body>
