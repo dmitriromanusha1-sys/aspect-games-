@@ -268,13 +268,6 @@
       'FLOORBYFLOOR/floorbyfloor-key-2.png',
       'FLOORBYFLOOR/floorbyfloor-key-3.png',
       'FLOORBYFLOOR/floorbyfloor-key-4.png',
-      'FLOORBYFLOOR/floorbyfloor-1.png',
-      'FLOORBYFLOOR/floorbyfloor-2.png',
-      'FLOORBYFLOOR/floorbyfloor-3.png',
-      'FLOORBYFLOOR/floorbyfloor-4.png',
-      'FLOORBYFLOOR/floorbyfloor-5.png',
-      'FLOORBYFLOOR/floorbyfloor-6.png',
-      'FLOORBYFLOOR/floorbyfloor-7.png',
     ],
     changelog: [
       'V.1.2.5 — Баг-фикс',
