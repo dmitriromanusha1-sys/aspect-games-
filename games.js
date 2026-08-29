@@ -266,6 +266,8 @@
     screenshots: [
       'FLOORBYFLOOR/floorbyfloor-key-1.png',
       'FLOORBYFLOOR/floorbyfloor-key-2.png',
+      'FLOORBYFLOOR/floorbyfloor-key-3.png',
+      'FLOORBYFLOOR/floorbyfloor-key-4.png',
       'FLOORBYFLOOR/floorbyfloor-1.png',
       'FLOORBYFLOOR/floorbyfloor-2.png',
       'FLOORBYFLOOR/floorbyfloor-3.png',
