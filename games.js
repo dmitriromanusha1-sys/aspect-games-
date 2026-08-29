@@ -264,6 +264,8 @@
     size: '575 МБ',
     description: 'Survival-хоррор от первого лица: вы заперты в многоэтажке, заполненной зомби. Исследуйте этажи, обыскивайте квартиры, собирайте оружие и припасы, следите за голодом, жаждой и энергией, читайте записки, чтобы раскрыть, что произошло в здании. Процедурная генерация этажей, шумовая система ИИ зомби, дневник, достижения и сохранения.',
     screenshots: [
+      'FLOORBYFLOOR/floorbyfloor-key-1.png',
+      'FLOORBYFLOOR/floorbyfloor-key-2.png',
       'FLOORBYFLOOR/floorbyfloor-1.png',
       'FLOORBYFLOOR/floorbyfloor-2.png',
       'FLOORBYFLOOR/floorbyfloor-3.png',
