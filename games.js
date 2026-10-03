@@ -20,7 +20,7 @@ const GAMES = {
       'NOCOMP/nocomp-cams.jpg',
       'NOCOMP/nocomp-radio.jpg',
       'NOCOMP/nocomp-hide.jpg',
-      'NOCOMP/nocomp-5.jpg',
+      'NOCOMP/nocomp-hunt.jpg',
     ],
     changelog: [
       'V.1.0.0 — Первый релиз, самая проработанная игра ASPECT на 03.10.2026: четыре главы и четыре героя, охота по стадиям и две концовки в главе IV, ночи на камерах с протоколом, смены с отказами, «История» из десяти записей, русский и английский языки',
