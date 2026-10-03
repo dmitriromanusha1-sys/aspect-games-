@@ -1292,6 +1292,15 @@ footer {
 
 .gp-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
 
+.gp-repo-row {
+  padding: 0 2rem 0.75rem;
+  font-size: 0.78rem;
+  color: var(--muted2);
+  letter-spacing: 0.04em;
+}
+.gp-repo-row a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border2); }
+.gp-repo-row a:hover { border-color: var(--text); }
+
 .gp-plays {
   font-size: 0.68rem;
   font-family: monospace;

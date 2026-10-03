@@ -1,10 +1,11 @@
-﻿﻿const GAMES = {
+﻿const GAMES = {
   nocomp: {
     title: 'No Compensation Due',
     status: 'Релиз',
     version: 'V.1.0.0',
     released: '2026',
-    url: 'https://github.com/dmitriromanusha1-sys/no-compensation-due/releases/latest',
+    url: 'https://github.com/dmitriromanusha1-sys/no-compensation-due/releases/latest/download/NoCompensationDue-v1.0.0.zip',
+    repoUrl: 'https://github.com/dmitriromanusha1-sys/no-compensation-due',
     downloadOnly: true,
     archiveUrl: 'fnaf.html',
     archiveLabel: 'Архив: ЖЕЛЕЗНЫЙ ЦЕХ',

@@ -106,6 +106,7 @@ function renderContent() {
             : `<span class="play-btn play-btn-disabled" id="gp-play">Скоро</span>`}
         </div>
       </div>
+      ${g.repoUrl ? `<div class="gp-repo-row">Публичный GitHub: <a href="${g.repoUrl}" target="_blank" rel="noopener">${g.repoUrl.replace('https://', '')}</a></div>` : ''}
       <span class="gp-plays" id="gp-plays"></span>
     </div>
   `;
@@ -214,11 +215,12 @@ function initPlayCounter() {
 // ── SHARE ──
 function initShare() {
   document.getElementById('gp-share')?.addEventListener('click', async () => {
-    const shareData = { title: g.title, text: g.description, url: g.url };
+    const shareUrl = g.repoUrl || g.url;
+    const shareData = { title: g.title, text: g.description, url: shareUrl };
     if (navigator.share && navigator.canShare?.(shareData)) {
       try { await navigator.share(shareData); } catch {}
     } else {
-      navigator.clipboard.writeText(g.url)
+      navigator.clipboard.writeText(shareUrl)
         .then(() => window.showToast?.('Ссылка скопирована!'))
         .catch(() => window.showToast?.('Не удалось скопировать'));
     }
