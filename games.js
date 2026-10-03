@@ -18,8 +18,8 @@ const GAMES = {
     screenshots: [
       'NOCOMP/nocomp-cover.jpg',
       'NOCOMP/nocomp-cams.jpg',
-      'NOCOMP/nocomp-3.jpg',
-      'NOCOMP/nocomp-4.jpg',
+      'NOCOMP/nocomp-radio.jpg',
+      'NOCOMP/nocomp-hide.jpg',
       'NOCOMP/nocomp-5.jpg',
     ],
     changelog: [
