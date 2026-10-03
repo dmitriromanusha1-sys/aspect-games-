@@ -1,4 +1,4 @@
-﻿const GAMES = {
+const GAMES = {
   nocomp: {
     title: 'No Compensation Due',
     status: 'Релиз',
@@ -6,6 +6,7 @@
     released: '2026',
     url: 'https://github.com/dmitriromanusha1-sys/no-compensation-due/releases/latest/download/NoCompensationDue-v1.0.0.zip',
     repoUrl: 'https://github.com/dmitriromanusha1-sys/no-compensation-due',
+    itchUrl: 'https://aspect-games-rd.itch.io/',
     downloadOnly: true,
     archiveUrl: 'fnaf.html',
     archiveLabel: 'Архив: ЖЕЛЕЗНЫЙ ЦЕХ',

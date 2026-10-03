@@ -107,6 +107,7 @@ function renderContent() {
         </div>
       </div>
       ${g.repoUrl ? `<div class="gp-repo-row">Публичный GitHub: <a href="${g.repoUrl}" target="_blank" rel="noopener">${g.repoUrl.replace('https://', '')}</a></div>` : ''}
+      ${g.itchUrl ? `<div class="gp-repo-row">Скачать на itch.io: <a href="${g.itchUrl}" target="_blank" rel="noopener">${g.itchUrl.replace('https://', '').replace(/\/$/, '')}</a></div>` : ''}
       <span class="gp-plays" id="gp-plays"></span>
     </div>
   `;
