@@ -282,14 +282,16 @@ const GAMES = {
   floorbyfloor: {
     title: 'Floor by Floor',
     status: 'Релиз',
-    version: 'V.1.2.5',
+    version: 'V.1.2.5.1',
     released: '2026',
-    url: 'https://aspect-games-rd.itch.io/floorbyfloor',
+    url: 'https://github.com/dmitriromanusha1-sys/floorbyfloor/releases/latest/download/FloorByFloor-v1.2.5.1.zip',
+    repoUrl: 'https://github.com/dmitriromanusha1-sys/floorbyfloor',
+    itchUrl: 'https://aspect-games-rd.itch.io/floorbyfloor',
     genre: 'Хоррор',
     tags: ['#horror', '#survival', '#release'],
     difficulty: 'Средне',
     downloadOnly: true,
-    size: '575 МБ',
+    size: '446 МБ',
     description: 'Survival-хоррор от первого лица: вы заперты в многоэтажке, заполненной зомби. Исследуйте этажи, обыскивайте квартиры, собирайте оружие и припасы, следите за голодом, жаждой и энергией, читайте записки, чтобы раскрыть, что произошло в здании. Процедурная генерация этажей, шумовая система ИИ зомби, дневник, достижения и сохранения.',
     screenshots: [
       'FLOORBYFLOOR/floorbyfloor-key-1.png',
@@ -298,6 +300,7 @@ const GAMES = {
       'FLOORBYFLOOR/floorbyfloor-key-4.png',
     ],
     changelog: [
+      'V.1.2.5.1 — Запечённое освещение после запуска генератора, окклюзия (выше FPS), музыка в главном меню, все звуки заменены на лицензионно чистые, модели с ограничительными лицензиями заменены',
       'V.1.2.5 — Баг-фикс',
       'V.1.2.0 — Добавлен новый лор и анимации зомби',
       'V.1.1.0 — Добавлены новые модели',
