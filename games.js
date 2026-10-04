@@ -10,7 +10,7 @@ const GAMES = {
     downloadOnly: true,
     archiveUrl: 'fnaf.html',
     archiveLabel: 'Архив: ЖЕЛЕЗНЫЙ ЦЕХ',
-    size: '245 МБ',
+    size: '244 МБ',
     genre: 'Инди · Хоррор',
     tags: ['#horror', '#story', '#remake'],
     difficulty: 'Сложно',
